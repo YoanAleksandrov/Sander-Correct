@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Контакт - Sander Correct</title>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <div class="logo-icon">SC</div>
+                <div class="logo-text">Sander Correct</div>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a class="nav-link" href="index.html">Начало</a></li>
+                <li><a class="nav-link" href="properties.html">Имоти</a></li>
+                <li><a class="nav-link" href="search.html">Търсене</a></li>
+                <li><a class="nav-link" href="services.html">Услуги</a></li>
+                <li><a class="nav-link" href="about.html">За нас</a></li>
+            </ul>
+            <a class="contact-btn active" href="contact.html">Контакт</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </nav>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="contact page-content">
+        <div class="contact-container">
+            <div class="contact-content">
+                <h2 class="fade-in">Свържете се с нас</h2>
+                <p class="fade-in">Нашият екип от експерти е готов да ви помогне при всяка стъпка от процеса</p>
+            </div>
+            
+            <div class="contact-info">
+                <div class="contact-item fade-in">
+                    <h3>Офис София</h3>
+                    <p>бул. Витоша 1, ет. 5<br>1000 София, България</p>
+                </div>
+                <div class="contact-item fade-in">
+                    <h3>Телефон</h3>
+                    <p><a href="tel:+359888123456">+359 888 123 456</a><br><a href="tel:+35921234567">+359 2 123 4567</a></p>
+                </div>
+                <div class="contact-item fade-in">
+                    <h3>Имейл</h3>
+                    <p><a href="mailto:info@sandercorrect.com">info@sandercorrect.com</a><br><a href="mailto:sales@sandercorrect.com">sales@sandercorrect.com</a></p>
+                </div>
+                <div class="contact-item fade-in">
+                    <h3>Работно време</h3>
+                    <p>Пон-Пет: 9:00 - 18:00<br>Събота: 10:00 - 15:00</p>
+                </div>
+            </div>
+
+            <div class="contact-form fade-in">
+                <h3>Изпратете ни съобщение</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Име и фамилия" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Имейл адрес" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Телефон">
+                    </div>
+                    <div class="form-group">
+                        <select name="subject">
+                            <option value="">Изберете тема</option>
+                            <option value="property-inquiry">Запитване за имот</option>
+                            <option value="sell-property">Искам да продам имот</option>
+                            <option value="rent-property">Искам да наема имот</option>
+                            <option value="consultation">Консултация</option>
+                            <option value="other">Друго</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Съобщение" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Изпрати съобщение</button>
+                </form>
+            </div>
+
+            <!-- Map Section -->
+            <div class="map-section fade-in">
+                <h3>Намерете ни</h3>
+                <div class="office-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2932.4901573577587!2d23.320842!3d42.694771!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8569d9b9f5a5%3A0x1a5e9c7a9e9e9e9e!2sbul.%20%22Vitosha%22%201%2C%201000%20Sofia%20Center%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1234567890" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0; border-radius: 25px;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Additional Contact Options -->
+            <div class="additional-contact fade-in">
+                <h3>Други начини за връзка</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="quick-actions">
+                    <a href="tel:+359888123456" class="quick-action-btn">
+                        <i class="fas fa-phone"></i> Обадете се сега
+                    </a>
+                    <a href="https://wa.me/359888123456" class="quick-action-btn">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="#" class="quick-action-btn" onclick="scheduleCallback()">
+                        <i class="fas fa-calendar"></i> Заявка за обратно обаждане
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакти</h3>
+                    <ul>
+                        <li>бул. Витоша 1, ет. 5</li>
+                        <li>1000 София, България</li>
+                        <li>+359 888 123 456</li>
+                        <li>info@sandercorrect.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sander Correct. Всички права запазени. | Условия за ползване | Политика за поверителност</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="common.js"></script>
+    <script src="contact.js"></script>
+</body>
+</html>

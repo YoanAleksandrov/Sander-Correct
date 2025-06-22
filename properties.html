@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Имоти - Sander Correct</title>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <div class="logo-icon">SC</div>
+                <div class="logo-text">Sander Correct</div>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a class="nav-link" href="index.html">Начало</a></li>
+                <li><a class="nav-link active" href="properties.html">Имоти</a></li>
+                <li><a class="nav-link" href="search.html">Търсене</a></li>
+                <li><a class="nav-link" href="services.html">Услуги</a></li>
+                <li><a class="nav-link" href="about.html">За нас</a></li>
+            </ul>
+            <a class="contact-btn" href="contact.html">Контакт</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </nav>
+    </header>
+
+    <!-- Properties Section -->
+    <section class="properties page-content">
+        <div class="properties-container">
+            <div class="section-header">
+                <h2 class="fade-in">Всички имоти</h2>
+                <p class="fade-in">Разгледайте нашето пълно портфолио от недвижими имоти</p>
+            </div>
+            
+            <div class="filter-tabs">
+                <button class="filter-btn active" onclick="filterProperties('all')">Всички</button>
+                <button class="filter-btn" onclick="filterProperties('apartment')">Апартаменти</button>
+                <button class="filter-btn" onclick="filterProperties('house')">Къщи</button>
+                <button class="filter-btn" onclick="filterProperties('land')">Парцели</button>
+                <button class="filter-btn" onclick="filterProperties('commercial')">Търговски</button>
+            </div>
+
+            <div class="properties-grid" id="propertiesGrid">
+                <!-- Properties will be loaded here -->
+            </div>
+
+            <div class="properties-footer fade-in">
+                <a href="map.html" class="cta-btn cta-primary">
+                    <i class="fas fa-map"></i> Виж на карта
+                </a>
+                <p>Показани са всички налични имоти • Последна актуализация: днес</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sander Correct</h3>
+                    <p>Професионални решения за недвижими имоти с над 15 години опит на българския пазар.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Услуги</h3>
+                    <ul>
+                        <li><a href="services.html">Продажба на имоти</a></li>
+                        <li><a href="services.html">Наем и управление</a></li>
+                        <li><a href="services.html">Инвестиционни консултации</a></li>
+                        <li><a href="services.html">Правни услуги</a></li>
+                        <li><a href="services.html">Оценка на имоти</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Информация</h3>
+                    <ul>
+                        <li><a href="about.html">За нас</a></li>
+                        <li><a href="about.html#team">Нашият екип</a></li>
+                        <li><a href="contact.html">Кариери</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Новини</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакти</h3>
+                    <ul>
+                        <li>бул. Витоша 1, ет. 5</li>
+                        <li>1000 София, България</li>
+                        <li>+359 888 123 456</li>
+                        <li>info@sandercorrect.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sander Correct. Всички права запазени. | Условия за ползване | Политика за поверителност</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="properties-data.js"></script>
+    <script src="common.js"></script>
+    <script src="properties.js"></script>
+</body>
+</html>

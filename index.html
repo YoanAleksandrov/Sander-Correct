@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Sander Correct - Премиум Недвижими Имоти</title>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <div class="logo-icon">SC</div>
+                <div class="logo-text">Sander Correct</div>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a class="nav-link active" href="index.html">Начало</a></li>
+                <li><a class="nav-link" href="properties.html">Имоти</a></li>
+                <li><a class="nav-link" href="search.html">Търсене</a></li>
+                <li><a class="nav-link" href="services.html">Услуги</a></li>
+                <li><a class="nav-link" href="about.html">За нас</a></li>
+            </ul>
+            <a class="contact-btn" href="contact.html">Контакт</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="animated">Професионални решения за недвижими имоти</h1>
+            <p class="hero-subtitle animated">Водещи в сферата на качествените недвижими имоти с над 15 години опит. Предлагаме индивидуален подход и експертни консултации за всеки клиент.</p>
+            
+            <div class="cta-buttons">
+                <a href="properties.html" class="cta-btn cta-primary">Разгледай имоти</a>
+                <a href="contact.html" class="cta-btn cta-secondary">Безплатна консултация</a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-item fade-in">
+                    <span class="stat-number">1,200+</span>
+                    <span class="stat-label">Успешни сделки</span>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Години опит</span>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Доволни клиенти</span>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Поддръжка</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Search -->
+    <section class="search-section">
+        <div class="search-container">
+            <div class="section-header">
+                <h2 class="fade-in">Намерете идеалния имот за вас</h2>
+                <p class="fade-in">Използвайте нашата интелигентна търсачка за персонализирани резултати</p>
+            </div>
+            <form class="search-form fade-in" action="search.html" method="GET">
+                <div class="form-group">
+                    <label for="quick-type">Тип имот</label>
+                    <select id="quick-type" name="type">
+                        <option>Всички типове</option>
+                        <option>Апартамент</option>
+                        <option>Къща</option>
+                        <option>Вила</option>
+                        <option>Парцел</option>
+                        <option>Офис</option>
+                        <option>Търговски</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quick-transaction">Сделка</label>
+                    <select id="quick-transaction" name="transaction">
+                        <option>Продажба и наем</option>
+                        <option>Продажба</option>
+                        <option>Под наем</option>
+                        <option>Краткосрочен наем</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quick-location">Локация</label>
+                    <select id="quick-location" name="location">
+                        <option>Всички райони</option>
+                        <option>София - Център</option>
+                        <option>София - Витоша</option>
+                        <option>София - Лозенец</option>
+                        <option>София - Бояна</option>
+                        <option>Пловдив</option>
+                        <option>Варна</option>
+                        <option>Бургас</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quick-price">Бюджет</label>
+                    <select id="quick-price" name="price">
+                        <option>Всички цени</option>
+                        <option>До 100,000 €</option>
+                        <option>100,000 - 200,000 €</option>
+                        <option>200,000 - 400,000 €</option>
+                        <option>400,000 - 700,000 €</option>
+                        <option>Над 700,000 €</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quick-rooms">Стаи</label>
+                    <select id="quick-rooms" name="rooms">
+                        <option>Без значение</option>
+                        <option>1 стая</option>
+                        <option>2 стаи</option>
+                        <option>3 стаи</option>
+                        <option>4+ стаи</option>
+                    </select>
+                </div>
+                <button type="submit" class="search-button">
+                    <i class="fas fa-search"></i> Търси сега
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Featured Properties Preview -->
+    <section class="properties">
+        <div class="properties-container">
+            <div class="section-header">
+                <h2 class="fade-in">Препоръчани имоти</h2>
+                <p class="fade-in">Най-добрите предложения, внимателно подбрани от нашите експерти</p>
+            </div>
+            <div class="properties-grid" id="featuredProperties">
+                <!-- Properties will be loaded here -->
+            </div>
+            <div class="properties-footer fade-in">
+                <a href="properties.html" class="cta-btn cta-primary">
+                    <i class="fas fa-th-large"></i> Всички имоти
+                </a>
+                <p>Над 500 активни обяви • Ежедневно обновяване • Ексклузивни предложения</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <div class="why-choose-container">
+            <div class="section-header">
+                <h2 class="fade-in">Защо да изберете Sander Correct?</h2>
+                <p class="fade-in">Ние сме повече от брокери - ние сме вашите партньори в намирането на идеалния дом</p>
+            </div>
+            
+            <div class="advantages-grid">
+                <div class="advantage-card fade-in">
+                    <div class="advantage-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Доказан опит</h3>
+                    <p>15+ години успешна работа на пазара с над 1200 реализирани сделки и 98% доволни клиенти</p>
+                    <div class="advantage-highlight">№1 в София</div>
+                </div>
+                
+                <div class="advantage-card fade-in">
+                    <div class="advantage-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Гарантирана сигурност</h3>
+                    <p>Пълна правна защита, застраховка на сделките и прозрачност във всеки етап от процеса</p>
+                    <div class="advantage-highlight">100% Сигурност</div>
+                </div>
+                
+                <div class="advantage-card fade-in">
+                    <div class="advantage-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Бързи резултати</h3>
+                    <p>Средно време за продажба - 30 дни. Използваме най-новите технологии и маркетингови стратегии</p>
+                    <div class="advantage-highlight">30 дни</div>
+                </div>
+                
+                <div class="advantage-card fade-in">
+                    <div class="advantage-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Персонален подход</h3>
+                    <p>Всеки клиент има личен консултант, който го придружава през целия процес - от търсене до ключове</p>
+                    <div class="advantage-highlight">1:1 Подкрепа</div>
+                </div>
+                
+                <div class="advantage-card fade-in">
+                    <div class="advantage-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Най-добри цени</h3>
+                    <p>Нашите експертни оценки осигуряват най-добрата пазарна цена - продавате по-скъпо, купувате по-евтино</p>
+                    <div class="advantage-highlight">+15% Стойност</div>
+                </div>
+                
+                <div class="advantage-card fade-in">
+                    <div class="advantage-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Поддръжка</h3>
+                    <p>Винаги на разположение за вашите въпроси. Спешни случаи, консултации и оглед по всяко време</p>
+                    <div class="advantage-highlight">Non-Stop</div>
+                </div>
+            </div>
+            
+            <div class="cta-section fade-in">
+                <h3>Готови ли сте да започнете?</h3>
+                <p>Свържете се с нас днес за безплатна консултация и оценка на вашия имот</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="cta-btn cta-primary">
+                        <i class="fas fa-phone"></i> Безплатна консултация
+                    </a>
+                    <a href="properties.html" class="cta-btn cta-secondary">
+                        <i class="fas fa-search"></i> Разгледай имоти
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Map Section -->
+    <section class="interactive-map">
+        <div class="map-container">
+            <div class="map-content">
+                <div class="map-info slide-left">
+                    <h2>Откриайте най-добрите локации</h2>
+                    <p>Разгледайте интерактивната ни карта с всички налични имоти в реално време</p>
+                    <ul class="map-features">
+                        <li><i class="fas fa-map-marker-alt"></i> Локации в реално време</li>
+                        <li><i class="fas fa-filter"></i> Интелигентни филтри</li>
+                        <li><i class="fas fa-route"></i> Транспортни връзки</li>
+                        <li><i class="fas fa-school"></i> Близо до училища</li>
+                        <li><i class="fas fa-shopping-cart"></i> Търговски центрове</li>
+                    </ul>
+                    <a href="map.html" class="cta-btn cta-primary">
+                        <i class="fas fa-map"></i> Отвори картата
+                    </a>
+                </div>
+                <div class="map-visual slide-right">
+                    <div class="map-placeholder">
+                        <div class="map-pins">
+                            <div class="map-pin pin-1">€342,800</div>
+                            <div class="map-pin pin-2">€450,000</div>
+                            <div class="map-pin pin-3">€207,000</div>
+                            <div class="map-pin pin-4">€890,000</div>
+                        </div>
+                    </div>
+                    <div class="map-overlay">
+                        <a href="map.html" class="map-expand-btn">
+                            <i class="fas fa-expand"></i> Отвори пълна карта
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sander Correct</h3>
+                    <p>Професионални решения за недвижими имоти с над 15 години опит на българския пазар.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Услуги</h3>
+                    <ul>
+                        <li><a href="services.html">Продажба на имоти</a></li>
+                        <li><a href="services.html">Наем и управление</a></li>
+                        <li><a href="services.html">Инвестиционни консултации</a></li>
+                        <li><a href="services.html">Правни услуги</a></li>
+                        <li><a href="services.html">Оценка на имоти</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Информация</h3>
+                    <ul>
+                        <li><a href="about.html">За нас</a></li>
+                        <li><a href="about.html#team">Нашият екип</a></li>
+                        <li><a href="contact.html">Кариери</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Новини</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакти</h3>
+                    <ul>
+                        <li>бул. Витоша 1, ет. 5</li>
+                        <li>1000 София, България</li>
+                        <li>+359 888 123 456</li>
+                        <li>info@sandercorrect.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sander Correct. Всички права запазени. | Условия за ползване | Политика за поверителност</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="properties-data.js"></script>
+    <script src="common.js"></script>
+    <script src="home.js"></script>
+</body>
+</html>
