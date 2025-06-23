@@ -66,7 +66,8 @@ function createPropertyCard(property) {
     return `
         <div class="property-card fade-in" onclick="showPropertyModal('${property.title}', '${property.price}', '${property.location}', '${property.description}')">
             <div class="property-image">
-                <div class="property-badge">${property.badge}</div>
+                <img src="${property.image || 'images/default.jpg'}" alt="${property.title}">
+                <div class="property-badge">${property.badge || ''}</div>
                 <div class="property-heart" onclick="event.stopPropagation(); toggleFavorite(${property.id})">
                     <i class="far fa-heart"></i>
                 </div>
@@ -102,6 +103,7 @@ function createPropertyCard(property) {
         </div>
     `;
 }
+
 
 // Toggle favorite
 function toggleFavorite(propertyId) {

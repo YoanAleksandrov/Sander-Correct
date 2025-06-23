@@ -12,7 +12,8 @@ const properties = [
         bathrooms: '1 баня',
         description: 'Светъл двустаен апартамент с отлична локация в сърцето на София. Напълно обновен с качествени материали.',
         badge: 'Спешно',
-        featured: true
+        featured: true,
+        image: 'images/property_images/property1.png'
     },
     {
         id: 2,
@@ -26,7 +27,8 @@ const properties = [
         bathrooms: '1 баня',
         description: 'Просторен тристаен апартамент в престижна сграда с лифт. Идеален за семейство или офис.',
         badge: 'Под наем',
-        featured: true
+        featured: true,
+        image: 'images/property_images/property2.png'
     },
     {
         id: 3,
@@ -40,7 +42,8 @@ const properties = [
         bathrooms: '1 баня',
         description: 'Нов двустаен апартамент в качествена сграда с паркинг и зелени площи. Отлична инвестиция.',
         badge: 'Ново',
-        featured: true
+        featured: true,
+        image: 'images/property_images/property3.png'
     },
     {
         id: 4,
@@ -54,7 +57,8 @@ const properties = [
         bathrooms: 'Асфалт',
         description: 'Голям регулиран парцел с отлична локация за жилищно строителство. Всички комуникации наблизо.',
         badge: 'Парцел',
-        featured: true
+        featured: true,
+        image: 'images/property_images/property4.png'
     },
     {
         id: 5,
@@ -68,7 +72,8 @@ const properties = [
         bathrooms: '1 гараж',
         description: 'Обзаведен тристаен апартамент в близост до университетите. Включен гараж и мазе.',
         badge: 'Студентски',
-        featured: true
+        featured: true,
+        image: 'images/property_images/property2.png'
     },
     {
         id: 6,
@@ -82,7 +87,8 @@ const properties = [
         bathrooms: '1 баня',
         description: 'Реновиран двустаен апартамент с панорамна гледка към планината. Добра транспортна свързаност.',
         badge: 'Панел',
-        featured: true
+        featured: true,
+        image: 'images/property_images/property1.png'
     },
     {
         id: 7,
@@ -95,7 +101,8 @@ const properties = [
         rooms: '4 спални',
         bathrooms: '2 бани',
         description: 'Луксозна еднофамилна къща с двор и гараж. Тиха локация с отлична инфраструктура.',
-        badge: 'Луксозна'
+        badge: 'Луксозна',
+        image: 'images/property_images/property4.png'
     },
     {
         id: 8,
@@ -108,7 +115,8 @@ const properties = [
         rooms: 'Витрина',
         bathrooms: 'Складове',
         description: 'Търговски обект на централна улица с голяма витрина. Подходящ за различни дейности.',
-        badge: 'Търговски'
+        badge: 'Търговски',
+        image: 'images/property_images/property1.png'
     },
     {
         id: 9,
@@ -121,7 +129,8 @@ const properties = [
         rooms: '3 спални',
         bathrooms: '2 бани',
         description: 'Просторен четиристаен апартамент в престижен квартал. Високи тавани и качествена конструкция.',
-        badge: 'Престижен'
+        badge: 'Престижен',
+        image: 'images/property_images/property3.png'
     },
     {
         id: 10,
@@ -134,7 +143,8 @@ const properties = [
         rooms: '5 спални',
         bathrooms: '3 бани',
         description: 'Луксозна вила с басейн и панорамна гледка. Голям двор с ландшафтна градина.',
-        badge: 'Вила'
+        badge: 'Вила',
+        image: 'images/property_images/property1.png'
     }
 ];
 

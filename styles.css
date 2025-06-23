@@ -2748,3 +2748,105 @@ body {
         padding: 0 1rem;
     }
 }
+
+.hero {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* dark overlay */
+    z-index: 0;
+    border-radius: inherit;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.property-image {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+}
+
+.property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.property-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #e63946;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.property-heart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.search-section {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: #fff; /* optional for better contrast */
+    padding: 3rem 1rem;
+}
+
+.search-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); /* semi-transparent overlay */
+    z-index: 0;
+}
+
+.search-container {
+    position: relative;
+    z-index: 1; /* ensure content is above overlay */
+}
+
+.section-header-search h2{
+    font-size: 3rem;
+    font-weight: 800;
+    color: #ffeeea;
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+}
+
+.section-header-search p{
+    font-size: 1.2rem;
+    color: #ffeeea;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.section-header-search {
+    text-align: center;
+    margin-bottom: 4rem;
+}
