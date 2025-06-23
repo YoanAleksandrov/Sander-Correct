@@ -130,7 +130,7 @@ const properties = [
         bathrooms: '2 бани',
         description: 'Просторен четиристаен апартамент в престижен квартал. Високи тавани и качествена конструкция.',
         badge: 'Престижен',
-        image: 'images/property_images/property3.png'
+        image: './images/property_images/property3.png'
     },
     {
         id: 10,
@@ -144,7 +144,7 @@ const properties = [
         bathrooms: '3 бани',
         description: 'Луксозна вила с басейн и панорамна гледка. Голям двор с ландшафтна градина.',
         badge: 'Вила',
-        image: 'images/property_images/property1.png'
+        image: './images/property_images/property1.png'
     }
 ];
 
