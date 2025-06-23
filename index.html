@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
     <link rel="stylesheet" href="styles.css">
     <title>Sander Correct - Премиум Недвижими Имоти</title>
 </head>
@@ -21,6 +22,7 @@
                 <li><a class="nav-link" href="search.html">Търсене</a></li>
                 <li><a class="nav-link" href="services.html">Услуги</a></li>
                 <li><a class="nav-link" href="about.html">За нас</a></li>
+                <li><a class="nav-link" href="#map-section">Карта</a></li>
             </ul>
             <a class="contact-btn" href="contact.html">Контакт</a>
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
@@ -35,6 +37,9 @@
             
             <div class="cta-buttons">
                 <a href="properties.html" class="cta-btn cta-primary">Разгледай имоти</a>
+                <a href="#map-section" class="cta-btn cta-primary">
+                    <i class="fas fa-map-marked-alt"></i> Виж картата
+                </a>
                 <a href="contact.html" class="cta-btn cta-secondary">Безплатна консултация</a>
             </div>
             
@@ -228,36 +233,39 @@
     </section>
 
     <!-- Interactive Map Section -->
-    <section class="interactive-map">
+    <section class="interactive-map" id="map-section">
         <div class="map-container">
-            <div class="map-content">
-                <div class="map-info slide-left">
-                    <h2>Откриайте най-добрите локации</h2>
-                    <p>Разгледайте интерактивната ни карта с всички налични имоти в реално време</p>
-                    <ul class="map-features">
-                        <li><i class="fas fa-map-marker-alt"></i> Локации в реално време</li>
-                        <li><i class="fas fa-filter"></i> Интелигентни филтри</li>
-                        <li><i class="fas fa-route"></i> Транспортни връзки</li>
-                        <li><i class="fas fa-school"></i> Близо до училища</li>
-                        <li><i class="fas fa-shopping-cart"></i> Търговски центрове</li>
-                    </ul>
-                    <a href="map.html" class="cta-btn cta-primary">
-                        <i class="fas fa-map"></i> Отвори картата
-                    </a>
-                </div>
-                <div class="map-visual slide-right">
-                    <div class="map-placeholder">
-                        <div class="map-pins">
-                            <div class="map-pin pin-1">€342,800</div>
-                            <div class="map-pin pin-2">€450,000</div>
-                            <div class="map-pin pin-3">€207,000</div>
-                            <div class="map-pin pin-4">€890,000</div>
-                        </div>
+            <div class="section-header" style="margin-bottom: 3rem;">
+                <h2 class="fade-in" style="color: #f5f5dc;">Интерактивна карта с всички имоти</h2>
+                <p class="fade-in" style="color: #f5f5dc; opacity: 0.9;">Разгледайте локациите на нашите имоти в реално време</p>
+            </div>
+            
+            <div class="map-controls-home fade-in">
+                <button class="map-control-btn active" onclick="filterHomeMapProperties('all')">Всички</button>
+                <button class="map-control-btn" onclick="filterHomeMapProperties('apartment')">Апартаменти</button>
+                <button class="map-control-btn" onclick="filterHomeMapProperties('house')">Къщи</button>
+                <button class="map-control-btn" onclick="filterHomeMapProperties('land')">Парцели</button>
+                <button class="map-control-btn" onclick="filterHomeMapProperties('commercial')">Търговски</button>
+            </div>
+            
+            <div class="home-map-container fade-in">
+                <div id="homeMap"></div>
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <span class="legend-icon apartment">А</span>
+                        <span>Апартаменти</span>
                     </div>
-                    <div class="map-overlay">
-                        <a href="map.html" class="map-expand-btn">
-                            <i class="fas fa-expand"></i> Отвори пълна карта
-                        </a>
+                    <div class="legend-item">
+                        <span class="legend-icon house">К</span>
+                        <span>Къщи</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-icon land">П</span>
+                        <span>Парцели</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-icon commercial">Т</span>
+                        <span>Търговски</span>
                     </div>
                 </div>
             </div>
@@ -308,6 +316,7 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <script src="properties-data.js"></script>
     <script src="common.js"></script>
     <script src="home.js"></script>

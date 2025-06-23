@@ -212,4 +212,57 @@ document.addEventListener('keydown', (e) => {
 // Initialize animations on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     initializeAnimations();
+    
+    // Handle smooth scrolling for anchor links
+    handleAnchorLinks();
 });
+
+// Handle anchor links with smooth scrolling
+function handleAnchorLinks() {
+    // Check if there's a hash in the URL on page load
+    if (window.location.hash) {
+        setTimeout(() => {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Add highlight effect
+                target.style.animation = 'highlight 2s ease';
+            }
+        }, 500);
+    }
+    
+    // Handle all anchor links
+    document.querySelectorAll('a[href*="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            // Check if it's an external link with hash
+            if (href.includes('.html#')) {
+                // Let the browser handle navigation
+                return;
+            }
+            
+            // Handle internal anchor links
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Add highlight effect
+                    target.style.animation = 'highlight 2s ease';
+                }
+            }
+        });
+    });
+}
+
+// Add highlight animation
+const highlightStyle = document.createElement('style');
+highlightStyle.textContent = `
+    @keyframes highlight {
+        0% { background-color: transparent; }
+        50% { background-color: rgba(210, 105, 30, 0.1); }
+        100% { background-color: transparent; }
+    }
+`;
+document.head.appendChild(highlightStyle);
