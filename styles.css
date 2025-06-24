@@ -1694,6 +1694,7 @@ body {
 
 .services-grid {
     display: grid;
+    margin-bottom: 30px;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2.5rem;
 }
