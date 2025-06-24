@@ -1,0 +1,444 @@
+/* Services Page Specific Styles - services.css */
+
+/* Services Section */
+.services {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #faf9f7 0%, #f8f6f3 100%);
+}
+
+.services-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.services-grid {
+    display: grid;
+    margin-bottom: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+}
+
+.service-card {
+    background: white;
+    padding: 3rem 2.5rem;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(139, 69, 19, 0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid rgba(139, 69, 19, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+    transition: left 0.4s ease;
+}
+
+.service-card:hover::before {
+    left: 0;
+}
+
+.service-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(139, 69, 19, 0.15);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3e2723;
+    margin-bottom: 1.2rem;
+}
+
+.service-card p {
+    color: #5d4e37;
+    line-height: 1.7;
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+}
+
+.service-btn {
+    background: transparent;
+    color: #8b4513;
+    border: 2px solid #8b4513;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.service-btn:hover {
+    background: #8b4513;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Services CTA Section */
+.services .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, #2c1810 0%, #3e2723 100%);
+    padding: 4rem 3rem;
+    border-radius: 30px;
+    color: #f5f5dc;
+    position: relative;
+    overflow: hidden;
+}
+
+.services .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 70% 30%, rgba(210, 105, 30, 0.1) 0%, transparent 50%);
+}
+
+.services .cta-section h3 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.services .cta-section p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.services .cta-buttons {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+}
+
+/* Service Details Modal (if needed) */
+.service-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.service-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.service-modal-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 25px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.service-modal.show .service-modal-content {
+    transform: scale(1);
+}
+
+.service-modal h3 {
+    color: #3e2723;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.service-modal p {
+    color: #5d4e37;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.service-modal .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #5d4e37;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.service-modal .modal-close:hover {
+    color: #8b4513;
+}
+
+/* Service Features List */
+.service-features {
+    background: #f8f6f3;
+    padding: 3rem 0;
+    margin: 3rem 0;
+}
+
+.service-features h4 {
+    text-align: center;
+    color: #3e2723;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.feature-item {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.feature-item i {
+    font-size: 2rem;
+    color: #8b4513;
+    margin-bottom: 1rem;
+}
+
+.feature-item h5 {
+    color: #3e2723;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.feature-item p {
+    color: #5d4e37;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Service Process Steps */
+.service-process {
+    background: white;
+    padding: 3rem 0;
+    margin: 3rem 0;
+}
+
+.service-process h4 {
+    text-align: center;
+    color: #3e2723;
+    margin-bottom: 3rem;
+    font-size: 1.5rem;
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.process-step {
+    text-align: center;
+    position: relative;
+}
+
+.process-step::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -1rem;
+    width: 2rem;
+    height: 2px;
+    background: #8b4513;
+    transform: translateY(-50%);
+}
+
+.process-step:last-child::after {
+    display: none;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0 auto 1rem;
+}
+
+.step-title {
+    color: #3e2723;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.step-description {
+    color: #5d4e37;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* Responsive Design for Services Page */
+@media (max-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .process-step::after {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .services {
+        padding: 4rem 0;
+    }
+    
+    .services-container {
+        padding: 0 1rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .service-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .services .cta-section {
+        padding: 3rem 2rem;
+    }
+    
+    .services .cta-section h3 {
+        font-size: 1.8rem;
+    }
+    
+    .services .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-modal-content {
+        padding: 2rem;
+        margin: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .services {
+        padding: 3rem 0;
+    }
+    
+    .service-card {
+        padding: 2rem 1rem;
+    }
+    
+    .service-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .services .cta-section {
+        padding: 2rem 1rem;
+    }
+    
+    .services .cta-section h3 {
+        font-size: 1.5rem;
+    }
+    
+    .service-features {
+        padding: 2rem 0;
+        margin: 2rem 0;
+    }
+    
+    .service-process {
+        padding: 2rem 0;
+        margin: 2rem 0;
+    }
+    
+    .feature-item {
+        padding: 1rem;
+    }
+}

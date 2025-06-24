@@ -1,0 +1,335 @@
+/* About Page Specific Styles - about.css */
+
+/* About Section */
+.about {
+    padding: 6rem 0;
+    background: white;
+}
+
+.about-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.about-content h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #3e2723;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    color: #5d4e37;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.about-features {
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.about-features li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    color: #5d4e37;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.about-features li:hover {
+    transform: translateX(5px);
+    color: #3e2723;
+}
+
+.feature-check {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.about-image {
+    height: 500px;
+    background: linear-gradient(135deg, #8b4513 0%, #d2691e 50%, #cd853f 100%);
+    border-radius: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="30" r="15" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><rect x="45" y="20" width="40" height="30" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><path d="M15,65 Q50,45 85,65" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+    background-size: 150px 150px;
+    opacity: 0.4;
+}
+
+/* Team Section */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.team-member {
+    background: #f8f6f3;
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(139, 69, 19, 0.05);
+    border: 1px solid rgba(139, 69, 19, 0.08);
+}
+
+.team-member:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(139, 69, 19, 0.12);
+    background: white;
+}
+
+.team-member img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    margin: 0 auto 1.5rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.team-member:hover img {
+    transform: scale(1.05);
+}
+
+.team-avatar {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    font-weight: 700;
+}
+
+.team-member h4 {
+    font-size: 1.3rem;
+    color: #3e2723;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.team-role {
+    color: #8b4513;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+}
+
+.team-member p {
+    color: #5d4e37;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/* Company Values Section (reusing advantage styles) */
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.advantage-card {
+    background: white;
+    padding: 3rem 2.5rem;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(139, 69, 19, 0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid rgba(139, 69, 19, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.advantage-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(210, 105, 30, 0.05) 0%, transparent 70%);
+    transform: scale(0);
+    transition: transform 0.6s ease;
+}
+
+.advantage-card:hover::before {
+    transform: scale(1);
+}
+
+.advantage-card:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 30px 60px rgba(139, 69, 19, 0.15);
+    border-color: rgba(210, 105, 30, 0.2);
+}
+
+.advantage-icon {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: white;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.advantage-card:hover .advantage-icon {
+    transform: scale(1.1) rotate(360deg);
+    box-shadow: 0 10px 30px rgba(139, 69, 19, 0.3);
+}
+
+.advantage-card h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #3e2723;
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.advantage-card p {
+    color: #5d4e37;
+    line-height: 1.7;
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* About page specific animations */
+.about .slide-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.about .slide-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.about .slide-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.about .slide-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Responsive Design for About Page */
+@media (max-width: 1024px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .about-image {
+        height: 400px;
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-content h2 {
+        font-size: 2.2rem;
+    }
+    
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .advantages-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .about-container {
+        padding: 0 1rem;
+    }
+    
+    .team-member {
+        padding: 2rem 1.5rem;
+    }
+    
+    .advantage-card {
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about {
+        padding: 4rem 0;
+    }
+    
+    .about-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .team-member img {
+        max-width: 150px;
+    }
+    
+    .advantage-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+    
+    .advantage-card h3 {
+        font-size: 1.3rem;
+    }
+}

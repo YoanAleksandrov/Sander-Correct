@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles/common.css">
+    <link rel="stylesheet" href="./styles/properties.css">
     <title>Имоти - Sander Correct</title>
 </head>
 <body>
@@ -18,7 +19,6 @@
             <ul class="nav-menu" id="navMenu">
                 <li><a class="nav-link" href="index.html">Начало</a></li>
                 <li><a class="nav-link active" href="properties.html">Имоти</a></li>
-                <li><a class="nav-link" href="search.html">Търсене</a></li>
                 <li><a class="nav-link" href="services.html">Услуги</a></li>
                 <li><a class="nav-link" href="about.html">За нас</a></li>
                 <li><a class="nav-link" href="index.html#map-section">Карта</a></li>
@@ -35,24 +35,170 @@
                 <h2 class="fade-in">Всички имоти</h2>
                 <p class="fade-in">Разгледайте нашето пълно портфолио от недвижими имоти</p>
             </div>
-            
-            <div class="filter-tabs">
-                <button class="filter-btn active" onclick="filterProperties('all')">Всички</button>
-                <button class="filter-btn" onclick="filterProperties('apartment')">Апартаменти</button>
-                <button class="filter-btn" onclick="filterProperties('house')">Къщи</button>
-                <button class="filter-btn" onclick="filterProperties('land')">Парцели</button>
-                <button class="filter-btn" onclick="filterProperties('commercial')">Търговски</button>
+
+            <!-- Advanced Search Section -->
+            <div class="advanced-search-section fade-in">
+                <div class="advanced-search-toggle">
+                    <button class="toggle-btn" id="searchToggleBtn" onclick="toggleAdvancedSearch()">
+                        <i class="fas fa-search"></i>
+                        Разширена търсачка
+                    </button>
+                </div>
+                
+                <div class="advanced-filters" id="advancedFilters">
+                    <h4>Детайлни филтри за търсене</h4>
+                    <form class="advanced-search-form" id="advancedSearchForm">
+                        <div class="filters-row">
+                            <div class="filter-group">
+                                <label for="adv-type">Тип имот</label>
+                                <select id="adv-type" name="type">
+                                    <option value="">Всички типове</option>
+                                    <option value="apartment">Апартамент</option>
+                                    <option value="house">Къща</option>
+                                    <option value="land">Парцел</option>
+                                    <option value="commercial">Търговски</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="adv-transaction">Тип сделка</label>
+                                <select id="adv-transaction" name="transaction">
+                                    <option value="">Продажба и наем</option>
+                                    <option value="sale">Продажба</option>
+                                    <option value="rent">Под наем</option>
+                                    <option value="short-rent">Краткосрочен наем</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="adv-location">Локация</label>
+                                <select id="adv-location" name="location">
+                                    <option value="">Всички локации</option>
+                                    <option value="София">София</option>
+                                    <option value="Пловдив">Пловдив</option>
+                                    <option value="Варна">Варна</option>
+                                    <option value="Бургас">Бургас</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="filters-row">
+                            <div class="filter-group">
+                                <label for="adv-price-min">Минимална цена (€)</label>
+                                <input type="number" id="adv-price-min" name="priceMin" placeholder="0">
+                            </div>
+                            <div class="filter-group">
+                                <label for="adv-price-max">Максимална цена (€)</label>
+                                <input type="number" id="adv-price-max" name="priceMax" placeholder="∞">
+                            </div>
+                            <div class="filter-group">
+                                <label for="adv-rooms">Брой стаи</label>
+                                <select id="adv-rooms" name="rooms">
+                                    <option value="">Без значение</option>
+                                    <option value="1">1 стая</option>
+                                    <option value="2">2 стаи</option>
+                                    <option value="3">3 стаи</option>
+                                    <option value="4">4+ стаи</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="filters-row">
+                            <div class="filter-group">
+                                <label for="adv-area-min">Минимална площ (кв.м)</label>
+                                <input type="number" id="adv-area-min" name="areaMin" placeholder="0">
+                            </div>
+                            <div class="filter-group">
+                                <label for="adv-area-max">Максимална площ (кв.м)</label>
+                                <input type="number" id="adv-area-max" name="areaMax" placeholder="∞">
+                            </div>
+                            <div class="filter-group">
+                                <!-- Empty for spacing -->
+                            </div>
+                        </div>
+                        
+                        <div class="filter-actions">
+                            <button type="button" class="filter-btn-secondary" onclick="clearFilters()">
+                                <i class="fas fa-times"></i> Изчисти
+                            </button>
+                            <button type="submit" class="filter-btn-primary">
+                                <i class="fas fa-search"></i> Търси
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
+            <!-- Filter Tabs and Controls -->
+            <div class="properties-controls">
+                <div class="filter-tabs">
+                    <button class="filter-btn active" onclick="filterProperties('all')">Всички</button>
+                    <button class="filter-btn" onclick="filterProperties('apartment')">Апартаменти</button>
+                    <button class="filter-btn" onclick="filterProperties('house')">Къщи</button>
+                    <button class="filter-btn" onclick="filterProperties('land')">Парцели</button>
+                    <button class="filter-btn" onclick="filterProperties('commercial')">Търговски</button>
+                </div>
+                
+                <div class="sort-controls">
+                    <label for="sortBy">Сортиране по:</label>
+                    <select id="sortBy" onchange="sortProperties(this.value)">
+                        <option value="default">По подразбиране</option>
+                        <option value="price-asc">Цена: възходящо</option>
+                        <option value="price-desc">Цена: низходящо</option>
+                        <option value="area-asc">Площ: възходящо</option>
+                        <option value="area-desc">Площ: низходящо</option>
+                        <option value="newest">Най-нови</option>
+                    </select>
+                    
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="toggleView('grid')" title="Мрежа">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" onclick="toggleView('list')" title="Списък">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Count -->
+            <div class="results-count" id="resultsCount" style="display: none;">
+                Намерени са <span id="resultNumber">0</span> имота
+            </div>
+
+            <!-- Properties Grid -->
             <div class="properties-grid" id="propertiesGrid">
                 <!-- Properties will be loaded here -->
             </div>
 
+            <!-- No Results State -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>Няма намерени имоти</h3>
+                <p>Опитайте с различни критерии за търсене или се свържете с нас за персонализирани предложения.</p>
+                <a href="contact.html" class="cta-btn cta-primary">Свържете се с нас</a>
+            </div>
+
+            <!-- Loading State -->
+            <div class="properties-loading" id="loadingState" style="display: none;">
+                Зареждане на имоти...
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination" style="display: none;">
+                <button class="pagination-btn" onclick="changePage(-1)" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="pagination-info" id="pageInfo">Страница 1 от 1</span>
+                <button class="pagination-btn" onclick="changePage(1)" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- Properties Footer -->
             <div class="properties-footer fade-in">
                 <a href="index.html#map-section" class="cta-btn cta-primary">
                     <i class="fas fa-map"></i> Виж на карта
                 </a>
-                <p>Показани са всички налични имоти • Последна актуализация: днес</p>
+                <p id="footerText">Показани са всички налични имоти • Последна актуализация: днес</p>
             </div>
         </div>
     </section>
