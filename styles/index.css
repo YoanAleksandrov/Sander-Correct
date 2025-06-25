@@ -1319,6 +1319,10 @@
 
 /* Replace the existing .properties-grid styles with these new row styles */
 
+/* Two Separate Property Rows Styles - Complete CSS */
+
+/* Replace the existing .properties-grid styles with these new row styles */
+
 .properties-grid {
     display: flex;
     flex-direction: column;
@@ -1424,9 +1428,9 @@
 }
 
 .properties-row-container .property-card {
-    min-width: 350px;
-    max-width: 380px;
-    height: 550px;
+    min-width: 420px; /* Increased from 350px */
+    max-width: 450px; /* Increased from 380px */
+    height: 600px; /* Increased from 550px */
     flex-shrink: 0;
     background: #f8f6f3;
     border-radius: 20px;
@@ -1447,7 +1451,7 @@
 /* Property Card Content for Row Layout */
 .properties-row-container .property-image {
     width: 100%;
-    height: 200px;
+    height: 240px; /* Increased from 200px */
     background: linear-gradient(135deg, #8b4513 0%, #d2691e 50%, #cd853f 100%);
     position: relative;
     overflow: hidden;
@@ -1505,10 +1509,10 @@
 
 .properties-row-container .property-content {
     flex: 1;
-    padding: 1.5rem;
+    padding: 2rem; /* Increased from 1.5rem */
     display: flex;
     flex-direction: column;
-    height: calc(100% - 200px);
+    height: calc(100% - 240px); /* Updated to match new image height */
 }
 
 .properties-row-container .property-content-top {
@@ -1529,15 +1533,16 @@
 }
 
 .properties-row-container .property-title {
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* Increased from 1.1rem */
     font-weight: 700;
     color: #3e2723;
     margin-bottom: 0.8rem;
-    line-height: 1.3;
+    line-height: 1.4; /* Improved line height */
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    min-height: 2.8rem; /* Reserve space for 2 lines */
 }
 
 .properties-row-container .property-location {
@@ -1586,15 +1591,16 @@
 
 .properties-row-container .property-description {
     color: #5d4e37;
-    line-height: 1.5;
-    font-size: 0.85rem;
+    line-height: 1.6; /* Increased line height for better readability */
+    font-size: 0.9rem; /* Slightly larger font */
     opacity: 0.9;
     margin-bottom: 1.5rem;
     flex-grow: 1;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 4; /* Increased from 3 to 4 lines */
     -webkit-box-orient: vertical;
+    max-height: 5.6rem; /* Set max height to accommodate 4 lines */
 }
 
 .properties-row-container .property-actions {
@@ -1747,18 +1753,18 @@
     }
     
     .properties-row-container .property-card {
-        min-width: 280px;
-        max-width: 320px;
-        height: 500px;
+        min-width: 340px; /* Increased from 280px */
+        max-width: 380px; /* Increased from 320px */
+        height: 550px; /* Increased from 500px */
     }
     
     .properties-row-container .property-image {
-        height: 160px;
+        height: 180px; /* Increased from 160px */
     }
     
     .properties-row-container .property-content {
-        padding: 1.2rem;
-        height: calc(100% - 160px);
+        padding: 1.5rem; /* Increased from 1.2rem */
+        height: calc(100% - 180px); /* Updated to match new image height */
     }
     
     .properties-row-container .property-price {
@@ -1766,25 +1772,26 @@
     }
     
     .properties-row-container .property-title {
-        font-size: 1rem;
+        font-size: 1.1rem; /* Increased */
     }
     
     .properties-row-container .property-location {
-        font-size: 0.8rem;
+        font-size: 0.85rem; /* Increased from 0.8rem */
     }
     
     .properties-row-container .detail-item {
-        font-size: 0.8rem;
+        font-size: 0.85rem; /* Increased from 0.8rem */
     }
     
     .properties-row-container .property-description {
-        font-size: 0.8rem;
-        -webkit-line-clamp: 2;
+        font-size: 0.85rem; /* Increased from 0.8rem */
+        -webkit-line-clamp: 3; /* Keep 3 lines on tablet */
+        max-height: 4.2rem;
     }
     
     .properties-row-container .property-btn {
-        padding: 0.7rem 0.5rem;
-        font-size: 0.75rem;
+        padding: 0.8rem 0.6rem; /* Increased padding */
+        font-size: 0.8rem; /* Increased from 0.75rem */
     }
 }
 
@@ -1813,18 +1820,18 @@
     }
     
     .properties-row-container .property-card {
-        min-width: 260px;
-        max-width: 300px;
-        height: 480px;
+        min-width: 300px; /* Increased from 260px */
+        max-width: 340px; /* Increased from 300px */
+        height: 520px; /* Increased from 480px */
     }
     
     .properties-row-container .property-image {
-        height: 140px;
+        height: 160px; /* Increased from 140px */
     }
     
     .properties-row-container .property-content {
-        padding: 1rem;
-        height: calc(100% - 140px);
+        padding: 1.2rem; /* Increased from 1rem */
+        height: calc(100% - 160px); /* Updated to match new image height */
     }
     
     .properties-row-container .property-price {
@@ -1832,11 +1839,12 @@
     }
     
     .properties-row-container .property-title {
-        font-size: 0.95rem;
+        font-size: 1rem; /* Increased from 0.95rem */
+        min-height: 2.4rem;
     }
     
     .properties-row-container .property-location {
-        font-size: 0.75rem;
+        font-size: 0.8rem; /* Increased from 0.75rem */
         margin-bottom: 0.8rem;
     }
     
@@ -1846,12 +1854,13 @@
     }
     
     .properties-row-container .detail-item {
-        font-size: 0.75rem;
+        font-size: 0.8rem; /* Increased from 0.75rem */
     }
     
     .properties-row-container .property-description {
-        font-size: 0.75rem;
-        -webkit-line-clamp: 2;
+        font-size: 0.8rem; /* Increased from 0.75rem */
+        -webkit-line-clamp: 3; /* Increased from 2 to 3 lines */
+        max-height: 3.6rem; /* Adjusted for 3 lines */
         margin-bottom: 1rem;
     }
     
@@ -1860,12 +1869,12 @@
     }
     
     .properties-row-container .property-btn {
-        padding: 0.6rem 0.4rem;
-        font-size: 0.7rem;
+        padding: 0.7rem 0.5rem; /* Increased from 0.6rem 0.4rem */
+        font-size: 0.75rem; /* Increased from 0.7rem */
     }
     
     .properties-row-container .property-btn span {
-        display: none; /* Hide button text on very small screens, keep icons */
+        display: inline; /* Show text on mobile now that cards are wider */
     }
 }
 
