@@ -1,4 +1,3 @@
-// Properties data
 const properties = [
     {
         id: 1,
@@ -102,6 +101,7 @@ const properties = [
         bathrooms: '2 бани',
         description: 'Луксозна еднофамилна къща с двор и гараж. Тиха локация с отлична инфраструктура.',
         badge: 'Луксозна',
+        featured: true,
         image: 'images/property_images/property4.png'
     },
     {
@@ -116,6 +116,7 @@ const properties = [
         bathrooms: 'Складове',
         description: 'Търговски обект на централна улица с голяма витрина. Подходящ за различни дейности.',
         badge: 'Търговски',
+        featured: true,
         image: 'images/property_images/property1.png'
     },
     {
@@ -130,6 +131,7 @@ const properties = [
         bathrooms: '2 бани',
         description: 'Просторен четиристаен апартамент в престижен квартал. Високи тавани и качествена конструкция.',
         badge: 'Престижен',
+        featured: true,
         image: './images/property_images/property3.png'
     },
     {
@@ -144,8 +146,84 @@ const properties = [
         bathrooms: '3 бани',
         description: 'Луксозна вила с басейн и панорамна гледка. Голям двор с ландшафтна градина.',
         badge: 'Вила',
+        featured: true,
         image: './images/property_images/property1.png'
-    }
+    },
+    {
+        id: 11,
+        type: 'apartment',
+        title: 'Едностаен в Младост',
+        price: '€ 145,000',
+        location: 'София, Младост 1',
+        area: '45 кв.м',
+        floor: 'Етаж 3/8',
+        rooms: 'Студио',
+        bathrooms: '1 баня',
+        description: 'Компактен едностаен апартамент с модерен дизайн. Отлично за млади хора или инвестиция.',
+        badge: 'Младежки',
+        featured: true,
+        image: 'images/property_images/property2.png'
+    },
+    {
+        id: 12,
+        type: 'apartment',
+        title: 'Тристаен с тераса',
+        price: '€ 385,000',
+        location: 'София, Витоша',
+        area: '115 кв.м',
+        floor: 'Етаж 7/8',
+        rooms: '2 спални',
+        bathrooms: '2 бани',
+        description: 'Просторен апартамент с голяма тераса и гледка към Витоша. Паркомясто включено.',
+        badge: 'Тераса',
+        featured: true,
+        image: 'images/property_images/property3.png'
+    },
+    {
+        id: 13,
+        type: 'house',
+        title: 'Двуетажна къща',
+        price: '€ 275,000',
+        location: 'гр. Ботевград',
+        area: '150 кв.м',
+        floor: '2 етажа',
+        rooms: '3 спални',
+        bathrooms: '2 бани',
+        description: 'Нова двуетажна къща с голям двор. Идеална за семейство търсещо спокойствие.',
+        badge: 'Извънградска',
+        featured: true,
+        image: 'images/property_images/property4.png'
+    },
+    {
+        id: 14,
+        type: 'apartment',
+        title: 'Мезонет в центъра',
+        price: '€ 650,000',
+        location: 'София, Център, ул. Граф Игнатиев',
+        area: '165 кв.м',
+        floor: 'Етаж 5-6/6',
+        rooms: '3 спални',
+        bathrooms: '2 бани',
+        description: 'Уникален мезонет на два етажа с висококачествени материали и дизайнерски интериор.',
+        badge: 'Мезонет',
+        featured: true,
+        image: 'images/property_images/property1.png'
+    },
+    {
+        id: 15,
+        type: 'commercial',
+        title: 'Офис сграда',
+        price: '€ 1,850,000',
+        location: 'София, Бизнес Парк',
+        area: '850 кв.м',
+        floor: '4 етажа',
+        rooms: 'Офиси',
+        bathrooms: 'Обзаведени',
+        description: 'Модерна офис сграда с отлична локация. Напълно оборудвана и готова за ползване.',
+        badge: 'Инвестиция',
+        featured: true,
+        image: 'images/property_images/property2.png'
+    },
 ];
 
 // Map properties data

@@ -1,49 +1,61 @@
-// Load featured properties with 2-row horizontal scroll - 3 columns visible
+// Load featured properties with 2 separate rows - each with independent scrolling
 function loadFeaturedProperties() {
     const grid = document.getElementById('featuredProperties');
     if (!grid) return;
     
     const featuredProperties = properties.filter(property => property.featured);
     
-    // Create navigation controls
-    const navHTML = `
-        <div class="properties-nav">
-            <button class="nav-btn" id="prevBtn" onclick="scrollProperties('prev')">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="auto-scroll-toggle" id="autoScrollToggle" onclick="toggleAutoScroll()">
-                <i class="fas fa-play"></i>
-                <span>Автоматично</span>
-            </button>
-            <button class="nav-btn" id="nextBtn" onclick="scrollProperties('next')">
-                <i class="fas fa-chevron-right"></i>
-            </button>
+    // Split properties into two rows
+    const midPoint = Math.ceil(featuredProperties.length / 2);
+    const row1Properties = featuredProperties.slice(0, midPoint);
+    const row2Properties = featuredProperties.slice(midPoint);
+    
+    // Create two separate rows with independent navigation
+    const rowsHTML = `
+        <!-- First Row -->
+        <div class="property-row">
+            <div class="row-header">
+                <h3 class="row-title">Топ Предложения</h3>
+                <div class="row-nav">
+                    <button class="nav-btn" id="row1-prev" onclick="scrollRow('row1', 'prev')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-btn" id="row1-next" onclick="scrollRow('row1', 'next')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="properties-row-container" id="row1">
+                ${row1Properties.map(property => createPropertyCard(property)).join('')}
+            </div>
+            <div class="scroll-indicators" id="indicators1"></div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="property-row">
+            <div class="row-header">
+                <h3 class="row-title">Препоръчани</h3>
+                <div class="row-nav">
+                    <button class="nav-btn" id="row2-prev" onclick="scrollRow('row2', 'prev')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-btn" id="row2-next" onclick="scrollRow('row2', 'next')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="properties-row-container" id="row2">
+                ${row2Properties.map(property => createPropertyCard(property)).join('')}
+            </div>
+            <div class="scroll-indicators" id="indicators2"></div>
         </div>
     `;
     
-    // Insert navigation before the grid
-    grid.insertAdjacentHTML('beforebegin', navHTML);
+    grid.innerHTML = rowsHTML;
     
-    // Create enough properties to fill both rows and allow scrolling
-    const duplicatedProperties = [...featuredProperties, ...featuredProperties];
-    grid.innerHTML = duplicatedProperties.map(property => createPropertyCard(property)).join('');
-    
-    // Calculate how many "pages" we have (each page shows 6 properties: 3 columns x 2 rows)
-    const propertiesPerPage = 6;
-    const totalPages = Math.ceil(featuredProperties.length / 3); // 3 properties per row, 2 rows
-    
-    // Add scroll indicators for pages
-    const indicatorsHTML = `
-        <div class="scroll-indicators">
-            ${Array.from({length: totalPages}, (_, index) => 
-                `<div class="scroll-dot ${index === 0 ? 'active' : ''}" onclick="scrollToPage(${index})"></div>`
-            ).join('')}
-        </div>
-    `;
-    grid.insertAdjacentHTML('afterend', indicatorsHTML);
-    
-    // Initialize auto-scroll
-    initializeAutoScroll();
+    // Initialize scroll indicators for both rows
+    initializeRowIndicators('row1', row1Properties.length);
+    initializeRowIndicators('row2', row2Properties.length);
     
     // Reinitialize animations
     setTimeout(() => {
@@ -51,120 +63,159 @@ function loadFeaturedProperties() {
     }, 100);
 }
 
-// Auto-scroll functionality for 2-row, 3-column layout
-let autoScrollInterval;
-let isAutoScrolling = false;
-let currentPageIndex = 0;
+// Row scroll state management
+let rowScrollStates = {
+    row1: { currentIndex: 0, maxIndex: 0, cardWidth: 0, visibleCards: 0, totalProperties: 0, containerWidth: 0 },
+    row2: { currentIndex: 0, maxIndex: 0, cardWidth: 0, visibleCards: 0, totalProperties: 0, containerWidth: 0 }
+};
 
-function initializeAutoScroll() {
-    startAutoScroll();
+function initializeRowIndicators(rowId, propertyCount) {
+    const indicatorsContainer = document.getElementById(`indicators${rowId.slice(-1)}`);
+    const rowContainer = document.getElementById(rowId);
+    if (!indicatorsContainer || !rowContainer) return;
+    
+    // Wait for DOM to render properly
+    setTimeout(() => {
+        // Calculate visible cards and card width
+        const containerWidth = rowContainer.clientWidth;
+        const cards = rowContainer.querySelectorAll('.property-card');
+        
+        if (cards.length === 0) return;
+        
+        // Get actual card width including gap
+        const firstCard = cards[0];
+        const cardRect = firstCard.getBoundingClientRect();
+        const cardStyle = window.getComputedStyle(firstCard);
+        const cardWidth = cardRect.width;
+        const marginRight = parseFloat(cardStyle.marginRight) || 0;
+        const totalCardWidth = cardWidth + marginRight + 32; // 32px is the gap from CSS
+        
+        const visibleCards = Math.floor(containerWidth / totalCardWidth);
+        
+        // Calculate how many full scrolls we need
+        // If all properties fit in view, no scrolling needed
+        if (propertyCount <= visibleCards) {
+            rowScrollStates[rowId].maxIndex = 0;
+            rowScrollStates[rowId].cardWidth = totalCardWidth;
+            rowScrollStates[rowId].visibleCards = visibleCards;
+            rowScrollStates[rowId].totalProperties = propertyCount;
+            
+            indicatorsContainer.innerHTML = '';
+            return;
+        }
+        
+        // Calculate actual scrollable pages
+        // Each scroll shows visibleCards, but we need to account for overlapping
+        const totalScrollableWidth = (propertyCount * totalCardWidth) - containerWidth;
+        const scrollStep = visibleCards * totalCardWidth;
+        const actualPages = Math.ceil(totalScrollableWidth / scrollStep) + 1;
+        
+        // Update state
+        rowScrollStates[rowId].maxIndex = actualPages - 1;
+        rowScrollStates[rowId].cardWidth = totalCardWidth;
+        rowScrollStates[rowId].visibleCards = visibleCards;
+        rowScrollStates[rowId].totalProperties = propertyCount;
+        rowScrollStates[rowId].containerWidth = containerWidth;
+        
+        console.log(`${rowId}: ${propertyCount} properties, ${visibleCards} visible, ${actualPages} pages, containerWidth: ${containerWidth}, cardWidth: ${totalCardWidth}`);
+        
+        const indicatorsHTML = Array.from({length: actualPages}, (_, index) => 
+            `<div class="scroll-dot ${index === 0 ? 'active' : ''}" onclick="scrollToRowPage('${rowId}', ${index})"></div>`
+        ).join('');
+        
+        indicatorsContainer.innerHTML = indicatorsHTML;
+    }, 50);
 }
 
-function startAutoScroll() {
-    if (autoScrollInterval) clearInterval(autoScrollInterval);
+function scrollRow(rowId, direction) {
+    const rowContainer = document.getElementById(rowId);
+    if (!rowContainer) return;
     
-    isAutoScrolling = true;
-    const toggle = document.getElementById('autoScrollToggle');
-    if (toggle) {
-        toggle.innerHTML = '<i class="fas fa-pause"></i><span>Пауза</span>';
-        toggle.classList.remove('paused');
+    const currentState = rowScrollStates[rowId];
+    const previousIndex = currentState.currentIndex;
+    
+    // If we only have one page, don't scroll
+    if (currentState.maxIndex === 0) {
+        console.log(`${rowId}: Only one page, no scrolling needed`);
+        return;
     }
-    
-    autoScrollInterval = setInterval(() => {
-        scrollProperties('next');
-    }, 5000); // Change every 5 seconds
-}
-
-function stopAutoScroll() {
-    if (autoScrollInterval) {
-        clearInterval(autoScrollInterval);
-        autoScrollInterval = null;
-    }
-    
-    isAutoScrolling = false;
-    const toggle = document.getElementById('autoScrollToggle');
-    if (toggle) {
-        toggle.innerHTML = '<i class="fas fa-play"></i><span>Старт</span>';
-        toggle.classList.add('paused');
-    }
-}
-
-function toggleAutoScroll() {
-    if (isAutoScrolling) {
-        stopAutoScroll();
-    } else {
-        startAutoScroll();
-    }
-}
-
-function scrollProperties(direction) {
-    const grid = document.getElementById('featuredProperties');
-    if (!grid) return;
-    
-    // Calculate visible columns based on screen size
-    const screenWidth = window.innerWidth;
-    let visibleColumns = 3; // Default desktop
-    if (screenWidth <= 480) {
-        visibleColumns = 1; // Mobile
-    } else if (screenWidth <= 768) {
-        visibleColumns = 2; // Tablet
-    }
-    
-    // Calculate scroll amount (scroll by the visible columns width)
-    const gridWidth = grid.clientWidth;
-    const scrollAmount = gridWidth; // Scroll by full grid width
-    
-    // Calculate total pages
-    const featuredProperties = properties.filter(property => property.featured);
-    const totalPages = Math.ceil(featuredProperties.length / visibleColumns);
     
     if (direction === 'next') {
-        currentPageIndex++;
-        if (currentPageIndex >= totalPages) {
-            currentPageIndex = 0; // Loop back to start
+        currentState.currentIndex++;
+        if (currentState.currentIndex > currentState.maxIndex) {
+            currentState.currentIndex = 0; // Loop back to start
         }
     } else {
-        currentPageIndex--;
-        if (currentPageIndex < 0) {
-            currentPageIndex = totalPages - 1; // Loop to end
+        currentState.currentIndex--;
+        if (currentState.currentIndex < 0) {
+            currentState.currentIndex = currentState.maxIndex; // Loop to end
         }
     }
     
-    const scrollPosition = currentPageIndex * scrollAmount;
-    grid.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
-    });
+    // Calculate scroll position based on current page
+    let scrollPosition;
     
-    updateScrollIndicators();
-}
-
-function scrollToPage(pageIndex) {
-    currentPageIndex = pageIndex;
-    const grid = document.getElementById('featuredProperties');
-    if (!grid) return;
-    
-    const gridWidth = grid.clientWidth;
-    const scrollPosition = pageIndex * gridWidth;
-    
-    grid.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
-    });
-    
-    updateScrollIndicators();
-    
-    // Restart auto-scroll if it was running
-    if (isAutoScrolling) {
-        stopAutoScroll();
-        setTimeout(startAutoScroll, 1000);
+    if (currentState.currentIndex === 0) {
+        // First page - always start at 0
+        scrollPosition = 0;
+    } else if (currentState.currentIndex === currentState.maxIndex) {
+        // Last page - scroll to show last properties without cut-off
+        const totalWidth = currentState.totalProperties * currentState.cardWidth;
+        scrollPosition = Math.max(0, totalWidth - currentState.containerWidth);
+    } else {
+        // Middle pages - scroll by visible cards
+        scrollPosition = currentState.currentIndex * currentState.visibleCards * currentState.cardWidth;
     }
+    
+    console.log(`Scrolling ${rowId} ${direction}: page ${previousIndex} → ${currentState.currentIndex}, position: ${scrollPosition}, maxIndex: ${currentState.maxIndex}`);
+    
+    rowContainer.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+    });
+    
+    updateRowIndicators(rowId);
 }
 
-function updateScrollIndicators() {
-    const dots = document.querySelectorAll('.scroll-dot');
+function scrollToRowPage(rowId, pageIndex) {
+    const rowContainer = document.getElementById(rowId);
+    if (!rowContainer) return;
+    
+    const currentState = rowScrollStates[rowId];
+    currentState.currentIndex = pageIndex;
+    
+    // Calculate scroll position based on page
+    let scrollPosition;
+    
+    if (pageIndex === 0) {
+        // First page - always start at 0
+        scrollPosition = 0;
+    } else if (pageIndex === currentState.maxIndex) {
+        // Last page - scroll to show last properties without cut-off
+        const totalWidth = currentState.totalProperties * currentState.cardWidth;
+        scrollPosition = Math.max(0, totalWidth - currentState.containerWidth);
+    } else {
+        // Middle pages - scroll by visible cards
+        scrollPosition = pageIndex * currentState.visibleCards * currentState.cardWidth;
+    }
+    
+    console.log(`Jumping to page ${pageIndex} in ${rowId}, position: ${scrollPosition}, maxIndex: ${currentState.maxIndex}`);
+    
+    rowContainer.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+    });
+    
+    updateRowIndicators(rowId);
+}
+
+function updateRowIndicators(rowId) {
+    const indicatorNumber = rowId.slice(-1);
+    const dots = document.querySelectorAll(`#indicators${indicatorNumber} .scroll-dot`);
+    const currentIndex = rowScrollStates[rowId].currentIndex;
+    
     dots.forEach((dot, index) => {
-        if (index === currentPageIndex) {
+        if (index === currentIndex) {
             dot.classList.add('active');
         } else {
             dot.classList.remove('active');
@@ -172,105 +223,105 @@ function updateScrollIndicators() {
     });
 }
 
-// Handle grid scroll events
-function handleGridScroll() {
-    const grid = document.getElementById('featuredProperties');
-    if (!grid) return;
+// Handle row scroll events
+function handleRowScroll(rowId) {
+    const rowContainer = document.getElementById(rowId);
+    if (!rowContainer) return;
     
-    // Update current page index based on scroll position
-    const gridWidth = grid.clientWidth;
-    const newPageIndex = Math.round(grid.scrollLeft / gridWidth);
+    const currentState = rowScrollStates[rowId];
     
-    if (newPageIndex !== currentPageIndex) {
-        currentPageIndex = newPageIndex;
-        updateScrollIndicators();
+    // Don't update if only one page
+    if (currentState.maxIndex === 0) return;
+    
+    const scrollLeft = rowContainer.scrollLeft;
+    const maxScrollLeft = rowContainer.scrollWidth - rowContainer.clientWidth;
+    
+    // Determine current page based on scroll position
+    let newPageIndex;
+    
+    if (scrollLeft <= 10) {
+        // Near the beginning
+        newPageIndex = 0;
+    } else if (scrollLeft >= maxScrollLeft - 10) {
+        // Near the end
+        newPageIndex = currentState.maxIndex;
+    } else {
+        // Calculate based on scroll position
+        const pageSize = currentState.visibleCards * currentState.cardWidth;
+        newPageIndex = Math.round(scrollLeft / pageSize);
+        newPageIndex = Math.max(0, Math.min(newPageIndex, currentState.maxIndex));
     }
     
-    // Pause auto-scroll when user manually scrolls
-    if (isAutoScrolling) {
-        stopAutoScroll();
-        setTimeout(() => {
-            if (!isAutoScrolling) startAutoScroll();
-        }, 3000); // Resume after 3 seconds of inactivity
-    }
-}
-
-// Touch/swipe support for mobile
-let startX = 0;
-let currentX = 0;
-let isDragging = false;
-
-function handleTouchStart(e) {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-    
-    // Pause auto-scroll during touch
-    if (isAutoScrolling) {
-        stopAutoScroll();
+    if (newPageIndex !== currentState.currentIndex) {
+        console.log(`Scroll detected in ${rowId}: scrollLeft=${scrollLeft}, maxScroll=${maxScrollLeft}, newPage=${newPageIndex}`);
+        currentState.currentIndex = newPageIndex;
+        updateRowIndicators(rowId);
     }
 }
 
-function handleTouchMove(e) {
-    if (!isDragging) return;
-    currentX = e.touches[0].clientX;
+// Touch/swipe support for individual rows
+let touchState = {
+    startX: 0,
+    currentX: 0,
+    isDragging: false,
+    activeRow: null
+};
+
+function handleRowTouchStart(e, rowId) {
+    touchState.startX = e.touches[0].clientX;
+    touchState.isDragging = true;
+    touchState.activeRow = rowId;
 }
 
-function handleTouchEnd(e) {
-    if (!isDragging) return;
-    isDragging = false;
+function handleRowTouchMove(e) {
+    if (!touchState.isDragging) return;
+    touchState.currentX = e.touches[0].clientX;
+}
+
+function handleRowTouchEnd(e) {
+    if (!touchState.isDragging || !touchState.activeRow) return;
     
-    const diffX = startX - currentX;
+    const diffX = touchState.startX - touchState.currentX;
     const threshold = 50; // Minimum swipe distance
     
     if (Math.abs(diffX) > threshold) {
         if (diffX > 0) {
-            scrollProperties('next');
+            scrollRow(touchState.activeRow, 'next');
         } else {
-            scrollProperties('prev');
+            scrollRow(touchState.activeRow, 'prev');
         }
     }
     
-    // Resume auto-scroll after touch ends
-    setTimeout(() => {
-        if (!isAutoScrolling) startAutoScroll();
-    }, 2000);
+    touchState.isDragging = false;
+    touchState.activeRow = null;
 }
 
-// Add event listeners when grid is loaded
-function addPropertyScrollListeners() {
-    const grid = document.getElementById('featuredProperties');
-    if (!grid) return;
-    
-    // Mouse wheel horizontal scroll
-    grid.addEventListener('wheel', (e) => {
-        if (e.deltaY !== 0) {
-            e.preventDefault();
-            grid.scrollLeft += e.deltaY;
-            handleGridScroll();
-        }
-    });
-    
-    // Regular scroll event
-    grid.addEventListener('scroll', handleGridScroll);
-    
-    // Touch events for mobile
-    grid.addEventListener('touchstart', handleTouchStart, { passive: true });
-    grid.addEventListener('touchmove', handleTouchMove, { passive: true });
-    grid.addEventListener('touchend', handleTouchEnd, { passive: true });
-    
-    // Pause auto-scroll on hover
-    grid.addEventListener('mouseenter', () => {
-        if (isAutoScrolling) stopAutoScroll();
-    });
-    
-    grid.addEventListener('mouseleave', () => {
-        if (!isAutoScrolling) {
-            setTimeout(startAutoScroll, 1000);
-        }
+// Add event listeners for both rows
+function addRowScrollListeners() {
+    ['row1', 'row2'].forEach(rowId => {
+        const rowContainer = document.getElementById(rowId);
+        if (!rowContainer) return;
+        
+        // Mouse wheel horizontal scroll
+        rowContainer.addEventListener('wheel', (e) => {
+            if (e.deltaY !== 0) {
+                e.preventDefault();
+                rowContainer.scrollLeft += e.deltaY;
+                handleRowScroll(rowId);
+            }
+        });
+        
+        // Regular scroll event
+        rowContainer.addEventListener('scroll', () => handleRowScroll(rowId));
+        
+        // Touch events for mobile
+        rowContainer.addEventListener('touchstart', (e) => handleRowTouchStart(e, rowId), { passive: true });
+        rowContainer.addEventListener('touchmove', handleRowTouchMove, { passive: true });
+        rowContainer.addEventListener('touchend', handleRowTouchEnd, { passive: true });
     });
 }
 
-// Enhanced property card with horizontal layout
+// Enhanced property card for row layout
 function createPropertyCard(property) {
     return `
         <div class="property-card fade-in" onclick="showPropertyModal('${property.title}', '${property.price}', '${property.location}', '${property.description}')">
@@ -321,46 +372,26 @@ function createPropertyCard(property) {
     `;
 }
 
-// Handle window resize to recalculate scroll indicators
+// Handle window resize to recalculate indicators for both rows
 window.addEventListener('resize', () => {
-    // Debounce resize events
     clearTimeout(window.resizeTimeout);
     window.resizeTimeout = setTimeout(() => {
-        // Reload scroll indicators based on new window size
-        const grid = document.getElementById('featuredProperties');
-        if (grid) {
-            const existingIndicators = document.querySelector('.scroll-indicators');
-            if (existingIndicators) {
-                existingIndicators.remove();
+        const featuredProperties = properties.filter(property => property.featured);
+        const midPoint = Math.ceil(featuredProperties.length / 2);
+        
+        // Reinitialize indicators for both rows
+        initializeRowIndicators('row1', midPoint);
+        initializeRowIndicators('row2', featuredProperties.length - midPoint);
+        
+        // Reset both rows to first page
+        ['row1', 'row2'].forEach(rowId => {
+            rowScrollStates[rowId].currentIndex = 0;
+            const rowContainer = document.getElementById(rowId);
+            if (rowContainer) {
+                rowContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                updateRowIndicators(rowId);
             }
-            
-            // Calculate visible columns based on new screen size
-            const screenWidth = window.innerWidth;
-            let visibleColumns = 3; // Default desktop
-            if (screenWidth <= 480) {
-                visibleColumns = 1; // Mobile
-            } else if (screenWidth <= 768) {
-                visibleColumns = 2; // Tablet
-            }
-            
-            // Recalculate pages
-            const featuredProperties = properties.filter(property => property.featured);
-            const totalPages = Math.ceil(featuredProperties.length / visibleColumns);
-            
-            const indicatorsHTML = `
-                <div class="scroll-indicators">
-                    ${Array.from({length: totalPages}, (_, index) => 
-                        `<div class="scroll-dot ${index === currentPageIndex ? 'active' : ''}" onclick="scrollToPage(${index})"></div>`
-                    ).join('')}
-                </div>
-            `;
-            grid.insertAdjacentHTML('afterend', indicatorsHTML);
-            
-            // Reset to first page
-            currentPageIndex = 0;
-            grid.scrollTo({ left: 0, behavior: 'smooth' });
-            updateScrollIndicators();
-        }
+        });
     }, 250);
 });
 
@@ -370,7 +401,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Add scroll listeners after properties are loaded
     setTimeout(() => {
-        addPropertyScrollListeners();
+        addRowScrollListeners();
+        
+        // Recalculate after DOM is fully rendered
+        setTimeout(() => {
+            const featuredProperties = properties.filter(property => property.featured);
+            const midPoint = Math.ceil(featuredProperties.length / 2);
+            initializeRowIndicators('row1', midPoint);
+            initializeRowIndicators('row2', featuredProperties.length - midPoint);
+        }, 100);
+        
     }, 200);
     
     // Initialize home map if Leaflet is available
@@ -384,25 +424,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2000);
 });
 
-// Cleanup function for when user leaves page
-window.addEventListener('beforeunload', () => {
-    if (autoScrollInterval) {
-        clearInterval(autoScrollInterval);
-    }
-});
-
-// Visibility API to pause/resume auto-scroll when tab is not visible
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        if (isAutoScrolling) {
-            stopAutoScroll();
-        }
-    } else {
-        if (!isAutoScrolling) {
-            setTimeout(startAutoScroll, 1000);
-        }
-    }
-});
 // Initialize home map
 let homeMap = null;
 let homeMapMarkers = [];
@@ -411,12 +432,15 @@ let currentHomeMapFilter = 'all';
 function initializeHomeMap() {
     const homeMapElement = document.getElementById('homeMap');
     if (!homeMapElement || typeof L === 'undefined') return;
+    
     // Initialize map centered on Sofia
     homeMap = L.map('homeMap').setView([42.6977, 23.3219], 11);
+    
     // Add tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(homeMap);
+    
     // Add all properties to map
     addPropertiesToHomeMap();
 }
@@ -484,6 +508,7 @@ function addPropertiesToHomeMap() {
 // Filter home map properties
 window.filterHomeMapProperties = function(type) {
     currentHomeMapFilter = type; 
+    
     // Update active button
     document.querySelectorAll('.map-controls-home .map-control-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -512,9 +537,3 @@ window.viewPropertyDetails = function(propertyTitle) {
         showPropertyModal(property.title, property.price, property.location, property.description);
     }
 };
-    // Initialize home map if Leaflet is available
-    if (typeof L !== 'undefined') {
-        setTimeout(initializeHomeMap, 500);
-    }
-    
-   
