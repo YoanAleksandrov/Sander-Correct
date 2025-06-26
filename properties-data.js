@@ -9,7 +9,7 @@ const properties = [
         floor: 'Етаж 2/6',
         rooms: '1 спалня',
         bathrooms: '1 баня',
-        description: 'Светъл двустаен апартамент с отлична локация в сърцето на София. Напълно обновен с качествени материали.',
+        description: 'Светъл двустаен апартамент с отлична локация в сърцето на София. ',
         badge: 'Спешно',
         featured: true,
         image: 'images/property_images/property1.png'

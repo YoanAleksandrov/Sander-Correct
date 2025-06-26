@@ -73,66 +73,66 @@
                 <h2 class="fade-in">Намерете идеалния имот за вас</h2>
                 <p class="fade-in">Използвайте нашата интелигентна търсачка за персонализирани резултати</p>
             </div>
-            <form class="search-form fade-in" action="search.html" method="GET">
-                <div class="form-group">
-                    <label for="quick-type">Тип имот</label>
-                    <select id="quick-type" name="type">
-                        <option>Всички типове</option>
-                        <option>Апартамент</option>
-                        <option>Къща</option>
-                        <option>Вила</option>
-                        <option>Парцел</option>
-                        <option>Офис</option>
-                        <option>Търговски</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="quick-transaction">Сделка</label>
-                    <select id="quick-transaction" name="transaction">
-                        <option>Продажба и наем</option>
-                        <option>Продажба</option>
-                        <option>Под наем</option>
-                        <option>Краткосрочен наем</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="quick-location">Локация</label>
-                    <select id="quick-location" name="location">
-                        <option>Всички райони</option>
-                        <option>София - Център</option>
-                        <option>София - Витоша</option>
-                        <option>София - Лозенец</option>
-                        <option>София - Бояна</option>
-                        <option>Пловдив</option>
-                        <option>Варна</option>
-                        <option>Бургас</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="quick-price">Бюджет</label>
-                    <select id="quick-price" name="price">
-                        <option>Всички цени</option>
-                        <option>До 100,000 €</option>
-                        <option>100,000 - 200,000 €</option>
-                        <option>200,000 - 400,000 €</option>
-                        <option>400,000 - 700,000 €</option>
-                        <option>Над 700,000 €</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="quick-rooms">Стаи</label>
-                    <select id="quick-rooms" name="rooms">
-                        <option>Без значение</option>
-                        <option>1 стая</option>
-                        <option>2 стаи</option>
-                        <option>3 стаи</option>
-                        <option>4+ стаи</option>
-                    </select>
-                </div>
-                <button type="submit" class="search-button">
-                    <i class="fas fa-search"></i> Търси сега
-                </button>
-            </form>
+            <form class="search-form fade-in" action="properties.html" method="GET">
+    <div class="form-group">
+        <label for="quick-type">Тип имот</label>
+        <select id="quick-type" name="type">
+            <option value="">Всички типове</option>
+            <option value="apartment">Апартамент</option>
+            <option value="house">Къща</option>
+            <option value="villa">Вила</option>
+            <option value="land">Парцел</option>
+            <option value="commercial">Офис</option>
+            <option value="commercial">Търговски</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="quick-transaction">Сделка</label>
+        <select id="quick-transaction" name="transaction">
+            <option value="">Продажба и наем</option>
+            <option value="sale">Продажба</option>
+            <option value="rent">Под наем</option>
+            <option value="short-rent">Краткосрочен наем</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="quick-location">Локация</label>
+        <select id="quick-location" name="location">
+            <option value="">Всички райони</option>
+            <option value="София">София - Център</option>
+            <option value="София">София - Витоша</option>
+            <option value="София">София - Лозенец</option>
+            <option value="София">София - Бояна</option>
+            <option value="Пловдив">Пловдив</option>
+            <option value="Варна">Варна</option>
+            <option value="Бургас">Бургас</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="quick-price">Бюджет</label>
+        <select id="quick-price" name="priceMax">
+            <option value="">Всички цени</option>
+            <option value="100000">До 100,000 €</option>
+            <option value="200000">100,000 - 200,000 €</option>
+            <option value="400000">200,000 - 400,000 €</option>
+            <option value="700000">400,000 - 700,000 €</option>
+            <option value="999999999">Над 700,000 €</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="quick-rooms">Стаи</label>
+        <select id="quick-rooms" name="rooms">
+            <option value="">Без значение</option>
+            <option value="1">1 стая</option>
+            <option value="2">2 стаи</option>
+            <option value="3">3 стаи</option>
+            <option value="4">4+ стаи</option>
+        </select>
+    </div>
+    <button type="submit" class="search-button">
+        <i class="fas fa-search"></i> Търси сега
+    </button>
+</form>
         </div>
     </section>
 

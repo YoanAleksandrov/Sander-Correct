@@ -1,4 +1,4 @@
-// Combined Properties & Search Functionality
+// Enhanced Properties & Search Functionality - Clean UX for Index Redirects
 
 let currentFilter = 'all';
 let currentSort = 'default';
@@ -7,6 +7,7 @@ let currentPage = 1;
 let itemsPerPage = 9;
 let filteredProperties = [];
 let searchCriteria = {};
+let isFromIndexPage = false; // Track if user came from index page
 
 // Toggle advanced search
 function toggleAdvancedSearch() {
@@ -68,11 +69,22 @@ function clearFilters() {
     // Clear form
     document.getElementById('advancedSearchForm').reset();
     
+    // Explicitly clear all form fields
+    document.getElementById('adv-type').value = '';
+    document.getElementById('adv-transaction').value = '';
+    document.getElementById('adv-location').value = '';
+    document.getElementById('adv-price-min').value = '';
+    document.getElementById('adv-price-max').value = '';
+    document.getElementById('adv-rooms').value = '';
+    document.getElementById('adv-area-min').value = '';
+    document.getElementById('adv-area-max').value = '';
+    
     // Reset variables
     currentFilter = 'all';
     currentSort = 'default';
     currentPage = 1;
     searchCriteria = {};
+    isFromIndexPage = false; // Reset index page flag
     
     // Update UI
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -82,20 +94,98 @@ function clearFilters() {
     
     document.getElementById('sortBy').value = 'default';
     
+    // Remove search summary if it exists
+    const summary = document.querySelector('.search-summary');
+    if (summary) {
+        summary.remove();
+    }
+    
+    // Show advanced search section again
+    showAdvancedSearchSection();
+    
+    // Clear URL parameters
+    window.history.pushState({}, '', window.location.pathname);
+    
     // Apply filters
     applyFilters();
     
     showNotification('Филтрите са изчистени', 'info');
 }
 
-// Handle advanced search form
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('advancedSearchForm');
-    if (form) {
-        form.addEventListener('submit', handleAdvancedSearch);
+// Hide advanced search section for index page users
+function hideAdvancedSearchSection() {
+    const advancedSection = document.querySelector('.advanced-search-section');
+    if (advancedSection) {
+        advancedSection.style.display = 'none';
     }
-});
+}
 
+// Show advanced search section
+function showAdvancedSearchSection() {
+    const advancedSection = document.querySelector('.advanced-search-section');
+    if (advancedSection) {
+        advancedSection.style.display = 'block';
+    }
+}
+
+// Show a clean search summary for index page users
+function showSearchSummary() {
+    const container = document.querySelector('.properties-container');
+    const advancedSection = document.querySelector('.advanced-search-section');
+    
+    if (container && advancedSection) {
+        const appliedFilters = [];
+        if (searchCriteria.type) {
+            const typeMap = {
+                'apartment': 'Апартаменти',
+                'house': 'Къщи',
+                'land': 'Парцели',
+                'commercial': 'Търговски обекти'
+            };
+            appliedFilters.push(typeMap[searchCriteria.type] || searchCriteria.type);
+        }
+        if (searchCriteria.location) appliedFilters.push(`в ${searchCriteria.location}`);
+        if (searchCriteria.priceMax) appliedFilters.push(`до ${parseInt(searchCriteria.priceMax).toLocaleString()}€`);
+        if (searchCriteria.rooms) appliedFilters.push(`${searchCriteria.rooms} стаи`);
+        
+        const summaryHTML = `
+            <div class="search-summary" style="background: linear-gradient(135deg, #f8f6f3 0%, #ffffff 100%); padding: 2rem; border-radius: 20px; margin-bottom: 2rem; border: 1px solid rgba(139, 69, 19, 0.1);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h3 style="color: #3e2723; margin: 0 0 0.5rem 0; font-size: 1.3rem;">Търсене: ${appliedFilters.join(', ')}</h3>
+                        <p style="color: #5d4e37; margin: 0; opacity: 0.8;">Резултати от вашето търсене от началната страница</p>
+                    </div>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <button onclick="showAdvancedSearch()" class="cta-btn" style="background: transparent; color: #8b4513; border: 2px solid #8b4513; padding: 0.8rem 1.5rem; border-radius: 25px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-filter"></i> Промени филтрите
+                        </button>
+                        <button onclick="clearFilters()" class="cta-btn" style="background: #f5f5f5; color: #5d4e37; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-times"></i> Изчисти
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        advancedSection.insertAdjacentHTML('afterend', summaryHTML);
+    }
+}
+
+// Show advanced search (called from summary)
+function showAdvancedSearch() {
+    showAdvancedSearchSection();
+    toggleAdvancedSearch();
+    
+    // Remove search summary
+    const summary = document.querySelector('.search-summary');
+    if (summary) {
+        summary.remove();
+    }
+    
+    isFromIndexPage = false; // User is now actively using filters
+}
+
+// Handle advanced search form
 function handleAdvancedSearch(event) {
     event.preventDefault();
     
@@ -109,17 +199,21 @@ function handleAdvancedSearch(event) {
     // Get form values
     const formData = new FormData(event.target);
     searchCriteria = {
-        type: formData.get('type'),
-        transaction: formData.get('transaction'),
-        location: formData.get('location'),
-        priceMin: formData.get('priceMin'),
-        priceMax: formData.get('priceMax'),
-        rooms: formData.get('rooms'),
-        areaMin: formData.get('areaMin'),
-        areaMax: formData.get('areaMax')
+        type: formData.get('type') || '',
+        transaction: formData.get('transaction') || '',
+        location: formData.get('location') || '',
+        priceMin: formData.get('priceMin') || '',
+        priceMax: formData.get('priceMax') || '',
+        rooms: formData.get('rooms') || '',
+        areaMin: formData.get('areaMin') || '',
+        areaMax: formData.get('areaMax') || ''
     };
     
     currentPage = 1;
+    isFromIndexPage = false; // User is actively using filters
+    
+    // Update URL with search parameters
+    updateURL();
     
     // Simulate search delay
     setTimeout(() => {
@@ -132,7 +226,7 @@ function handleAdvancedSearch(event) {
         if (filteredProperties.length > 0) {
             toggleAdvancedSearch();
         }
-    }, 1500);
+    }, 1000);
 }
 
 // Apply all filters and search criteria
@@ -143,17 +237,19 @@ function applyFilters() {
         // Start with all properties
         let results = [...properties];
         
-        // Apply type filter
+        // Apply type filter from tabs
         if (currentFilter !== 'all') {
             results = results.filter(property => property.type === currentFilter);
         }
         
         // Apply advanced search criteria
-        if (searchCriteria.type) {
+        if (searchCriteria.type && searchCriteria.type !== '') {
             results = results.filter(property => property.type === searchCriteria.type);
+            // Update the filter tab to match
+            updateFilterTab(searchCriteria.type);
         }
         
-        if (searchCriteria.location) {
+        if (searchCriteria.location && searchCriteria.location !== '') {
             results = results.filter(property => 
                 property.location.toLowerCase().includes(searchCriteria.location.toLowerCase())
             );
@@ -168,7 +264,7 @@ function applyFilters() {
             });
         }
         
-        if (searchCriteria.rooms) {
+        if (searchCriteria.rooms && searchCriteria.rooms !== '') {
             results = results.filter(property => {
                 const rooms = parseInt(property.rooms.replace(/[^0-9]/g, '')) || 0;
                 const targetRooms = parseInt(searchCriteria.rooms);
@@ -196,14 +292,107 @@ function applyFilters() {
         updateResultsCount();
         updatePagination();
         
-        // Show notification
-        const searchApplied = Object.values(searchCriteria).some(val => val && val !== '');
-        const filterApplied = currentFilter !== 'all';
-        
-        if (searchApplied || filterApplied) {
-            showNotification(`Намерени са ${results.length} имота, отговарящи на критериите`, 'success');
+        // Show notification only if not from index page
+        if (!isFromIndexPage) {
+            const searchApplied = Object.values(searchCriteria).some(val => val && val !== '');
+            const filterApplied = currentFilter !== 'all';
+            
+            if (searchApplied || filterApplied) {
+                showNotification(`Намерени са ${results.length} имота, отговарящи на критериите`, 'success');
+            }
         }
-    }, 800);
+    }, 500);
+}
+
+// Update filter tab to match search criteria
+function updateFilterTab(type) {
+    // Remove active from all tabs
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Find and activate the matching tab
+    const targetTab = document.querySelector(`.filter-btn[onclick="filterProperties('${type}')"]`);
+    if (targetTab) {
+        targetTab.classList.add('active');
+        currentFilter = type;
+    }
+}
+
+// Load and apply URL parameters from index page
+function loadFromURLParameters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let hasParams = false;
+    
+    // Map URL parameters to search criteria
+    if (urlParams.has('type')) {
+        const type = urlParams.get('type');
+        document.getElementById('adv-type').value = type;
+        searchCriteria.type = type;
+        hasParams = true;
+    }
+    
+    if (urlParams.has('transaction')) {
+        const transaction = urlParams.get('transaction');
+        document.getElementById('adv-transaction').value = transaction;
+        searchCriteria.transaction = transaction;
+        hasParams = true;
+    }
+    
+    if (urlParams.has('location')) {
+        const location = urlParams.get('location');
+        document.getElementById('adv-location').value = location;
+        searchCriteria.location = location;
+        hasParams = true;
+    }
+    
+    if (urlParams.has('priceMin')) {
+        const priceMin = urlParams.get('priceMin');
+        document.getElementById('adv-price-min').value = priceMin;
+        searchCriteria.priceMin = priceMin;
+        hasParams = true;
+    }
+    
+    if (urlParams.has('priceMax')) {
+        const priceMax = urlParams.get('priceMax');
+        document.getElementById('adv-price-max').value = priceMax;
+        searchCriteria.priceMax = priceMax;
+        hasParams = true;
+    }
+    
+    if (urlParams.has('rooms')) {
+        const rooms = urlParams.get('rooms');
+        document.getElementById('adv-rooms').value = rooms;
+        searchCriteria.rooms = rooms;
+        hasParams = true;
+    }
+    
+    if (urlParams.has('areaMin')) {
+        const areaMin = urlParams.get('areaMin');
+        document.getElementById('adv-area-min').value = areaMin;
+        searchCriteria.areaMin = areaMin;
+        hasParams = true;
+    }
+    
+    if (urlParams.has('areaMax')) {
+        const areaMax = urlParams.get('areaMax');
+        document.getElementById('adv-area-max').value = areaMax;
+        searchCriteria.areaMax = areaMax;
+        hasParams = true;
+    }
+    
+    if (urlParams.has('filter')) {
+        currentFilter = urlParams.get('filter');
+        hasParams = true;
+    }
+    
+    if (urlParams.has('sort')) {
+        currentSort = urlParams.get('sort');
+        document.getElementById('sortBy').value = currentSort;
+        hasParams = true;
+    }
+    
+    return hasParams;
 }
 
 // Sort results
@@ -343,52 +532,12 @@ function showLoading(show) {
     }
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-    // Check for URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    
-    // Pre-fill form if parameters exist
-    if (urlParams.has('type')) {
-        document.getElementById('adv-type').value = urlParams.get('type');
-        searchCriteria.type = urlParams.get('type');
-    }
-    if (urlParams.has('location')) {
-        document.getElementById('adv-location').value = urlParams.get('location');
-        searchCriteria.location = urlParams.get('location');
-    }
-    if (urlParams.has('priceMin')) {
-        document.getElementById('adv-price-min').value = urlParams.get('priceMin');
-        searchCriteria.priceMin = urlParams.get('priceMin');
-    }
-    if (urlParams.has('priceMax')) {
-        document.getElementById('adv-price-max').value = urlParams.get('priceMax');
-        searchCriteria.priceMax = urlParams.get('priceMax');
-    }
-    
-    // Auto-submit if parameters exist
-    if (urlParams.toString()) {
-        setTimeout(() => {
-            toggleAdvancedSearch();
-            applyFilters();
-        }, 500);
-    } else {
-        // Load all properties initially
-        applyFilters();
-    }
-    
-    // Initialize view toggle
-    const grid = document.getElementById('propertiesGrid');
-    if (currentView === 'list') {
-        grid.classList.add('list-view');
-    }
-});
-
 // Update URL with current search parameters (for bookmarking/sharing)
 function updateURL() {
     const params = new URLSearchParams();
     
     if (searchCriteria.type) params.set('type', searchCriteria.type);
+    if (searchCriteria.transaction) params.set('transaction', searchCriteria.transaction);
     if (searchCriteria.location) params.set('location', searchCriteria.location);
     if (searchCriteria.priceMin) params.set('priceMin', searchCriteria.priceMin);
     if (searchCriteria.priceMax) params.set('priceMax', searchCriteria.priceMax);
@@ -400,91 +549,6 @@ function updateURL() {
     
     const newURL = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
     window.history.pushState({}, '', newURL);
-}
-
-// Save search to local storage (search history)
-function saveSearchToHistory() {
-    try {
-        const searches = JSON.parse(localStorage.getItem('propertySearches') || '[]');
-        const newSearch = {
-            criteria: searchCriteria,
-            filter: currentFilter,
-            sort: currentSort,
-            timestamp: new Date().toISOString(),
-            resultsCount: filteredProperties.length
-        };
-        
-        // Add to beginning and limit to 10 searches
-        searches.unshift(newSearch);
-        searches.splice(10);
-        
-        localStorage.setItem('propertySearches', JSON.stringify(searches));
-    } catch (e) {
-        // localStorage not available or full
-        console.log('Could not save search history');
-    }
-}
-
-// Quick search suggestions based on popular searches
-function getSearchSuggestions() {
-    return [
-        { text: 'Апартаменти в София', filter: { type: 'apartment', location: 'София' } },
-        { text: 'Къщи до 500,000€', filter: { type: 'house', priceMax: '500000' } },
-        { text: 'Парцели за строителство', filter: { type: 'land' } },
-        { text: 'Тристайни апартаменти', filter: { type: 'apartment', rooms: '3' } },
-        { text: 'Имоти в Лозенец', filter: { location: 'Лозенец' } },
-        { text: 'Търговски обекти', filter: { type: 'commercial' } }
-    ];
-}
-
-// Apply quick search suggestion
-function applyQuickSearch(suggestion) {
-    // Clear current criteria
-    clearFilters();
-    
-    // Set new criteria
-    Object.assign(searchCriteria, suggestion.filter);
-    
-    // Update form
-    if (suggestion.filter.type) {
-        document.getElementById('adv-type').value = suggestion.filter.type;
-    }
-    if (suggestion.filter.location) {
-        document.getElementById('adv-location').value = suggestion.filter.location;
-    }
-    if (suggestion.filter.priceMax) {
-        document.getElementById('adv-price-max').value = suggestion.filter.priceMax;
-    }
-    if (suggestion.filter.rooms) {
-        document.getElementById('adv-rooms').value = suggestion.filter.rooms;
-    }
-    
-    // Apply filters
-    applyFilters();
-    
-    showNotification(`Прилагане на филтър: ${suggestion.text}`, 'info');
-}
-
-// Export search results (for sharing or printing)
-function exportResults() {
-    const results = {
-        searchCriteria,
-        properties: filteredProperties,
-        timestamp: new Date().toISOString(),
-        totalResults: filteredProperties.length
-    };
-    
-    const blob = new Blob([JSON.stringify(results, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `property-search-results-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    showNotification('Резултатите са експортирани', 'success');
 }
 
 // Enhanced property card with more interactive features
@@ -548,6 +612,45 @@ function getBadgeClass(badge) {
     return '';
 }
 
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    // Setup form handler
+    const form = document.getElementById('advancedSearchForm');
+    if (form) {
+        form.addEventListener('submit', handleAdvancedSearch);
+    }
+    
+    // Load URL parameters and apply filters automatically
+    const hasURLParams = loadFromURLParameters();
+    
+    if (hasURLParams) {
+        // Mark as coming from index page
+        isFromIndexPage = true;
+        
+        // Hide the advanced search section
+        hideAdvancedSearchSection();
+        
+        // Apply filters with the URL parameters
+        applyFilters();
+        
+        // Show search summary after filters are applied
+        setTimeout(() => {
+            showSearchSummary();
+        }, 800);
+        
+    } else {
+        // Load all properties initially if no URL parameters
+        isFromIndexPage = false;
+        applyFilters();
+    }
+    
+    // Initialize view toggle
+    const grid = document.getElementById('propertiesGrid');
+    if (currentView === 'list') {
+        grid.classList.add('list-view');
+    }
+});
+
 // Add keyboard shortcuts for power users
 document.addEventListener('keydown', (e) => {
     // Only if not typing in input fields
@@ -556,7 +659,11 @@ document.addEventListener('keydown', (e) => {
             case 'f':
             case 'F':
                 e.preventDefault();
-                toggleAdvancedSearch();
+                if (!isFromIndexPage) {
+                    toggleAdvancedSearch();
+                } else {
+                    showAdvancedSearch();
+                }
                 break;
             case 'c':
             case 'C':
@@ -578,6 +685,46 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
+
+// Quick search suggestions based on popular searches
+function getSearchSuggestions() {
+    return [
+        { text: 'Апартаменти в София', filter: { type: 'apartment', location: 'София' } },
+        { text: 'Къщи до 500,000€', filter: { type: 'house', priceMax: '500000' } },
+        { text: 'Парцели за строителство', filter: { type: 'land' } },
+        { text: 'Тристайни апартаменти', filter: { type: 'apartment', rooms: '3' } },
+        { text: 'Имоти в Лозенец', filter: { location: 'Лозенец' } },
+        { text: 'Търговски обекти', filter: { type: 'commercial' } }
+    ];
+}
+
+// Apply quick search suggestion
+function applyQuickSearch(suggestion) {
+    // Clear current criteria
+    clearFilters();
+    
+    // Set new criteria
+    Object.assign(searchCriteria, suggestion.filter);
+    
+    // Update form
+    if (suggestion.filter.type) {
+        document.getElementById('adv-type').value = suggestion.filter.type;
+    }
+    if (suggestion.filter.location) {
+        document.getElementById('adv-location').value = suggestion.filter.location;
+    }
+    if (suggestion.filter.priceMax) {
+        document.getElementById('adv-price-max').value = suggestion.filter.priceMax;
+    }
+    if (suggestion.filter.rooms) {
+        document.getElementById('adv-rooms').value = suggestion.filter.rooms;
+    }
+    
+    // Apply filters
+    applyFilters();
+    
+    showNotification(`Прилагане на филтър: ${suggestion.text}`, 'info');
+}
 
 // Add search suggestions to the advanced search
 function addSearchSuggestions() {

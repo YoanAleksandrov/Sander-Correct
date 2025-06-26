@@ -1,3 +1,11 @@
+// Complete Mobile-Optimized home.js - Performance and UI Fixes
+
+// Optimized mobile detection
+function isMobileDevice() {
+    return window.innerWidth <= 768 || 
+           /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 // Load featured properties with 2 separate rows - each with independent scrolling
 function loadFeaturedProperties() {
     const grid = document.getElementById('featuredProperties');
@@ -26,7 +34,7 @@ function loadFeaturedProperties() {
                 </div>
             </div>
             <div class="properties-row-container" id="row1">
-                ${row1Properties.map(property => createPropertyCard(property)).join('')}
+                ${row1Properties.map(property => createOptimizedPropertyCard(property)).join('')}
             </div>
             <div class="scroll-indicators" id="indicators1"></div>
         </div>
@@ -45,7 +53,7 @@ function loadFeaturedProperties() {
                 </div>
             </div>
             <div class="properties-row-container" id="row2">
-                ${row2Properties.map(property => createPropertyCard(property)).join('')}
+                ${row2Properties.map(property => createOptimizedPropertyCard(property)).join('')}
             </div>
             <div class="scroll-indicators" id="indicators2"></div>
         </div>
@@ -69,6 +77,7 @@ let rowScrollStates = {
     row2: { currentIndex: 0, maxIndex: 0, cardWidth: 0, visibleCards: 0, totalProperties: 0, containerWidth: 0 }
 };
 
+// Enhanced row initialization with better mobile indicator calculation
 function initializeRowIndicators(rowId, propertyCount) {
     const indicatorsContainer = document.getElementById(`indicators${rowId.slice(-1)}`);
     const rowContainer = document.getElementById(rowId);
@@ -76,39 +85,36 @@ function initializeRowIndicators(rowId, propertyCount) {
     
     // Wait for DOM to render properly
     setTimeout(() => {
-        // Calculate visible cards and card width
         const containerWidth = rowContainer.clientWidth;
         const cards = rowContainer.querySelectorAll('.property-card');
         
         if (cards.length === 0) return;
         
-        // Get actual card width including gap
+        const isMobile = isMobileDevice();
+        
+        // Calculate card width with mobile optimization
         const firstCard = cards[0];
         const cardRect = firstCard.getBoundingClientRect();
-        const cardStyle = window.getComputedStyle(firstCard);
         const cardWidth = cardRect.width;
-        const marginRight = parseFloat(cardStyle.marginRight) || 0;
-        const totalCardWidth = cardWidth + marginRight + 32; // 32px is the gap from CSS
+        const gap = isMobile ? 16 : 32; // Smaller gap on mobile
+        const totalCardWidth = cardWidth + gap;
         
-        const visibleCards = Math.floor(containerWidth / totalCardWidth);
-        
-        // Calculate how many full scrolls we need
-        // If all properties fit in view, no scrolling needed
-        if (propertyCount <= visibleCards) {
-            rowScrollStates[rowId].maxIndex = 0;
-            rowScrollStates[rowId].cardWidth = totalCardWidth;
-            rowScrollStates[rowId].visibleCards = visibleCards;
-            rowScrollStates[rowId].totalProperties = propertyCount;
-            
-            indicatorsContainer.innerHTML = '';
-            return;
+        // Mobile-specific visible cards calculation
+        let visibleCards;
+        if (isMobile) {
+            // On mobile, always show 1.2 cards (partial next card visible)
+            visibleCards = 1;
+        } else {
+            visibleCards = Math.floor(containerWidth / totalCardWidth);
         }
         
-        // Calculate actual scrollable pages
-        // Each scroll shows visibleCards, but we need to account for overlapping
-        const totalScrollableWidth = (propertyCount * totalCardWidth) - containerWidth;
-        const scrollStep = visibleCards * totalCardWidth;
-        const actualPages = Math.ceil(totalScrollableWidth / scrollStep) + 1;
+        // Calculate pages for mobile (always one card per page on mobile)
+        let actualPages;
+        if (isMobile) {
+            actualPages = propertyCount; // One page per property on mobile
+        } else {
+            actualPages = Math.ceil(propertyCount / visibleCards);
+        }
         
         // Update state
         rowScrollStates[rowId].maxIndex = actualPages - 1;
@@ -117,24 +123,32 @@ function initializeRowIndicators(rowId, propertyCount) {
         rowScrollStates[rowId].totalProperties = propertyCount;
         rowScrollStates[rowId].containerWidth = containerWidth;
         
-        console.log(`${rowId}: ${propertyCount} properties, ${visibleCards} visible, ${actualPages} pages, containerWidth: ${containerWidth}, cardWidth: ${totalCardWidth}`);
+        console.log(`${rowId} Mobile Init: ${propertyCount} properties, ${actualPages} pages`);
         
-        const indicatorsHTML = Array.from({length: actualPages}, (_, index) => 
-            `<div class="scroll-dot ${index === 0 ? 'active' : ''}" onclick="scrollToRowPage('${rowId}', ${index})"></div>`
-        ).join('');
-        
-        indicatorsContainer.innerHTML = indicatorsHTML;
-    }, 50);
+        // Always show indicators on mobile
+        if (actualPages > 1) {
+            const indicatorsHTML = Array.from({length: actualPages}, (_, index) => 
+                `<div class="scroll-dot ${index === 0 ? 'active' : ''}" onclick="scrollToRowPage('${rowId}', ${index})"></div>`
+            ).join('');
+            
+            indicatorsContainer.innerHTML = indicatorsHTML;
+            indicatorsContainer.style.display = 'flex'; // Force visible
+        } else {
+            indicatorsContainer.innerHTML = '';
+            indicatorsContainer.style.display = 'none';
+        }
+    }, isMobileDevice() ? 200 : 100);
 }
 
+// Optimized scroll function with no smooth scrolling on mobile for performance
 function scrollRow(rowId, direction) {
     const rowContainer = document.getElementById(rowId);
     if (!rowContainer) return;
     
     const currentState = rowScrollStates[rowId];
     const previousIndex = currentState.currentIndex;
+    const isMobile = isMobileDevice();
     
-    // If we only have one page, don't scroll
     if (currentState.maxIndex === 0) {
         console.log(`${rowId}: Only one page, no scrolling needed`);
         return;
@@ -143,68 +157,85 @@ function scrollRow(rowId, direction) {
     if (direction === 'next') {
         currentState.currentIndex++;
         if (currentState.currentIndex > currentState.maxIndex) {
-            currentState.currentIndex = 0; // Loop back to start
+            currentState.currentIndex = 0;
         }
     } else {
         currentState.currentIndex--;
         if (currentState.currentIndex < 0) {
-            currentState.currentIndex = currentState.maxIndex; // Loop to end
+            currentState.currentIndex = currentState.maxIndex;
         }
     }
     
-    // Calculate scroll position based on current page
+    // Calculate scroll position optimized for mobile
     let scrollPosition;
     
-    if (currentState.currentIndex === 0) {
-        // First page - always start at 0
-        scrollPosition = 0;
-    } else if (currentState.currentIndex === currentState.maxIndex) {
-        // Last page - scroll to show last properties without cut-off
-        const totalWidth = currentState.totalProperties * currentState.cardWidth;
-        scrollPosition = Math.max(0, totalWidth - currentState.containerWidth);
+    if (isMobile) {
+        // Mobile: scroll exactly one card width at a time
+        scrollPosition = currentState.currentIndex * currentState.cardWidth;
     } else {
-        // Middle pages - scroll by visible cards
-        scrollPosition = currentState.currentIndex * currentState.visibleCards * currentState.cardWidth;
+        // Desktop: original behavior
+        if (currentState.currentIndex === 0) {
+            scrollPosition = 0;
+        } else if (currentState.currentIndex === currentState.maxIndex) {
+            const totalWidth = currentState.totalProperties * currentState.cardWidth;
+            scrollPosition = Math.max(0, totalWidth - currentState.containerWidth);
+        } else {
+            scrollPosition = currentState.currentIndex * currentState.visibleCards * currentState.cardWidth;
+        }
     }
     
-    console.log(`Scrolling ${rowId} ${direction}: page ${previousIndex} → ${currentState.currentIndex}, position: ${scrollPosition}, maxIndex: ${currentState.maxIndex}`);
+    console.log(`Mobile Scrolling ${rowId} ${direction}: page ${previousIndex} → ${currentState.currentIndex}, position: ${scrollPosition}`);
     
-    rowContainer.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
-    });
+    // Use instant scroll on mobile for better performance
+    if (isMobile) {
+        rowContainer.scrollLeft = scrollPosition;
+    } else {
+        rowContainer.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+        });
+    }
     
     updateRowIndicators(rowId);
 }
 
+// Optimized scroll to page function
 function scrollToRowPage(rowId, pageIndex) {
     const rowContainer = document.getElementById(rowId);
     if (!rowContainer) return;
     
     const currentState = rowScrollStates[rowId];
+    const isMobile = isMobileDevice();
     currentState.currentIndex = pageIndex;
     
-    // Calculate scroll position based on page
     let scrollPosition;
     
-    if (pageIndex === 0) {
-        // First page - always start at 0
-        scrollPosition = 0;
-    } else if (pageIndex === currentState.maxIndex) {
-        // Last page - scroll to show last properties without cut-off
-        const totalWidth = currentState.totalProperties * currentState.cardWidth;
-        scrollPosition = Math.max(0, totalWidth - currentState.containerWidth);
+    if (isMobile) {
+        // Mobile: simple calculation
+        scrollPosition = pageIndex * currentState.cardWidth;
     } else {
-        // Middle pages - scroll by visible cards
-        scrollPosition = pageIndex * currentState.visibleCards * currentState.cardWidth;
+        // Desktop: original calculation
+        if (pageIndex === 0) {
+            scrollPosition = 0;
+        } else if (pageIndex === currentState.maxIndex) {
+            const totalWidth = currentState.totalProperties * currentState.cardWidth;
+            scrollPosition = Math.max(0, totalWidth - currentState.containerWidth);
+        } else {
+            scrollPosition = pageIndex * currentState.visibleCards * currentState.cardWidth;
+        }
     }
     
-    console.log(`Jumping to page ${pageIndex} in ${rowId}, position: ${scrollPosition}, maxIndex: ${currentState.maxIndex}`);
+    console.log(`Jumping to page ${pageIndex} in ${rowId}, position: ${scrollPosition}`);
     
-    rowContainer.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
-    });
+    // Use instant scroll on mobile for better performance
+    if (isMobile) {
+        rowContainer.scrollLeft = scrollPosition;
+    } else {
+        rowContainer.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+        });
+    }
     
     updateRowIndicators(rowId);
 }
@@ -223,112 +254,171 @@ function updateRowIndicators(rowId) {
     });
 }
 
-// Handle row scroll events
-function handleRowScroll(rowId) {
+// Throttled scroll handler for better performance
+let scrollHandlers = {};
+
+function handleMobileRowScroll(rowId) {
     const rowContainer = document.getElementById(rowId);
     if (!rowContainer) return;
     
     const currentState = rowScrollStates[rowId];
-    
-    // Don't update if only one page
     if (currentState.maxIndex === 0) return;
     
     const scrollLeft = rowContainer.scrollLeft;
-    const maxScrollLeft = rowContainer.scrollWidth - rowContainer.clientWidth;
+    const isMobile = isMobileDevice();
     
-    // Determine current page based on scroll position
     let newPageIndex;
     
-    if (scrollLeft <= 10) {
-        // Near the beginning
-        newPageIndex = 0;
-    } else if (scrollLeft >= maxScrollLeft - 10) {
-        // Near the end
-        newPageIndex = currentState.maxIndex;
-    } else {
-        // Calculate based on scroll position
-        const pageSize = currentState.visibleCards * currentState.cardWidth;
-        newPageIndex = Math.round(scrollLeft / pageSize);
+    if (isMobile) {
+        // Mobile: simple calculation based on card width
+        newPageIndex = Math.round(scrollLeft / currentState.cardWidth);
         newPageIndex = Math.max(0, Math.min(newPageIndex, currentState.maxIndex));
+    } else {
+        // Desktop: original calculation
+        const maxScrollLeft = rowContainer.scrollWidth - rowContainer.clientWidth;
+        
+        if (scrollLeft <= 10) {
+            newPageIndex = 0;
+        } else if (scrollLeft >= maxScrollLeft - 10) {
+            newPageIndex = currentState.maxIndex;
+        } else {
+            const pageSize = currentState.visibleCards * currentState.cardWidth;
+            newPageIndex = Math.round(scrollLeft / pageSize);
+            newPageIndex = Math.max(0, Math.min(newPageIndex, currentState.maxIndex));
+        }
     }
     
     if (newPageIndex !== currentState.currentIndex) {
-        console.log(`Scroll detected in ${rowId}: scrollLeft=${scrollLeft}, maxScroll=${maxScrollLeft}, newPage=${newPageIndex}`);
+        console.log(`Scroll detected in ${rowId}: scrollLeft=${scrollLeft}, newPage=${newPageIndex}`);
         currentState.currentIndex = newPageIndex;
         updateRowIndicators(rowId);
     }
 }
 
-// Touch/swipe support for individual rows
-let touchState = {
+// Simplified touch handling for better performance
+let simpleTouchState = {
     startX: 0,
-    currentX: 0,
+    startY: 0,
     isDragging: false,
-    activeRow: null
+    activeRow: null,
+    threshold: 50,
+    startTime: 0,
+    maxTime: 300
 };
 
-function handleRowTouchStart(e, rowId) {
-    touchState.startX = e.touches[0].clientX;
-    touchState.isDragging = true;
-    touchState.activeRow = rowId;
+function handleSimpleTouchStart(e, rowId) {
+    const touch = e.touches[0];
+    simpleTouchState.startX = touch.clientX;
+    simpleTouchState.startY = touch.clientY;
+    simpleTouchState.isDragging = true;
+    simpleTouchState.activeRow = rowId;
+    simpleTouchState.startTime = Date.now();
+    
+    // Prevent text selection
+    e.preventDefault();
 }
 
-function handleRowTouchMove(e) {
-    if (!touchState.isDragging) return;
-    touchState.currentX = e.touches[0].clientX;
+function handleSimpleTouchMove(e) {
+    if (!simpleTouchState.isDragging) return;
+    
+    const touch = e.touches[0];
+    const deltaX = Math.abs(touch.clientX - simpleTouchState.startX);
+    const deltaY = Math.abs(touch.clientY - simpleTouchState.startY);
+    
+    // If more vertical than horizontal movement, cancel horizontal scroll
+    if (deltaY > deltaX && deltaY > 30) {
+        simpleTouchState.isDragging = false;
+        return;
+    }
+    
+    // Prevent page scroll if horizontal movement
+    if (deltaX > 20) {
+        e.preventDefault();
+    }
 }
 
-function handleRowTouchEnd(e) {
-    if (!touchState.isDragging || !touchState.activeRow) return;
+function handleSimpleTouchEnd(e) {
+    if (!simpleTouchState.isDragging || !simpleTouchState.activeRow) {
+        simpleTouchState.isDragging = false;
+        simpleTouchState.activeRow = null;
+        return;
+    }
     
-    const diffX = touchState.startX - touchState.currentX;
-    const threshold = 50; // Minimum swipe distance
+    const touch = e.changedTouches[0];
+    const deltaX = simpleTouchState.startX - touch.clientX;
+    const deltaY = Math.abs(touch.clientY - simpleTouchState.startY);
+    const elapsedTime = Date.now() - simpleTouchState.startTime;
     
-    if (Math.abs(diffX) > threshold) {
-        if (diffX > 0) {
-            scrollRow(touchState.activeRow, 'next');
+    // Check for valid swipe
+    if (elapsedTime <= simpleTouchState.maxTime && 
+        Math.abs(deltaX) >= simpleTouchState.threshold && 
+        deltaY <= 100) {
+        
+        if (deltaX > 0) {
+            scrollRow(simpleTouchState.activeRow, 'next');
         } else {
-            scrollRow(touchState.activeRow, 'prev');
+            scrollRow(simpleTouchState.activeRow, 'prev');
         }
     }
     
-    touchState.isDragging = false;
-    touchState.activeRow = null;
+    simpleTouchState.isDragging = false;
+    simpleTouchState.activeRow = null;
 }
 
-// Add event listeners for both rows
-function addRowScrollListeners() {
+// Optimized event listeners with throttling
+function addOptimizedRowScrollListeners() {
     ['row1', 'row2'].forEach(rowId => {
         const rowContainer = document.getElementById(rowId);
         if (!rowContainer) return;
         
-        // Mouse wheel horizontal scroll
-        rowContainer.addEventListener('wheel', (e) => {
-            if (e.deltaY !== 0) {
-                e.preventDefault();
-                rowContainer.scrollLeft += e.deltaY;
-                handleRowScroll(rowId);
+        // Desktop mouse wheel
+        if (!isMobileDevice()) {
+            rowContainer.addEventListener('wheel', (e) => {
+                if (e.deltaY !== 0) {
+                    e.preventDefault();
+                    rowContainer.scrollLeft += e.deltaY;
+                    
+                    // Throttle scroll handler
+                    if (!scrollHandlers[rowId]) {
+                        scrollHandlers[rowId] = setTimeout(() => {
+                            handleMobileRowScroll(rowId);
+                            scrollHandlers[rowId] = null;
+                        }, 10);
+                    }
+                }
+            });
+        }
+        
+        // Throttled scroll event
+        rowContainer.addEventListener('scroll', () => {
+            if (!scrollHandlers[rowId]) {
+                scrollHandlers[rowId] = setTimeout(() => {
+                    handleMobileRowScroll(rowId);
+                    scrollHandlers[rowId] = null;
+                }, isMobileDevice() ? 50 : 10);
             }
-        });
+        }, { passive: true });
         
-        // Regular scroll event
-        rowContainer.addEventListener('scroll', () => handleRowScroll(rowId));
-        
-        // Touch events for mobile
-        rowContainer.addEventListener('touchstart', (e) => handleRowTouchStart(e, rowId), { passive: true });
-        rowContainer.addEventListener('touchmove', handleRowTouchMove, { passive: true });
-        rowContainer.addEventListener('touchend', handleRowTouchEnd, { passive: true });
+        // Simplified touch events for mobile
+        if (isMobileDevice()) {
+            rowContainer.addEventListener('touchstart', (e) => handleSimpleTouchStart(e, rowId), { passive: false });
+            rowContainer.addEventListener('touchmove', handleSimpleTouchMove, { passive: false });
+            rowContainer.addEventListener('touchend', handleSimpleTouchEnd, { passive: true });
+            
+            // Remove scroll snap for performance
+            rowContainer.style.scrollSnapType = 'none';
+        }
     });
 }
 
-// Enhanced property card for row layout
-function createPropertyCard(property) {
+// Enhanced property card creation with performance optimization
+function createOptimizedPropertyCard(property) {
     return `
-        <div class="property-card fade-in" onclick="showPropertyModal('${property.title}', '${property.price}', '${property.location}', '${property.description}')">
+        <div class="property-card fade-in" onclick="showPropertyModal('${property.title}', '${property.price}', '${property.location}', '${property.description}')" style="touch-action: manipulation;">
             <div class="property-image">
-                <img src="${property.image || 'images/default.jpg'}" alt="${property.title}" loading="lazy">
+                <img src="${property.image || 'images/default.jpg'}" alt="${property.title}" loading="lazy" style="touch-action: none;">
                 <div class="property-badge">${property.badge || ''}</div>
-                <div class="property-heart" onclick="event.stopPropagation(); toggleFavorite(${property.id})">
+                <div class="property-heart" onclick="event.stopPropagation(); toggleFavorite(${property.id})" style="touch-action: manipulation;">
                     <i class="far fa-heart"></i>
                 </div>
             </div>
@@ -358,11 +448,11 @@ function createPropertyCard(property) {
                     <p class="property-description">${property.description}</p>
                 </div>
                 <div class="property-actions">
-                    <button class="property-btn btn-primary" onclick="event.stopPropagation(); contactAboutProperty('${property.title}')">
+                    <button class="property-btn btn-primary" onclick="event.stopPropagation(); contactAboutProperty('${property.title}')" style="touch-action: manipulation;">
                         <i class="fas fa-phone"></i>
                         <span>Контакт</span>
                     </button>
-                    <button class="property-btn btn-secondary" onclick="event.stopPropagation(); scheduleViewing('${property.title}')">
+                    <button class="property-btn btn-secondary" onclick="event.stopPropagation(); scheduleViewing('${property.title}')" style="touch-action: manipulation;">
                         <i class="fas fa-calendar"></i>
                         <span>Оглед</span>
                     </button>
@@ -372,57 +462,45 @@ function createPropertyCard(property) {
     `;
 }
 
-// Handle window resize to recalculate indicators for both rows
-window.addEventListener('resize', () => {
-    clearTimeout(window.resizeTimeout);
-    window.resizeTimeout = setTimeout(() => {
+// Optimized resize handler with better debouncing
+function handleOptimizedResize() {
+    clearTimeout(window.optimizedResizeTimeout);
+    window.optimizedResizeTimeout = setTimeout(() => {
         const featuredProperties = properties.filter(property => property.featured);
         const midPoint = Math.ceil(featuredProperties.length / 2);
         
-        // Reinitialize indicators for both rows
+        // Force reinitialize on mobile
         initializeRowIndicators('row1', midPoint);
         initializeRowIndicators('row2', featuredProperties.length - midPoint);
         
-        // Reset both rows to first page
+        // Reset scroll positions
         ['row1', 'row2'].forEach(rowId => {
             rowScrollStates[rowId].currentIndex = 0;
             const rowContainer = document.getElementById(rowId);
             if (rowContainer) {
-                rowContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                rowContainer.scrollLeft = 0;
                 updateRowIndicators(rowId);
             }
         });
-    }, 250);
-});
+    }, isMobileDevice() ? 500 : 250);
+}
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-    loadFeaturedProperties();
+// Force indicators to be visible on mobile
+function forceIndicatorsVisible() {
+    const indicators1 = document.getElementById('indicators1');
+    const indicators2 = document.getElementById('indicators2');
     
-    // Add scroll listeners after properties are loaded
-    setTimeout(() => {
-        addRowScrollListeners();
-        
-        // Recalculate after DOM is fully rendered
-        setTimeout(() => {
-            const featuredProperties = properties.filter(property => property.featured);
-            const midPoint = Math.ceil(featuredProperties.length / 2);
-            initializeRowIndicators('row1', midPoint);
-            initializeRowIndicators('row2', featuredProperties.length - midPoint);
-        }, 100);
-        
-    }, 200);
-    
-    // Initialize home map if Leaflet is available
-    if (typeof L !== 'undefined') {
-        setTimeout(initializeHomeMap, 500);
+    if (isMobileDevice()) {
+        if (indicators1) {
+            indicators1.style.display = 'flex';
+            indicators1.style.visibility = 'visible';
+        }
+        if (indicators2) {
+            indicators2.style.display = 'flex';
+            indicators2.style.visibility = 'visible';
+        }
     }
-    
-    // Show welcome notification
-    setTimeout(() => {
-        showNotification('Добре дошли в Sander Correct! Открийте идеалния имот за вас.', 'info');
-    }, 2000);
-});
+}
 
 // Initialize home map
 let homeMap = null;
@@ -537,3 +615,75 @@ window.viewPropertyDetails = function(propertyTitle) {
         showPropertyModal(property.title, property.price, property.location, property.description);
     }
 };
+
+// Enhanced initialization
+function initializeOptimizedMobile() {
+    loadFeaturedProperties();
+    
+    setTimeout(() => {
+        addOptimizedRowScrollListeners();
+        
+        setTimeout(() => {
+            const featuredProperties = properties.filter(property => property.featured);
+            const midPoint = Math.ceil(featuredProperties.length / 2);
+            initializeRowIndicators('row1', midPoint);
+            initializeRowIndicators('row2', featuredProperties.length - midPoint);
+            
+            // Force indicators visible after initialization
+            forceIndicatorsVisible();
+        }, isMobileDevice() ? 300 : 150);
+        
+    }, isMobileDevice() ? 500 : 200);
+    
+    if (typeof L !== 'undefined') {
+        setTimeout(initializeHomeMap, isMobileDevice() ? 1000 : 500);
+    }
+    
+    setTimeout(() => {
+        showNotification('Добре дошли в Sander Correct! Открийте идеалния имот за вас.', 'info');
+    }, isMobileDevice() ? 2000 : 2000);
+}
+
+// Enhanced resize and orientation change handlers
+window.addEventListener('resize', handleOptimizedResize);
+window.addEventListener('orientationchange', () => {
+    if (isMobileDevice()) {
+        setTimeout(() => {
+            handleOptimizedResize();
+            forceIndicatorsVisible();
+        }, 600);
+    }
+});
+
+// Prevent double-tap zoom on mobile
+if (isMobileDevice()) {
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function (event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+}
+
+// Enhanced accessibility for mobile
+if (isMobileDevice()) {
+    // Improve focus management on mobile
+    document.addEventListener('focusin', (e) => {
+        if (e.target.closest('.property-card, .property-btn, .nav-btn, .scroll-dot')) {
+            e.target.style.outline = '3px solid #8b4513';
+            e.target.style.outlineOffset = '2px';
+        }
+    });
+    
+    document.addEventListener('focusout', (e) => {
+        if (e.target.closest('.property-card, .property-btn, .nav-btn, .scroll-dot')) {
+            e.target.style.outline = '';
+            e.target.style.outlineOffset = '';
+        }
+    });
+}
+
+// Replace the DOMContentLoaded listener
+document.addEventListener('DOMContentLoaded', initializeOptimizedMobile);
