@@ -1,4 +1,4 @@
-// Enhanced Properties Data with Multiple Images and Map Coordinates
+// Enhanced Properties Data with Multiple Images and Complete Details
 const properties = [
     {
         id: 1,
@@ -8,39 +8,58 @@ const properties = [
         location: 'София, Център, ул. Витоша',
         area: '73 кв.м',
         floor: 'Етаж 2/6',
-        rooms: '1 спалня',
+        rooms: '2 стаи',
         bathrooms: '1 баня',
-        description: 'Светъл двустаен апартамент с отлична локация в сърцето на София.',
+        description: 'Светъл двустаен апартамент с отлична локация в сърцето на София. Апартаментът разполага с просторна всекидневна, спалня, кухня и баня.',
         badge: 'Спешно',
         featured: true,
         images: [
-            'images/property_images/property1.png',
-            'images/property_images/property2.png',
-            'images/property_images/property3.png',
-            'images/property_images/property4.png'
+            'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.6977, 23.3219] // Sofia Center
+        coordinates: [42.6977, 23.3219],
+        year: '2019',
+        heating: 'Централно парно',
+        parking: 'Гараж в сутерена',
+        exposure: 'Изток/Запад',
+        condition: 'Отлично',
+        furniture: 'Частично обзаведен',
+        elevator: 'Да',
+        balcony: 'Френски балкон',
+        price_per_sqm: '€ 4,695/кв.м'
     },
     {
         id: 2,
         type: 'apartment',
-        title: 'Тристаен апартамент',
+        title: 'Тристаен апартамент с гледка',
         price: '€ 750/месец',
         location: 'София, Център, бул. Дондуков',
         area: '95 кв.м',
-        floor: 'Етаж 2/4',
-        rooms: '2 спални',
-        bathrooms: '1 баня',
-        description: 'Просторен тристаен апартамент в престижна сграда с лифт. Идеален за семейство или офис.',
+        floor: 'Етаж 5/8',
+        rooms: '3 стаи',
+        bathrooms: '2 бани',
+        description: 'Просторен тристаен апартамент в престижна сграда с лифт и паркинг. Идеален за семейство или офис с красива гледка към града.',
         badge: 'Под наем',
         featured: true,
         images: [
-            'images/property_images/property2.png',
-            'images/property_images/property1.png',
-            'images/property_images/property4.png',
-            'images/property_images/property3.png'
+            'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.6964, 23.3264]
+        coordinates: [42.6964, 23.3264],
+        year: '2017',
+        heating: 'Централно парно',
+        parking: 'Подземен гараж',
+        exposure: 'Югозапад',
+        condition: 'Отлично',
+        furniture: 'Напълно обзаведен',
+        elevator: 'Да',
+        balcony: 'Тераса 15 кв.м',
+        price_per_sqm: '€ 7.89/кв.м'
     },
     {
         id: 3,
@@ -49,19 +68,27 @@ const properties = [
         price: '€ 207,000',
         location: 'София, Красно село',
         area: '74 кв.м',
-        floor: 'Етаж 2/6',
-        rooms: '1 спалня',
+        floor: 'Етаж 3/6',
+        rooms: '2 стаи',
         bathrooms: '1 баня',
-        description: 'Нов двустаен апартамент в качествена сграда с паркинг и зелени площи. Отлична инвестиция.',
+        description: 'Нов двустаен апартамент в качествена сграда с паркинг и зелени площи. Отлична инвестиция в развиващ се район.',
         badge: 'Ново',
         featured: true,
         images: [
-            'images/property_images/property3.png',
-            'images/property_images/property1.png',
-            'images/property_images/property2.png',
-            'images/property_images/property4.png'
+            'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1486304873000-235643847519?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.6506, 23.2819]
+        coordinates: [42.6506, 23.2819],
+        year: '2023',
+        heating: 'Подово отопление',
+        parking: 'Паркомясто',
+        exposure: 'Юг',
+        condition: 'Ново строителство',
+        furniture: 'Необзаведен',
+        elevator: 'Да',
+        balcony: 'Балкон 8 кв.м',
+        price_per_sqm: '€ 2,797/кв.м'
     },
     {
         id: 4,
@@ -71,17 +98,27 @@ const properties = [
         location: 'гр. Костинброд, кв. Маслово',
         area: '2570 кв.м',
         floor: 'Регулиран',
-        rooms: 'Ток/Вода',
-        bathrooms: 'Асфалт',
-        description: 'Голям регулиран парцел с отлична локация за жилищно строителство. Всички комуникации наблизо.',
+        rooms: 'За строеж',
+        bathrooms: 'Не е приложимо',
+        description: 'Голям регулиран парцел с отлична локация за жилищно строителство. Всички комуникации наблизо, асфалтов път.',
         badge: 'Парцел',
         featured: true,
         images: [
-            'images/property_images/property4.png',
-            'images/property_images/property3.png',
-            'images/property_images/property1.png'
+            'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.8167, 23.2167]
+        coordinates: [42.8167, 23.2167],
+        year: 'Н/А',
+        heating: 'Н/А',
+        parking: 'Неограничен',
+        exposure: 'Всички посоки',
+        condition: 'Отлично',
+        furniture: 'Н/А',
+        elevator: 'Н/А',
+        balcony: 'Н/А',
+        price_per_sqm: '€ 35/кв.м'
     },
     {
         id: 5,
@@ -90,19 +127,28 @@ const properties = [
         price: '1,400 лв./месец',
         location: 'София, Студентски град',
         area: '90 кв.м',
-        floor: 'Етаж 2/6',
-        rooms: '2 спални',
-        bathrooms: '1 гараж',
-        description: 'Обзаведен тристаен апартамент в близост до университетите. Включен гараж и мазе.',
+        floor: 'Етаж 4/9',
+        rooms: '3 стаи',
+        bathrooms: '1 баня',
+        description: 'Обзаведен тристаен апартамент в близост до университетите. Включен гараж и мазе. Перфектен за студенти или млади семейства.',
         badge: 'Студентски',
         featured: true,
         images: [
-            'images/property_images/property2.png',
-            'images/property_images/property4.png',
-            'images/property_images/property1.png',
-            'images/property_images/property3.png'
+            'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1501183638710-841dd1904471?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.6553, 23.3397]
+        coordinates: [42.6553, 23.3397],
+        year: '1987',
+        heating: 'ТЕЦ',
+        parking: 'Гараж + мазе',
+        exposure: 'Североизток',
+        condition: 'Добро',
+        furniture: 'Напълно обзаведен',
+        elevator: 'Да',
+        balcony: 'Затворена лоджия',
+        price_per_sqm: '15.56 лв./кв.м'
     },
     {
         id: 6,
@@ -112,58 +158,86 @@ const properties = [
         location: 'София, Обеля 2',
         area: '68 кв.м',
         floor: 'Етаж 6/8',
-        rooms: '1 спалня',
+        rooms: '2 стаи',
         bathrooms: '1 баня',
-        description: 'Реновиран двустаен апартамент с панорамна гледка към планината. Добра транспортна свързаност.',
+        description: 'Реновиран двустаен апартамент с панорамна гледка към планината. Добра транспортна свързаност с центъра на града.',
         badge: 'Панел',
         featured: true,
         images: [
-            'images/property_images/property1.png',
-            'images/property_images/property3.png',
-            'images/property_images/property2.png'
+            'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1615529328331-f8917597711f?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.7289, 23.3094]
+        coordinates: [42.7289, 23.3094],
+        year: '1985',
+        heating: 'ТЕЦ',
+        parking: 'Улично',
+        exposure: 'Запад',
+        condition: 'Реновиран',
+        furniture: 'Частично обзаведен',
+        elevator: 'Да',
+        balcony: 'Балкон 4 кв.м',
+        price_per_sqм: '€ 1,909/кв.м'
     },
     {
         id: 7,
         type: 'house',
-        title: 'Еднофамилна къща',
+        title: 'Еднофамилна къща с двор',
         price: '€ 450,000',
         location: 'София, Бояна',
         area: '180 кв.м',
         floor: '2 етажа',
         rooms: '4 спални',
-        bathrooms: '2 бани',
-        description: 'Луксозна еднофамилна къща с двор и гараж. Тиха локация с отлична инфраструктура.',
+        bathrooms: '3 бани',
+        description: 'Луксозна еднофамилна къща с двор и гараж. Тиха локация с отлична инфраструктура в престижния район Бояна.',
         badge: 'Луксозна',
         featured: true,
         images: [
-            'images/property_images/property4.png',
-            'images/property_images/property1.png',
-            'images/property_images/property2.png',
-            'images/property_images/property3.png'
+            'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.6392, 23.2667]
+        coordinates: [42.6392, 23.2667],
+        year: '2015',
+        heating: 'Газово отопление',
+        parking: 'Гараж за 2 коли',
+        exposure: 'Югоизток',
+        condition: 'Отлично',
+        furniture: 'Частично обзаведена',
+        elevator: 'Не',
+        balcony: 'Двор 600 кв.м',
+        price_per_sqm: '€ 2,500/кв.м'
     },
     {
         id: 8,
         type: 'commercial',
-        title: 'Търговски обект',
+        title: 'Търговски обект в центъра',
         price: '€ 1,200/месец',
         location: 'София, Център',
         area: '120 кв.м',
         floor: 'Партер',
-        rooms: 'Витрина',
-        bathrooms: 'Складове',
-        description: 'Търговски обект на централна улица с голяма витрина. Подходящ за различни дейности.',
+        rooms: 'Търговска площ',
+        bathrooms: '2 санитарни възела',
+        description: 'Търговски обект на централна улица с голяма витрина. Подходящ за различни дейности - магазин, офис, ресторант.',
         badge: 'Търговски',
         featured: true,
         images: [
-            'images/property_images/property1.png',
-            'images/property_images/property4.png',
-            'images/property_images/property3.png'
+            'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.6950, 23.3253]
+        coordinates: [42.6950, 23.3253],
+        year: '2010',
+        heating: 'Климатик',
+        parking: 'Платена зона',
+        exposure: 'Север',
+        condition: 'Отлично',
+        furniture: 'Необзаведен',
+        elevator: 'Не',
+        balcony: 'Няма',
+        price_per_sqm: '€ 10/кв.м'
     },
     {
         id: 9,
@@ -173,39 +247,59 @@ const properties = [
         location: 'София, Лозенец',
         area: '140 кв.м',
         floor: 'Етаж 5/6',
-        rooms: '3 спални',
+        rooms: '4 стаи',
         bathrooms: '2 бани',
-        description: 'Просторен четиристаен апартамент в престижен квартал. Високи тавани и качествена конструкция.',
+        description: 'Просторен четиристаен апартамент в престижен квартал. Високи тавани, качествена конструкция и отлична локация.',
         badge: 'Престижен',
         featured: true,
         images: [
-            'images/property_images/property3.png',
-            'images/property_images/property1.png',
-            'images/property_images/property2.png',
-            'images/property_images/property4.png'
+            'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.6722, 23.3308]
+        coordinates: [42.6722, 23.3308],
+        year: '2005',
+        heating: 'Централно парно',
+        parking: 'Подземен гараж',
+        exposure: 'Югоизток',
+        condition: 'Отлично',
+        furniture: 'Частично обзаведен',
+        elevator: 'Да',
+        balcony: 'Тераса 20 кв.м',
+        price_per_sqm: '€ 3,714/кв.м'
     },
     {
         id: 10,
         type: 'house',
-        title: 'Вила с басейн',
+        title: 'Вила с басейн и градина',
         price: '€ 890,000',
         location: 'София, Драгалевци',
         area: '280 кв.м',
         floor: '3 етажа',
         rooms: '5 спални',
-        bathrooms: '3 бани',
-        description: 'Луксозна вила с басейн и панорамна гледка. Голям двор с ландшафтна градина.',
+        bathrooms: '4 бани',
+        description: 'Луксозна вила с басейн и панорамна гледка към Витоша. Голям двор с ландшафтна градина и барбекю зона.',
         badge: 'Вила',
         featured: true,
         images: [
-            'images/property_images/property1.png',
-            'images/property_images/property2.png',
-            'images/property_images/property3.png',
-            'images/property_images/property4.png'
+            'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.6167, 23.2583]
+        coordinates: [42.6167, 23.2583],
+        year: '2018',
+        heating: 'Подово отопление + климатици',
+        parking: 'Гараж за 3 коли',
+        exposure: 'Югозапад',
+        condition: 'Ново',
+        furniture: 'Луксозно обзаведена',
+        elevator: 'Да',
+        balcony: 'Двор с басейн 1200 кв.м',
+        price_per_sqm: '€ 3,179/кв.м'
     },
     {
         id: 11,
@@ -215,17 +309,25 @@ const properties = [
         location: 'София, Младост 1',
         area: '45 кв.м',
         floor: 'Етаж 3/8',
-        rooms: 'Студио',
+        rooms: '1 стая',
         bathrooms: '1 баня',
-        description: 'Компактен едностаен апартамент с модерен дизайн. Отлично за млади хора или инвестиция.',
+        description: 'Компактен едностаен апартамент с модерен дизайн. Отлично за млади хора или като инвестиция за отдаване под наем.',
         badge: 'Младежки',
         featured: true,
         images: [
-            'images/property_images/property2.png',
-            'images/property_images/property3.png',
-            'images/property_images/property1.png'
+            'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.7031, 23.2369]
+        coordinates: [42.7031, 23.2369],
+        year: '1980',
+        heating: 'ТЕЦ',
+        parking: 'Улично паркиране',
+        exposure: 'Изток',
+        condition: 'Реновиран',
+        furniture: 'Обзаведен',
+        elevator: 'Да',
+        balcony: 'Френски балкон',
+        price_per_sqm: '€ 3,222/кв.м'
     },
     {
         id: 12,
@@ -235,18 +337,27 @@ const properties = [
         location: 'София, Витоша',
         area: '115 кв.м',
         floor: 'Етаж 7/8',
-        rooms: '2 спални',
+        rooms: '3 стаи',
         bathrooms: '2 бани',
-        description: 'Просторен апартамент с голяма тераса и гледка към Витоша. Паркомясто включено.',
+        description: 'Просторен апартамент с голяма тераса и гледка към Витоша. Паркомясто включено в цената.',
         badge: 'Тераса',
         featured: true,
         images: [
-            'images/property_images/property3.png',
-            'images/property_images/property4.png',
-            'images/property_images/property2.png',
-            'images/property_images/property1.png'
+            'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.6722, 23.3308]
+        coordinates: [42.6722, 23.3308],
+        year: '2012',
+        heating: 'Централно парно',
+        parking: 'Паркомясто в цената',
+        exposure: 'Югозапад',
+        condition: 'Отлично',
+        furniture: 'Частично обзаведен',
+        elevator: 'Да',
+        balcony: 'Тераса 25 кв.м',
+        price_per_sqm: '€ 3,348/кв.м'
     },
     {
         id: 13,
@@ -258,15 +369,24 @@ const properties = [
         floor: '2 етажа',
         rooms: '3 спални',
         bathrooms: '2 бани',
-        description: 'Нова двуетажна къща с голям двор. Идеална за семейство търсещо спокойствие.',
+        description: 'Нова двуетажна къща с голям двор. Идеална за семейство търсещо спокойствие далеч от градския шум.',
         badge: 'Извънградска',
         featured: true,
         images: [
-            'images/property_images/property4.png',
-            'images/property_images/property2.png',
-            'images/property_images/property3.png'
+            'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.9167, 23.7833]
+        coordinates: [42.9167, 23.7833],
+        year: '2020',
+        heating: 'Газово отопление',
+        parking: 'Двор за паркиране',
+        exposure: 'Юг',
+        condition: 'Ново строителство',
+        furniture: 'Необзаведена',
+        elevator: 'Не',
+        balcony: 'Двор 800 кв.м',
+        price_per_sqm: '€ 1,833/кв.м'
     },
     {
         id: 14,
@@ -276,18 +396,27 @@ const properties = [
         location: 'София, Център, ул. Граф Игнатиев',
         area: '165 кв.м',
         floor: 'Етаж 5-6/6',
-        rooms: '3 спални',
-        bathrooms: '2 бани',
-        description: 'Уникален мезонет на два етажа с висококачествени материали и дизайнерски интериор.',
+        rooms: '4 стаи',
+        bathrooms: '3 бани',
+        description: 'Уникален мезонет на два етажа с висококачествени материали и дизайнерски интериор. Рядка възможност в центъра.',
         badge: 'Мезонет',
         featured: true,
         images: [
-            'images/property_images/property1.png',
-            'images/property_images/property3.png',
-            'images/property_images/property4.png',
-            'images/property_images/property2.png'
+            'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.6964, 23.3219]
+        coordinates: [42.6964, 23.3219],
+        year: '2008',
+        heating: 'Централно парно',
+        parking: 'Подземен гараж',
+        exposure: 'Юг',
+        condition: 'Луксозно',
+        furniture: 'Дизайнерски интериор',
+        elevator: 'Да',
+        balcony: 'Тераса на покрива',
+        price_per_sqm: '€ 3,939/кв.м'
     },
     {
         id: 15,
@@ -297,17 +426,26 @@ const properties = [
         location: 'София, Бизнес Парк',
         area: '850 кв.м',
         floor: '4 етажа',
-        rooms: 'Офиси',
-        bathrooms: 'Обзаведени',
-        description: 'Модерна офис сграда с отлична локация. Напълно оборудвана и готова за ползване.',
+        rooms: 'Офисни помещения',
+        bathrooms: 'Множество',
+        description: 'Модерна офис сграда с отлична локация. Напълно оборудвана и готова за ползване от голяма компания.',
         badge: 'Инвестиция',
         featured: true,
         images: [
-            'images/property_images/property2.png',
-            'images/property_images/property1.png',
-            'images/property_images/property4.png'
+            'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.6508, 23.3833]
+        coordinates: [42.6508, 23.3833],
+        year: '2016',
+        heating: 'Централна климатизация',
+        parking: 'Подземен паркинг',
+        exposure: 'Всички страни',
+        condition: 'Ново',
+        furniture: 'Офис обзавеждане',
+        elevator: 'Множество асансьора',
+        balcony: 'Офисни тераси',
+        price_per_sqm: '€ 2,176/кв.м'
     },
     {
         id: 16,
@@ -317,16 +455,25 @@ const properties = [
         location: 'Витоша, с. Железница',
         area: '1200 кв.м',
         floor: 'Неурбанизиран',
-        rooms: 'Неурбанизиран',
-        bathrooms: 'Планински',
-        description: 'Парцел с красива гледка към Витоша, подходящ за почивна къща.',
+        rooms: 'За почивна къща',
+        bathrooms: 'Не е приложимо',
+        description: 'Парцел с красива гледка към Витоша, подходящ за почивна къща. Тих и спокоен район сред природата.',
         badge: 'Планински',
         featured: false,
         images: [
-            'images/property_images/property4.png',
-            'images/property_images/property3.png'
+            'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop'
         ],
-        coordinates: [42.5833, 23.1833]
+        coordinates: [42.5833, 23.1833],
+        year: 'Н/А',
+        heating: 'Н/А',
+        parking: 'Неограничен',
+        exposure: 'Панорамна гледка',
+        condition: 'Естествен терен',
+        furniture: 'Н/А',
+        elevator: 'Н/А',
+        balcony: 'Цял парцел',
+        price_per_sqm: '€ 37.5/кв.м'
     }
 ];
 
