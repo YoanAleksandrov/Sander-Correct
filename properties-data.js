@@ -1,3 +1,4 @@
+// Enhanced Properties Data with Multiple Images and Map Coordinates
 const properties = [
     {
         id: 1,
@@ -9,10 +10,16 @@ const properties = [
         floor: 'Етаж 2/6',
         rooms: '1 спалня',
         bathrooms: '1 баня',
-        description: 'Светъл двустаен апартамент с отлична локация в сърцето на София. ',
+        description: 'Светъл двустаен апартамент с отлична локация в сърцето на София.',
         badge: 'Спешно',
         featured: true,
-        image: 'images/property_images/property1.png'
+        images: [
+            'images/property_images/property1.png',
+            'images/property_images/property2.png',
+            'images/property_images/property3.png',
+            'images/property_images/property4.png'
+        ],
+        coordinates: [42.6977, 23.3219] // Sofia Center
     },
     {
         id: 2,
@@ -27,7 +34,13 @@ const properties = [
         description: 'Просторен тристаен апартамент в престижна сграда с лифт. Идеален за семейство или офис.',
         badge: 'Под наем',
         featured: true,
-        image: 'images/property_images/property2.png'
+        images: [
+            'images/property_images/property2.png',
+            'images/property_images/property1.png',
+            'images/property_images/property4.png',
+            'images/property_images/property3.png'
+        ],
+        coordinates: [42.6964, 23.3264]
     },
     {
         id: 3,
@@ -42,7 +55,13 @@ const properties = [
         description: 'Нов двустаен апартамент в качествена сграда с паркинг и зелени площи. Отлична инвестиция.',
         badge: 'Ново',
         featured: true,
-        image: 'images/property_images/property3.png'
+        images: [
+            'images/property_images/property3.png',
+            'images/property_images/property1.png',
+            'images/property_images/property2.png',
+            'images/property_images/property4.png'
+        ],
+        coordinates: [42.6506, 23.2819]
     },
     {
         id: 4,
@@ -57,7 +76,12 @@ const properties = [
         description: 'Голям регулиран парцел с отлична локация за жилищно строителство. Всички комуникации наблизо.',
         badge: 'Парцел',
         featured: true,
-        image: 'images/property_images/property4.png'
+        images: [
+            'images/property_images/property4.png',
+            'images/property_images/property3.png',
+            'images/property_images/property1.png'
+        ],
+        coordinates: [42.8167, 23.2167]
     },
     {
         id: 5,
@@ -72,7 +96,13 @@ const properties = [
         description: 'Обзаведен тристаен апартамент в близост до университетите. Включен гараж и мазе.',
         badge: 'Студентски',
         featured: true,
-        image: 'images/property_images/property2.png'
+        images: [
+            'images/property_images/property2.png',
+            'images/property_images/property4.png',
+            'images/property_images/property1.png',
+            'images/property_images/property3.png'
+        ],
+        coordinates: [42.6553, 23.3397]
     },
     {
         id: 6,
@@ -87,7 +117,12 @@ const properties = [
         description: 'Реновиран двустаен апартамент с панорамна гледка към планината. Добра транспортна свързаност.',
         badge: 'Панел',
         featured: true,
-        image: 'images/property_images/property1.png'
+        images: [
+            'images/property_images/property1.png',
+            'images/property_images/property3.png',
+            'images/property_images/property2.png'
+        ],
+        coordinates: [42.7289, 23.3094]
     },
     {
         id: 7,
@@ -102,7 +137,13 @@ const properties = [
         description: 'Луксозна еднофамилна къща с двор и гараж. Тиха локация с отлична инфраструктура.',
         badge: 'Луксозна',
         featured: true,
-        image: 'images/property_images/property4.png'
+        images: [
+            'images/property_images/property4.png',
+            'images/property_images/property1.png',
+            'images/property_images/property2.png',
+            'images/property_images/property3.png'
+        ],
+        coordinates: [42.6392, 23.2667]
     },
     {
         id: 8,
@@ -117,7 +158,12 @@ const properties = [
         description: 'Търговски обект на централна улица с голяма витрина. Подходящ за различни дейности.',
         badge: 'Търговски',
         featured: true,
-        image: 'images/property_images/property1.png'
+        images: [
+            'images/property_images/property1.png',
+            'images/property_images/property4.png',
+            'images/property_images/property3.png'
+        ],
+        coordinates: [42.6950, 23.3253]
     },
     {
         id: 9,
@@ -132,7 +178,13 @@ const properties = [
         description: 'Просторен четиристаен апартамент в престижен квартал. Високи тавани и качествена конструкция.',
         badge: 'Престижен',
         featured: true,
-        image: './images/property_images/property3.png'
+        images: [
+            'images/property_images/property3.png',
+            'images/property_images/property1.png',
+            'images/property_images/property2.png',
+            'images/property_images/property4.png'
+        ],
+        coordinates: [42.6722, 23.3308]
     },
     {
         id: 10,
@@ -147,7 +199,13 @@ const properties = [
         description: 'Луксозна вила с басейн и панорамна гледка. Голям двор с ландшафтна градина.',
         badge: 'Вила',
         featured: true,
-        image: './images/property_images/property1.png'
+        images: [
+            'images/property_images/property1.png',
+            'images/property_images/property2.png',
+            'images/property_images/property3.png',
+            'images/property_images/property4.png'
+        ],
+        coordinates: [42.6167, 23.2583]
     },
     {
         id: 11,
@@ -162,7 +220,12 @@ const properties = [
         description: 'Компактен едностаен апартамент с модерен дизайн. Отлично за млади хора или инвестиция.',
         badge: 'Младежки',
         featured: true,
-        image: 'images/property_images/property2.png'
+        images: [
+            'images/property_images/property2.png',
+            'images/property_images/property3.png',
+            'images/property_images/property1.png'
+        ],
+        coordinates: [42.7031, 23.2369]
     },
     {
         id: 12,
@@ -177,7 +240,13 @@ const properties = [
         description: 'Просторен апартамент с голяма тераса и гледка към Витоша. Паркомясто включено.',
         badge: 'Тераса',
         featured: true,
-        image: 'images/property_images/property3.png'
+        images: [
+            'images/property_images/property3.png',
+            'images/property_images/property4.png',
+            'images/property_images/property2.png',
+            'images/property_images/property1.png'
+        ],
+        coordinates: [42.6722, 23.3308]
     },
     {
         id: 13,
@@ -192,7 +261,12 @@ const properties = [
         description: 'Нова двуетажна къща с голям двор. Идеална за семейство търсещо спокойствие.',
         badge: 'Извънградска',
         featured: true,
-        image: 'images/property_images/property4.png'
+        images: [
+            'images/property_images/property4.png',
+            'images/property_images/property2.png',
+            'images/property_images/property3.png'
+        ],
+        coordinates: [42.9167, 23.7833]
     },
     {
         id: 14,
@@ -207,7 +281,13 @@ const properties = [
         description: 'Уникален мезонет на два етажа с висококачествени материали и дизайнерски интериор.',
         badge: 'Мезонет',
         featured: true,
-        image: 'images/property_images/property1.png'
+        images: [
+            'images/property_images/property1.png',
+            'images/property_images/property3.png',
+            'images/property_images/property4.png',
+            'images/property_images/property2.png'
+        ],
+        coordinates: [42.6964, 23.3219]
     },
     {
         id: 15,
@@ -222,142 +302,43 @@ const properties = [
         description: 'Модерна офис сграда с отлична локация. Напълно оборудвана и готова за ползване.',
         badge: 'Инвестиция',
         featured: true,
-        image: 'images/property_images/property2.png'
-    },
-];
-
-// Map properties data
-const mapProperties = [
-    {
-        id: 1,
-        type: 'apartment',
-        title: 'Двустаен апартамент в центъра',
-        price: '€ 342,800',
-        location: 'София, Център, ул. Витоша',
-        area: '73 кв.м',
-        rooms: '2 стаи',
-        coordinates: [42.6977, 23.3219], // Sofia Center
-        description: 'Светъл двустаен апартамент с отлична локация в сърцето на София.'
+        images: [
+            'images/property_images/property2.png',
+            'images/property_images/property1.png',
+            'images/property_images/property4.png'
+        ],
+        coordinates: [42.6508, 23.3833]
     },
     {
-        id: 2,
-        type: 'apartment',
-        title: 'Тристаен апартамент за наем',
-        price: '€ 750/месец',
-        location: 'София, Център, бул. Дондуков',
-        area: '95 кв.м',
-        rooms: '3 стаи',
-        coordinates: [42.6964, 23.3264],
-        description: 'Просторен тристаен апартамент в престижна сграда с лифт.'
-    },
-    {
-        id: 3,
-        type: 'apartment',
-        title: 'Двустаен в нова сграда',
-        price: '€ 207,000',
-        location: 'София, Красно село',
-        area: '74 кв.м',
-        rooms: '2 стаи',
-        coordinates: [42.6506, 23.2819],
-        description: 'Нов двустаен апартамент в качествена сграда с паркинг.'
-    },
-    {
-        id: 4,
-        type: 'land',
-        title: 'Парцел за строителство',
-        price: '€ 89,899',
-        location: 'гр. Костинброд, кв. Маслово',
-        area: '2570 кв.м',
-        rooms: 'Регулиран',
-        coordinates: [42.8167, 23.2167],
-        description: 'Голям регулиран парцел с отлична локация за жилищно строителство.'
-    },
-    {
-        id: 5,
-        type: 'apartment',
-        title: 'Тристаен в Студентски град',
-        price: '1,400 лв./месец',
-        location: 'София, Студентски град',
-        area: '90 кв.м',
-        rooms: '3 стаи',
-        coordinates: [42.6553, 23.3397],
-        description: 'Обзаведен тристаен апартамент в близост до университетите.'
-    },
-    {
-        id: 6,
-        type: 'apartment',
-        title: 'Двустаен в Обеля',
-        price: '€ 129,800',
-        location: 'София, Обеля 2',
-        area: '68 кв.м',
-        rooms: '2 стаи',
-        coordinates: [42.7289, 23.3094],
-        description: 'Реновиран двустаен апартамент с панорамна гледка към планината.'
-    },
-    {
-        id: 7,
-        type: 'house',
-        title: 'Еднофамилна къща',
-        price: '€ 450,000',
-        location: 'София, Бояна',
-        area: '180 кв.м',
-        rooms: '4 стаи',
-        coordinates: [42.6392, 23.2667],
-        description: 'Луксозна еднофамилна къща с двор и гараж.'
-    },
-    {
-        id: 8,
-        type: 'commercial',
-        title: 'Търговски обект',
-        price: '€ 1,200/месец',
-        location: 'София, Център',
-        area: '120 кв.м',
-        rooms: 'Партер',
-        coordinates: [42.6950, 23.3253],
-        description: 'Търговски обект на централна улица с голяма витрина.'
-    },
-    {
-        id: 9,
-        type: 'apartment',
-        title: 'Четиристаен апартамент',
-        price: '€ 520,000',
-        location: 'София, Лозенец',
-        area: '140 кв.м',
-        rooms: '4 стаи',
-        coordinates: [42.6722, 23.3308],
-        description: 'Просторен четиристаен апартамент в престижен квартал.'
-    },
-    {
-        id: 10,
-        type: 'house',
-        title: 'Вила с басейн',
-        price: '€ 890,000',
-        location: 'София, Драгалевци',
-        area: '280 кв.м',
-        rooms: '5 стаи',
-        coordinates: [42.6167, 23.2583],
-        description: 'Луксозна вила с басейн и панорамна гледка.'
-    },
-    {
-        id: 11,
-        type: 'apartment',
-        title: 'Едностаен апартамент',
-        price: '€ 95,000',
-        location: 'София, Люлин',
-        area: '42 кв.м',
-        rooms: '1 стая',
-        coordinates: [42.7031, 23.2369],
-        description: 'Компактен едностаен апартамент, идеален за първо жилище.'
-    },
-    {
-        id: 12,
+        id: 16,
         type: 'land',
         title: 'Парцел в планински район',
         price: '€ 45,000',
         location: 'Витоша, с. Железница',
         area: '1200 кв.м',
+        floor: 'Неурбанизиран',
         rooms: 'Неурбанизиран',
-        coordinates: [42.5833, 23.1833],
-        description: 'Парцел с красива гледка към Витоша, подходящ за почивна къща.'
+        bathrooms: 'Планински',
+        description: 'Парцел с красива гледка към Витоша, подходящ за почивна къща.',
+        badge: 'Планински',
+        featured: false,
+        images: [
+            'images/property_images/property4.png',
+            'images/property_images/property3.png'
+        ],
+        coordinates: [42.5833, 23.1833]
     }
 ];
+
+// For backward compatibility, also create mapProperties from the same data
+const mapProperties = properties.map(property => ({
+    id: property.id,
+    type: property.type,
+    title: property.title,
+    price: property.price,
+    location: property.location,
+    area: property.area,
+    rooms: property.rooms,
+    coordinates: property.coordinates,
+    description: property.description
+}));
