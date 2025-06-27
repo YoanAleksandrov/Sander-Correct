@@ -551,12 +551,17 @@ function updateURL() {
     window.history.pushState({}, '', newURL);
 }
 
-// Enhanced property card with more interactive features
+// Enhanced property card with image array support
 function createPropertyCard(property) {
+    // Get the first image from images array, or fallback to image property, or default
+    const imageUrl = (property.images && property.images.length > 0) 
+        ? property.images[0] 
+        : (property.image || 'images/default.jpg');
+    
     return `
         <div class="property-card fade-in" onclick="showPropertyModal('${property.title}', '${property.price}', '${property.location}', '${property.description}')">
             <div class="property-image">
-                <img src="${property.image || 'images/default.jpg'}" alt="${property.title}" loading="lazy">
+                <img src="${imageUrl}" alt="${property.title}" loading="lazy">
                 <div class="property-badge ${getBadgeClass(property.badge)}">${property.badge || ''}</div>
                 <div class="property-heart" onclick="event.stopPropagation(); toggleFavorite(${property.id})">
                     <i class="far fa-heart"></i>
@@ -598,6 +603,119 @@ function createPropertyCard(property) {
     `;
 }
 
+// Also update the modal function to handle multiple images
+function showPropertyModal(title, price, location, description, propertyId = null) {
+    const isMobile = window.innerWidth <= 768;
+    
+    // Find the property to get all images
+    const property = properties.find(p => p.title === title);
+    const allImages = property && property.images ? property.images : [];
+    
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, ${isMobile ? '0.9' : '0.8'});
+        display: flex;
+        align-items: ${isMobile ? 'flex-start' : 'center'};
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        padding: ${isMobile ? '1rem 0.5rem' : '1rem'};
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    `;
+
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+        background: white;
+        padding: ${isMobile ? '1.5rem' : '2rem'};
+        border-radius: ${isMobile ? '20px' : '25px'};
+        max-width: ${isMobile ? '100%' : '600px'};
+        width: ${isMobile ? '100%' : '90%'};
+        max-height: ${isMobile ? 'none' : '80vh'};
+        overflow-y: ${isMobile ? 'visible' : 'auto'};
+        text-align: center;
+        transform: ${isMobile ? 'translateY(20px)' : 'scale(0.8)'};
+        transition: transform 0.3s ease;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        margin: ${isMobile ? '1rem 0' : '0'};
+    `;
+
+    // Create image gallery if multiple images exist
+    const imageGalleryHTML = allImages.length > 1 ? `
+        <div style="margin-bottom: 1.5rem;">
+            <div style="position: relative; margin-bottom: 1rem;">
+                <img id="modalMainImage" src="${allImages[0]}" alt="${title}" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px;">
+            </div>
+            <div style="display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.5rem 0;">
+                ${allImages.map((img, index) => `
+                    <img src="${img}" alt="${title} ${index + 1}" 
+                         style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; cursor: pointer; opacity: ${index === 0 ? '1' : '0.6'}; transition: opacity 0.3s ease;"
+                         onclick="document.getElementById('modalMainImage').src='${img}'; document.querySelectorAll('[data-gallery-thumb]').forEach(t => t.style.opacity='0.6'); this.style.opacity='1';"
+                         data-gallery-thumb>
+                </img>`).join('')}
+            </div>
+        </div>
+    ` : (allImages.length === 1 ? `
+        <div style="margin-bottom: 1.5rem;">
+            <img src="${allImages[0]}" alt="${title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 15px;">
+        </div>
+    ` : '');
+
+    modalContent.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <h3 style="color: #3e2723; margin: 0; font-size: ${isMobile ? '1.3rem' : '1.5rem'}; text-align: left; flex: 1;">${title}</h3>
+            <button onclick="this.closest('.modal').remove()" style="background: none; border: none; font-size: ${isMobile ? '1.8rem' : '1.5rem'}; color: #999; cursor: pointer; padding: 0; margin-left: 1rem; line-height: 1;">×</button>
+        </div>
+        ${imageGalleryHTML}
+        ${price ? `<p style="color: #8b4513; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700; margin-bottom: 0.5rem; text-align: left;">${price}</p>` : ''}
+        ${location ? `<p style="color: #5d4e37; margin-bottom: 2rem; text-align: left; display: flex; align-items: center; gap: 0.5rem; font-size: ${isMobile ? '0.9rem' : '1rem'};"><i class="fas fa-map-marker-alt" style="color: #8b4513;"></i>${location}</p>` : ''}
+        <p style="color: #5d4e37; margin-bottom: 2rem; line-height: 1.6; text-align: left; font-size: ${isMobile ? '0.9rem' : '1rem'};">${description}</p>
+        <div style="display: ${isMobile ? 'flex' : 'flex'}; gap: ${isMobile ? '0.8rem' : '1rem'}; justify-content: center; flex-wrap: wrap; margin-top: 2rem; ${isMobile ? 'flex-direction: column;' : ''}">
+            <a href="tel:+359888123456" style="background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%); color: white; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 1.5rem'}; border-radius: 25px; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s ease; font-size: ${isMobile ? '1rem' : '0.9rem'};" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+                <i class="fas fa-phone"></i> Обадете се
+            </a>
+            <a href="mailto:info@sandercorrect.com" style="background: transparent; color: #8b4513; border: 2px solid #8b4513; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 1.5rem'}; border-radius: 25px; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s ease; font-size: ${isMobile ? '1rem' : '0.9rem'};" onmouseover="this.style.background='#8b4513'; this.style.color='white'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='transparent'; this.style.color='#8b4513'; this.style.transform=''">
+                <i class="fas fa-envelope"></i> Имейл
+            </a>
+            <a href="properties.html" style="background: #f8f6f3; color: #5d4e37; border: none; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 1.5rem'}; border-radius: 25px; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s ease; font-size: ${isMobile ? '1rem' : '0.9rem'};" onmouseover="this.style.background='#8b4513'; this.style.color='white'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f6f3'; this.style.color='#5d4e37'; this.style.transform=''">
+                <i class="fas fa-search"></i> Още имоти
+            </a>
+        </div>
+    `;
+
+    modal.className = 'modal';
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+
+    // Animate modal appearance
+    setTimeout(() => {
+        modal.style.opacity = '1';
+        modalContent.style.transform = isMobile ? 'translateY(0)' : 'scale(1)';
+    }, 10);
+
+    // Close modal when clicking outside
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
+
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+    
+    // Restore body scroll when modal is closed
+    const originalRemove = modal.remove;
+    modal.remove = function() {
+        document.body.style.overflow = '';
+        originalRemove.call(this);
+    };
+}
 // Get badge class for styling
 function getBadgeClass(badge) {
     if (!badge) return '';
