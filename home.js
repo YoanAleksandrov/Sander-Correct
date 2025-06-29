@@ -2023,271 +2023,7 @@ window.filterHomeMapProperties = function(type) {
     showNotification(`Показват се ${typeNames[type]} на картата`, 'info');
 };
 
-// Show enhanced property modal from map with image gallery and smooth scrolling
-window.showMapPropertyModal = function(propertyId) {
-    const property = properties.find(p => p.id === propertyId);
-    if (!property) return;
-    
-    const images = property.images || [property.image || 'images/default.jpg'];
-    let currentModalImageIndex = 0;
-    const isMobile = isMobileDevice();
-    
-    const modal = document.createElement('div');
-    modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        display: flex;
-        align-items: ${isMobile ? 'flex-start' : 'center'};
-        justify-content: center;
-        z-index: 2000;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        padding: ${isMobile ? '0' : '1rem'};
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    `;
 
-    const modalContent = document.createElement('div');
-    modalContent.style.cssText = `
-        background: white;
-        border-radius: ${isMobile ? '0' : '20px'};
-        max-width: 800px;
-        width: 100%;
-        max-height: 100vh;
-        overflow-y: auto;
-        transform: ${isMobile ? 'translateY(100%)' : 'scale(0.8)'};
-        transition: transform 0.3s ease;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-        ${isMobile ? 'margin-top: auto; border-radius: 20px 20px 0 0;' : ''}
-    `;
-
-    modalContent.innerHTML = `
-        <div style="position: relative;">
-            ${images.length > 1 ? `
-                <div id="modal-image-container" style="position: relative; height: ${isMobile ? '250px' : '300px'}; overflow: hidden; border-radius: ${isMobile ? '20px 20px 0 0' : '20px 20px 0 0'};">
-                    <img id="modal-image" src="${images[0]}" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease;" alt="${property.title}">
-                    <button onclick="changeMapModalImage(-1)" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: ${isMobile ? '44px' : '40px'}; height: ${isMobile ? '44px' : '40px'}; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; touch-action: manipulation;">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button onclick="changeMapModalImage(1)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: ${isMobile ? '44px' : '40px'}; height: ${isMobile ? '44px' : '40px'}; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; touch-action: manipulation;">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                    <div style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: ${isMobile ? '6px' : '5px'};" id="modal-dots">
-                        ${images.map((_, index) => 
-                            `<div onclick="setMapModalImage(${index})" style="width: ${isMobile ? '10px' : '8px'}; height: ${isMobile ? '10px' : '8px'}; border-radius: 50%; background: ${index === 0 ? 'white' : 'rgba(255,255,255,0.5)'}; cursor: pointer; transition: all 0.3s ease; touch-action: manipulation;" class="modal-dot" data-index="${index}"></div>`
-                        ).join('')}
-                    </div>
-                    <div style="position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.7); color: white; padding: ${isMobile ? '8px 12px' : '6px 10px'}; border-radius: 12px; font-size: ${isMobile ? '0.9rem' : '0.8rem'}; font-weight: 600;">
-                        <span id="image-counter">${currentModalImageIndex + 1} / ${images.length}</span>
-                    </div>
-                </div>
-            ` : `
-                <div style="height: ${isMobile ? '250px' : '300px'}; overflow: hidden; border-radius: ${isMobile ? '20px 20px 0 0' : '20px 20px 0 0'};">
-                    <img src="${images[0]}" style="width: 100%; height: 100%; object-fit: cover;" alt="${property.title}">
-                </div>
-            `}
-            
-            <div style="padding: ${isMobile ? '1.5rem' : '2rem'};">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-                    <h3 style="color: #3e2723; margin: 0; font-size: ${isMobile ? '1.4rem' : '1.5rem'}; flex: 1; line-height: 1.3;">${property.title}</h3>
-                    <button onclick="closeModal()" style="background: none; border: none; font-size: ${isMobile ? '2rem' : '1.8rem'}; color: #999; cursor: pointer; padding: 0; margin-left: 1rem; min-width: ${isMobile ? '44px' : '30px'}; min-height: ${isMobile ? '44px' : '30px'}; touch-action: manipulation;">×</button>
-                </div>
-                <p style="color: #8b4513; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700; margin-bottom: 0.5rem;">${property.price}</p>
-                <p style="color: #5d4e37; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; font-size: ${isMobile ? '1rem' : '1rem'};"><i class="fas fa-map-marker-alt" style="color: #8b4513;"></i>${property.location}</p>
-                
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; font-size: ${isMobile ? '0.9rem' : '0.9rem'}; color: #5d4e37;">
-                    <div style="display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-expand" style="color: #8b4513; width: 16px;"></i><strong>Площ:</strong> ${property.area}</div>
-                    <div style="display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-door-open" style="color: #8b4513; width: 16px;"></i><strong>Стаи:</strong> ${property.rooms}</div>
-                    <div style="display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-layer-group" style="color: #8b4513; width: 16px;"></i><strong>Етаж:</strong> ${property.floor}</div>
-                    <div style="display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-bath" style="color: #8b4513; width: 16px;"></i><strong>Бани:</strong> ${property.bathrooms}</div>
-                </div>
-                
-                <p style="color: #5d4e37; margin-bottom: 2rem; line-height: 1.6; font-size: ${isMobile ? '1rem' : '1rem'};">${property.description}</p>
-                
-                <div style="display: flex; gap: ${isMobile ? '1rem' : '1rem'}; justify-content: center; flex-direction: ${isMobile ? 'column' : 'row'};">
-                    <a href="tel:+359888123456" style="background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%); color: white; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 1.5rem'}; border-radius: ${isMobile ? '12px' : '25px'}; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s ease; font-size: ${isMobile ? '1rem' : '1rem'}; min-height: ${isMobile ? '56px' : 'auto'}; touch-action: manipulation;">
-                        <i class="fas fa-phone"></i> Обадете се
-                    </a>
-                    <a href="mailto:info@sandercorrect.com" style="background: transparent; color: #8b4513; border: 2px solid #8b4513; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 1.5rem'}; border-radius: ${isMobile ? '12px' : '25px'}; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s ease; font-size: ${isMobile ? '1rem' : '1rem'}; min-height: ${isMobile ? '56px' : 'auto'}; touch-action: manipulation;">
-                        <i class="fas fa-envelope"></i> Имейл
-                    </a>
-                    <a href="properties.html" style="background: #f8f6f3; color: #5d4e37; border: none; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 1.5rem'}; border-radius: ${isMobile ? '12px' : '25px'}; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s ease; font-size: ${isMobile ? '1rem' : '1rem'}; min-height: ${isMobile ? '56px' : 'auto'}; touch-action: manipulation;">
-                        <i class="fas fa-search"></i> Още имоти
-                    </a>
-                </div>
-                
-                ${isMobile ? `<div style="height: 2rem;"></div>` : ''}
-            </div>
-        </div>
-    `;
-
-    // Modal image navigation functions with smooth transitions
-    window.changeMapModalImage = function(direction) {
-        currentModalImageIndex += direction;
-        if (currentModalImageIndex >= images.length) currentModalImageIndex = 0;
-        if (currentModalImageIndex < 0) currentModalImageIndex = images.length - 1;
-        
-        updateMapModalImage();
-    };
-    
-    window.setMapModalImage = function(index) {
-        currentModalImageIndex = index;
-        updateMapModalImage();
-    };
-    
-    window.closeModal = function() {
-        modal.style.opacity = '0';
-        modalContent.style.transform = isMobile ? 'translateY(100%)' : 'scale(0.8)';
-        setTimeout(() => {
-            modal.remove();
-            document.body.style.overflow = '';
-        }, 300);
-    };
-    
-    function updateMapModalImage() {
-        const modalImg = document.getElementById('modal-image');
-        const dots = document.querySelectorAll('.modal-dot');
-        const counter = document.getElementById('image-counter');
-        
-        if (modalImg) {
-            modalImg.style.opacity = '0.7';
-            setTimeout(() => {
-                modalImg.src = images[currentModalImageIndex];
-                modalImg.style.opacity = '1';
-            }, 150);
-        }
-        
-        if (counter) {
-            counter.textContent = `${currentModalImageIndex + 1} / ${images.length}`;
-        }
-        
-        dots.forEach((dot, i) => {
-            dot.style.background = i === currentModalImageIndex ? 'white' : 'rgba(255,255,255,0.5)';
-        });
-    }
-
-    modal.className = 'modal';
-    modal.appendChild(modalContent);
-    document.body.appendChild(modal);
-
-    // Prevent body scroll
-    document.body.style.overflow = 'hidden';
-
-    // Animate modal appearance with smooth transitions
-    setTimeout(() => {
-        modal.style.opacity = '1';
-        modalContent.style.transform = isMobile ? 'translateY(0)' : 'scale(1)';
-    }, 10);
-
-    // Close modal when clicking outside
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-
-    // Enhanced mobile swipe support for modal
-    if (isMobile) {
-        let startY = 0;
-        let currentY = 0;
-        let isDragging = false;
-        let startX = 0;
-        let currentX = 0;
-        
-        modalContent.addEventListener('touchstart', (e) => {
-            startY = e.touches[0].clientY;
-            startX = e.touches[0].clientX;
-            isDragging = true;
-        }, { passive: true });
-        
-        modalContent.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            currentY = e.touches[0].clientY;
-            currentX = e.touches[0].clientX;
-            const deltaY = currentY - startY;
-            const deltaX = Math.abs(currentX - startX);
-            
-            // Only allow vertical swipe to close if not swiping horizontally on images
-            if (deltaX < 50 && deltaY > 0 && modalContent.scrollTop === 0) {
-                modalContent.style.transform = `translateY(${deltaY * 0.3}px)`;
-                modal.style.opacity = Math.max(0.5, 1 - (deltaY / 400));
-            }
-        }, { passive: true });
-        
-        modalContent.addEventListener('touchend', () => {
-            if (!isDragging) return;
-            
-            const deltaY = currentY - startY;
-            const deltaX = Math.abs(currentX - startX);
-            
-            if (deltaX < 50 && deltaY > 100) { // Close if swiped down more than 100px
-                closeModal();
-            } else {
-                modalContent.style.transform = 'translateY(0)';
-                modal.style.opacity = '1';
-            }
-            
-            isDragging = false;
-        }, { passive: true });
-        
-        // Image swipe support
-        const imageContainer = document.getElementById('modal-image-container');
-        if (imageContainer && images.length > 1) {
-            let imageStartX = 0;
-            let imageCurrentX = 0;
-            let imageIsDragging = false;
-            
-            imageContainer.addEventListener('touchstart', (e) => {
-                imageStartX = e.touches[0].clientX;
-                imageIsDragging = true;
-                e.stopPropagation();
-            }, { passive: true });
-            
-            imageContainer.addEventListener('touchmove', (e) => {
-                if (!imageIsDragging) return;
-                imageCurrentX = e.touches[0].clientX;
-                e.stopPropagation();
-            }, { passive: true });
-            
-            imageContainer.addEventListener('touchend', (e) => {
-                if (!imageIsDragging) return;
-                
-                const deltaX = imageStartX - imageCurrentX;
-                
-                if (Math.abs(deltaX) > 50) {
-                    if (deltaX > 0) {
-                        changeMapModalImage(1);
-                    } else {
-                        changeMapModalImage(-1);
-                    }
-                }
-                
-                imageIsDragging = false;
-                e.stopPropagation();
-            }, { passive: true });
-        }
-    }
-
-    // Keyboard navigation
-    const handleKeyPress = (e) => {
-        if (e.key === 'ArrowLeft') changeMapModalImage(-1);
-        if (e.key === 'ArrowRight') changeMapModalImage(1);
-        if (e.key === 'Escape') closeModal();
-    };
-    
-    document.addEventListener('keydown', handleKeyPress);
-
-    // Clean up on modal close
-    modal.addEventListener('remove', () => {
-        document.removeEventListener('keydown', handleKeyPress);
-    });
-};
 
 // View property details
 window.viewPropertyDetails = function(propertyTitle) {
@@ -2388,3 +2124,125 @@ window.addEventListener('beforeunload', () => {
         }
     });
 });
+
+// Updated addPropertiesToHomeMap function to use the same modal as property section
+function addPropertiesToHomeMap() {
+    // Clear existing markers
+    homeMapMarkers.forEach(marker => homeMap.removeLayer(marker));
+    homeMapMarkers = [];
+    
+    // Use the unified properties data with coordinates
+    let filteredProperties = properties.filter(property => property.coordinates);
+    if (currentHomeMapFilter !== 'all') {
+        filteredProperties = filteredProperties.filter(property => property.type === currentHomeMapFilter);
+    }
+    
+    filteredProperties.forEach(property => {
+        // Create custom marker
+        const markerElement = L.divIcon({
+            className: 'custom-marker-container',
+            html: `<div class="custom-marker ${property.type}">${property.type === 'apartment' ? 'А' : property.type === 'house' ? 'К' : property.type === 'land' ? 'П' : 'Т'}</div>`,
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        });
+        
+        // Get first image for popup
+        const images = property.images || [property.image || 'images/default.jpg'];
+        const firstImage = images[0] || 'images/default.jpg';
+        
+        // Create popup content with image - Updated to use enhanced modal
+        const popupContent = `
+            <div class="property-popup">
+                <div class="popup-image-container" style="position: relative; height: 120px; overflow: hidden; border-radius: 12px 12px 0 0;">
+                    <img src="${firstImage}" alt="${property.title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='images/default.jpg'">
+                    ${images.length > 1 ? `
+                        <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">
+                            <i class="fas fa-images"></i> ${images.length}
+                        </div>
+                    ` : ''}
+                    <div class="property-badge ${getBadgeClass(property.badge)}" style="position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.9); color: #8b4513; padding: 4px 8px; border-radius: 8px; font-size: 0.7rem; font-weight: 700;">${property.badge || ''}</div>
+                </div>
+                <div class="popup-content" style="padding: 1rem;">
+                    <div class="popup-price" style="font-size: 1.1rem; font-weight: 800; background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem;">${property.price}</div>
+                    <div class="popup-title" style="font-size: 1rem; font-weight: 700; color: #3e2723; margin-bottom: 0.5rem; line-height: 1.3;">${property.title}</div>
+                    <div class="popup-location" style="color: #8b4513; font-size: 0.85rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.3rem;">
+                        <i class="fas fa-map-marker-alt"></i>
+                        ${property.location}
+                    </div>
+                    <div class="popup-details" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; margin-bottom: 0.8rem; font-size: 0.8rem; color: #5d4e37;">
+                        <div><strong>Площ:</strong> ${property.area}</div>
+                        <div><strong>Стаи:</strong> ${property.rooms}</div>
+                    </div>
+                    <div class="popup-actions" style="display: flex; gap: 0.5rem;">
+                        <button class="popup-btn popup-btn-primary" onclick="contactAboutProperty('${property.title}')" style="flex: 1; background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%); color: white; border: none; padding: 0.6rem; border-radius: 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.3rem;">
+                            <i class="fas fa-phone"></i> Контакт
+                        </button>
+                        <button class="popup-btn popup-btn-secondary" onclick="showEnhancedPropertyModal(${property.id})" style="flex: 1; background: transparent; color: #8b4513; border: 2px solid #8b4513; padding: 0.6rem; border-radius: 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.3rem;">
+                            <i class="fas fa-info-circle"></i> Детайли
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add marker to map with click event - Updated to use enhanced modal
+           const marker = L.marker(property.coordinates, { icon: markerElement })
+            .addTo(homeMap)
+            .bindPopup(popupContent, {
+                maxWidth: 300,
+                className: 'custom-popup'
+            });
+        
+        // Optional: Add double-click event to open enhanced modal directly
+        marker.on('dblclick', function() {
+            showEnhancedPropertyModal(property.id);
+        });
+        
+        homeMapMarkers.push(marker);
+    });
+}
+
+       
+
+// Remove the old showMapPropertyModal function and update any references
+// Now all property modals (from property section and map) use the same enhanced modal
+
+// Update the viewPropertyDetails function to also use enhanced modal
+window.viewPropertyDetails = function(propertyTitle) {
+    const property = properties.find(p => p.title === propertyTitle);
+    if (property) {
+        showEnhancedPropertyModal(property.id);
+    }
+};
+
+// Update the contactAboutProperty function to work from map popups
+function contactAboutProperty(propertyTitle) {
+    window.location.href = 'contact.html?property=' + encodeURIComponent(propertyTitle);
+}
+
+// Schedule viewing function (if called from popups)
+function scheduleViewing(propertyTitle) {
+    showEnhancedPropertyModal(
+        properties.find(p => p.title === propertyTitle)?.id || 1
+    );
+}
+
+// Make sure to remove the old showMapPropertyModal function from your code
+// and replace all references to it with showEnhancedPropertyModal
+
+// Updated initializeHomeMap function (ensure this matches your current setup)
+function initializeHomeMap() {
+    const homeMapElement = document.getElementById('homeMap');
+    if (!homeMapElement || typeof L === 'undefined') return;
+    
+    // Initialize map centered on Sofia
+    homeMap = L.map('homeMap').setView([42.6977, 23.3219], 11);
+    
+    // Add tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(homeMap);
+    
+    // Add all properties to map using the updated function
+    addPropertiesToHomeMap();
+}

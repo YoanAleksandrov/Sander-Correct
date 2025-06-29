@@ -138,25 +138,16 @@
                 </div>
                 
                 <div class="sort-controls">
-                    <label for="sortBy">Сортиране по:</label>
-                    <select id="sortBy" onchange="sortProperties(this.value)">
-                        <option value="default">По подразбиране</option>
-                        <option value="price-asc">Цена: възходящо</option>
-                        <option value="price-desc">Цена: низходящо</option>
-                        <option value="area-asc">Площ: възходящо</option>
-                        <option value="area-desc">Площ: низходящо</option>
-                        <option value="newest">Най-нови</option>
-                    </select>
-                    
-                    <div class="view-toggle">
-                        <button class="view-btn active" onclick="toggleView('grid')" title="Мрежа">
-                            <i class="fas fa-th"></i>
-                        </button>
-                        <button class="view-btn" onclick="toggleView('list')" title="Списък">
-                            <i class="fas fa-list"></i>
-                        </button>
-                    </div>
-                </div>
+    <label for="sortBy">Сортиране по:</label>
+    <select id="sortBy" onchange="sortProperties(this.value)">
+        <option value="default">По подразбиране</option>
+        <option value="price-asc">Цена: възходящо</option>
+        <option value="price-desc">Цена: низходящо</option>
+        <option value="area-asc">Площ: възходящо</option>
+        <option value="area-desc">Площ: низходящо</option>
+        <option value="newest">Най-нови</option>
+    </select>
+</div>
             </div>
 
             <!-- Results Count -->
