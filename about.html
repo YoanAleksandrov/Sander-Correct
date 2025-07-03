@@ -56,22 +56,8 @@
             </div>
             <div class="hero-visual">
                 <div class="hero-image">
-                    <img src="./images/Team.png" alt="Sander Correct Team" loading="eager">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Modern Real Estate Office" loading="eager">
                     <div class="hero-overlay"></div>
-                </div>
-                <div class="floating-cards">
-                    <div class="floating-card card-1">
-                        <i class="fas fa-home"></i>
-                        <span>Жилищни имоти</span>
-                    </div>
-                    <div class="floating-card card-2">
-                        <i class="fas fa-building"></i>
-                        <span>Офиси</span>
-                    </div>
-                    <div class="floating-card card-3">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Инвестиции</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -152,7 +138,7 @@
         </div>
     </section>
 
-    <!-- Enhanced Team Section -->
+    <!-- Team Section -->
     <section class="team-section" id="team">
         <div class="container">
             <div class="section-header">
@@ -161,144 +147,177 @@
                 <p>Екип от опитни специалисти, готови да ви помогнат във всеки етап от процеса</p>
             </div>
 
-            <!-- Team Lead -->
-            <div class="team-lead">
-                <div class="lead-card">
-                    <div class="lead-image">
-                        <img src="./images/single_man.png" alt="Александър Петров">
-                        <div class="lead-badge">Управляващ директор</div>
-                    </div>
-                    <div class="lead-info">
-                        <h3>Александър Петров</h3>
-                        <p>С над 15 години опит в сферата на недвижимите имоти, Александър е визионерът зад успеха на Sander Correct.</p>
-                        <div class="lead-achievements">
-                            <span><i class="fas fa-award"></i> 500+ сделки</span>
-                            <span><i class="fas fa-certificate"></i> RICS член</span>
-                            <span><i class="fas fa-star"></i> 15+ години</span>
-                        </div>
-                        <div class="lead-contact">
-                            <a href="tel:+359888123456" class="contact-btn-small">
-                                <i class="fas fa-phone"></i>
-                            </a>
-                            <a href="mailto:aleksandar@sandercorrect.com" class="contact-btn-small">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Scrollable Team Grid -->
             <div class="team-container">
-                <div class="team-scroll">
-                    <div class="team-card">
+                <div class="team-scroll" id="teamScroll">
+                    <div class="team-card" onclick="showTeamMemberModal('aleksandar')">
                         <div class="card-image">
-                            <img src="./images/single_woman.png" alt="Мария Стоянова">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Александър Петров">
+                            <div class="card-overlay">
+                                <div class="overlay-content">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>Виж профил</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h4>Александър Петров</h4>
+                            <span class="position">Управляващ директор</span>
+                            <p>С над 15 години опит в сферата на недвижимите имоти</p>
+                            <div class="quick-actions">
+                                <a href="tel:+359888123456" onclick="event.stopPropagation();">
+                                    <i class="fas fa-phone"></i>
+                                </a>
+                                <a href="mailto:aleksandar@sandercorrect.com" onclick="event.stopPropagation();">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-card" onclick="showTeamMemberModal('maria')">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Мария Стоянова">
+                            <div class="card-overlay">
+                                <div class="overlay-content">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>Виж профил</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-content">
                             <h4>Мария Стоянова</h4>
                             <span class="position">Старши брокер</span>
                             <p>Специалист по жилищни имоти в София</p>
                             <div class="quick-actions">
-                                <a href="tel:+359888123457">
+                                <a href="tel:+359888123457" onclick="event.stopPropagation();">
                                     <i class="fas fa-phone"></i>
                                 </a>
-                                <a href="mailto:maria@sandercorrect.com">
+                                <a href="mailto:maria@sandercorrect.com" onclick="event.stopPropagation();">
                                     <i class="fas fa-envelope"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="team-card">
+                    <div class="team-card" onclick="showTeamMemberModal('dimitar')">
                         <div class="card-image">
-                            <img src="./images/single_man.png" alt="Димитър Марков">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Димитър Марков">
+                            <div class="card-overlay">
+                                <div class="overlay-content">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>Виж профил</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-content">
                             <h4>Димитър Марков</h4>
                             <span class="position">Правен консултант</span>
                             <p>12 години опит в правни услуги</p>
                             <div class="quick-actions">
-                                <a href="tel:+359888123458">
+                                <a href="tel:+359888123458" onclick="event.stopPropagation();">
                                     <i class="fas fa-phone"></i>
                                 </a>
-                                <a href="mailto:dimitar@sandercorrect.com">
+                                <a href="mailto:dimitar@sandercorrect.com" onclick="event.stopPropagation();">
                                     <i class="fas fa-envelope"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="team-card">
+                    <div class="team-card" onclick="showTeamMemberModal('elena')">
                         <div class="card-image">
-                            <img src="./images/single_woman.png" alt="Елена Георгиева">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Елена Георгиева">
+                            <div class="card-overlay">
+                                <div class="overlay-content">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>Виж профил</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-content">
                             <h4>Елена Георгиева</h4>
                             <span class="position">Маркетинг мениджър</span>
                             <p>Дигитален маркетинг и реклама</p>
                             <div class="quick-actions">
-                                <a href="tel:+359888123459">
+                                <a href="tel:+359888123459" onclick="event.stopPropagation();">
                                     <i class="fas fa-phone"></i>
                                 </a>
-                                <a href="mailto:elena@sandercorrect.com">
+                                <a href="mailto:elena@sandercorrect.com" onclick="event.stopPropagation();">
                                     <i class="fas fa-envelope"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="team-card">
+                    <div class="team-card" onclick="showTeamMemberModal('ivan')">
                         <div class="card-image">
-                            <img src="./images/single_man.png" alt="Иван Попов">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Иван Попов">
+                            <div class="card-overlay">
+                                <div class="overlay-content">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>Виж профил</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-content">
                             <h4>Иван Попов</h4>
                             <span class="position">Финансов консултант</span>
                             <p>Специалист по ипотечно кредитиране</p>
                             <div class="quick-actions">
-                                <a href="tel:+359888123460">
+                                <a href="tel:+359888123460" onclick="event.stopPropagation();">
                                     <i class="fas fa-phone"></i>
                                 </a>
-                                <a href="mailto:ivan@sandercorrect.com">
+                                <a href="mailto:ivan@sandercorrect.com" onclick="event.stopPropagation();">
                                     <i class="fas fa-envelope"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="team-card">
+                    <div class="team-card" onclick="showTeamMemberModal('svetlana')">
                         <div class="card-image">
-                            <img src="./images/single_woman.png" alt="Светлана Димитрова">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Светлана Димитрова">
+                            <div class="card-overlay">
+                                <div class="overlay-content">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>Виж профил</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-content">
                             <h4>Светлана Димитрова</h4>
                             <span class="position">Офис мениджър</span>
                             <p>Администрация и клиентски услуги</p>
                             <div class="quick-actions">
-                                <a href="tel:+359888123461">
+                                <a href="tel:+359888123461" onclick="event.stopPropagation();">
                                     <i class="fas fa-phone"></i>
                                 </a>
-                                <a href="mailto:svetlana@sandercorrect.com">
+                                <a href="mailto:svetlana@sandercorrect.com" onclick="event.stopPropagation();">
                                     <i class="fas fa-envelope"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="team-card">
+                    <div class="team-card" onclick="showTeamMemberModal('georgi')">
                         <div class="card-image">
-                            <img src="./images/single_man.png" alt="Георги Василев">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Георги Василев">
+                            <div class="card-overlay">
+                                <div class="overlay-content">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>Виж профил</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-content">
                             <h4>Георги Василев</h4>
                             <span class="position">Технически експерт</span>
                             <p>VR технологии и дигитални решения</p>
                             <div class="quick-actions">
-                                <a href="tel:+359888123462">
+                                <a href="tel:+359888123462" onclick="event.stopPropagation();">
                                     <i class="fas fa-phone"></i>
                                 </a>
-                                <a href="mailto:georgi@sandercorrect.com">
+                                <a href="mailto:georgi@sandercorrect.com" onclick="event.stopPropagation();">
                                     <i class="fas fa-envelope"></i>
                                 </a>
                             </div>
@@ -306,7 +325,6 @@
                     </div>
                 </div>
                 
-                <!-- Scroll indicators -->
                 <div class="scroll-indicators">
                     <button class="scroll-btn scroll-left" onclick="scrollTeam(-1)">
                         <i class="fas fa-chevron-left"></i>
@@ -319,7 +337,7 @@
         </div>
     </section>
 
-    <!-- Enhanced News Section -->
+    <!-- News Section -->
     <section class="news-section" id="news">
         <div class="container">
             <div class="section-header">
@@ -329,91 +347,78 @@
             </div>
 
             <div class="news-container">
-                <div class="news-scroll">
-                    <article class="news-card">
+                <div class="news-compact-grid">
+                    <article class="news-card" onclick="showNewsModal(1)">
                         <div class="news-image">
                             <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Нови апартаменти в Витоша" loading="lazy">
-                            <div class="news-category featured">Нови проекти</div>
-                            <div class="news-date">25.06.2025</div>
+                            <div class="news-category">Нови проекти</div>
                         </div>
                         <div class="news-content">
+                            <div class="news-date">25.06.2025</div>
                             <h3>Нови апартаменти в Витоша</h3>
-                            <p>Открихме нова жилищна сграда с луксозни апартаменти в подножието на Витоша с невероятна гледка към планината и града.</p>
-                            <div class="news-meta">
-                                <span class="read-time"><i class="fas fa-clock"></i> 3 мин четене</span>
-                            </div>
+                            <p>Открихме нова жилищна сграда с луксозни апартаменти в подножието на Витоша.</p>
                         </div>
                     </article>
 
-                    <article class="news-card">
+                    <article class="news-card" onclick="showNewsModal(2)">
                         <div class="news-image">
                             <img src="https://images.unsplash.com/photo-1460472178825-e5240623afd5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Ръст на цените на имотите" loading="lazy">
                             <div class="news-category">Пазарен анализ</div>
-                            <div class="news-date">20.06.2025</div>
                         </div>
                         <div class="news-content">
+                            <div class="news-date">20.06.2025</div>
                             <h3>Ръст на цените на имотите</h3>
-                            <p>Анализ на пазара показва 5% ръст на цените на жилищните имоти в София през последното тримесечие.</p>
-                            <div class="news-meta">
-                                <span class="read-time"><i class="fas fa-clock"></i> 5 мин четене</span>
-                            </div>
+                            <p>Анализ на пазара показва 5% ръст на цените на жилищните имоти в София.</p>
                         </div>
                     </article>
 
-                    <article class="news-card">
+                    <article class="news-card" onclick="showNewsModal(3)">
                         <div class="news-image">
                             <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Виртуални обиколки" loading="lazy">
                             <div class="news-category">Иновации</div>
-                            <div class="news-date">15.06.2025</div>
                         </div>
                         <div class="news-content">
+                            <div class="news-date">15.06.2025</div>
                             <h3>Виртуални обиколки 360°</h3>
-                            <p>Въведохме най-новата технология за 360° виртуални обиколки за всички наши имоти.</p>
-                            <div class="news-meta">
-                                <span class="read-time"><i class="fas fa-clock"></i> 2 мин четене</span>
-                            </div>
+                            <p>Въведохме най-новата технология за 360° виртуални обиколки.</p>
                         </div>
                     </article>
 
-                    <article class="news-card">
+                    <article class="news-card" onclick="showNewsModal(4)">
                         <div class="news-image">
                             <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Партньорство с банки" loading="lazy">
                             <div class="news-category">Партньорства</div>
-                            <div class="news-date">10.06.2025</div>
                         </div>
                         <div class="news-content">
+                            <div class="news-date">10.06.2025</div>
                             <h3>Партньорство с водещи банки</h3>
-                            <p>Сключихме договори с 5 нови банки за по-изгодни кредитни условия с лихви от 3.5%.</p>
-                            <div class="news-meta">
-                                <span class="read-time"><i class="fas fa-clock"></i> 4 мин четене</span>
-                            </div>
+                            <p>Сключихме договори с 5 нови банки за по-изгодни кредитни условия.</p>
                         </div>
                     </article>
 
-                    <article class="news-card">
+                    <article class="news-card" onclick="showNewsModal(5)">
                         <div class="news-image">
                             <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Нов офис" loading="lazy">
                             <div class="news-category">Компания</div>
-                            <div class="news-date">05.06.2025</div>
                         </div>
                         <div class="news-content">
+                            <div class="news-date">05.06.2025</div>
                             <h3>Откриване на нов офис</h3>
-                            <p>Откриваме нов офис в центъра на София за по-добро обслужване на нашите клиенти.</p>
-                            <div class="news-meta">
-                                <span class="read-time"><i class="fas fa-clock"></i> 3 мин четене</span>
-                            </div>
+                            <p>Откриваме нов офис в центъра на София за по-добро обслужване.</p>
                         </div>
                     </article>
-                </div>
-                
-                <!-- Scroll indicators for news -->
-                <div class="scroll-indicators">
-                    <button class="scroll-btn scroll-left" onclick="scrollNews(-1)">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="scroll-btn scroll-right" onclick="scrollNews(1)">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+
+                    <article class="news-card" onclick="showNewsModal(6)">
+                        <div class="news-image">
+                            <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Нова услуга оценка" loading="lazy">
+                            <div class="news-category">Услуги</div>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-date">01.06.2025</div>
+                            <h3>Безплатна оценка на имоти</h3>
+                            <p>Стартираме нова услуга за безплатна оценка на жилищни имоти.</p>
+                        </div>
+                    </article>
                 </div>
             </div>
         </div>
@@ -515,7 +520,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Sander Correct. Всички права запазени. | Условия за ползване</a> | Политика за поверителност</a></p>
+                <p>&copy; 2025 Sander Correct. Всички права запазени. | Условия за ползване | Политика за поверителност</p>
             </div>
         </div>
     </footer>
