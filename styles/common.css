@@ -48,34 +48,40 @@ body {
     height: 80px;
 }
 
+.logo-image {
+    height: 60px;
+    width: auto;
+    max-width: 300px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.logo-image:hover {
+    transform: scale(1.05);
+}
+
+/* Update the existing .logo class to accommodate the image */
 .logo {
     display: flex;
     align-items: center;
     gap: 1rem;
     cursor: pointer;
+    height: 60px;
 }
 
-.logo-text {
-    font-size: 2rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #8b4513 0%, #d2691e 50%, #cd853f 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -1px;
+/* Optional: Responsive adjustments */
+@media (max-width: 768px) {
+    .logo-image {
+        height: 45px;
+        max-width: 200px;
+    }
 }
 
-.logo-icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 700;
-    font-size: 1.1rem;
+@media (max-width: 480px) {
+    .logo-image {
+        height: 40px;
+        max-width: 150px;
+    }
 }
 
 .nav-menu {
