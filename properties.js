@@ -1,4 +1,4 @@
-// Enhanced Properties & Search Functionality - Fixed Modal Integration
+// Enhanced Properties & Search Functionality - Updated with Parking and Price per SqM
 
 let currentFilter = 'all';
 let currentSort = 'default';
@@ -602,7 +602,7 @@ function updateURL() {
     window.history.pushState({}, '', newURL);
 }
 
-// Enhanced property card with image carousel - SAME AS INDEX PAGE
+// Enhanced property card with image carousel, parking and price per sqm - UPDATED
 function createEnhancedPropertyCard(property) {
     // Initialize image index for this property
     if (!propertyImageIndices[property.id]) {
@@ -612,6 +612,22 @@ function createEnhancedPropertyCard(property) {
     const currentImageIndex = propertyImageIndices[property.id];
     const images = property.images || [property.image || 'images/default.jpg'];
     const hasMultipleImages = images.length > 1;
+    
+    // Get parking information - categorized (SAME AS INDEX PAGE)
+    const parkingText = (property.parking || '').toLowerCase();
+    let parkingInfo = 'Няма паркинг';
+    let parkingClass = 'no-parking';
+    
+    if (parkingText.includes('гараж')) {
+        parkingInfo = 'Гараж';
+        parkingClass = 'garage';
+    } else if (parkingText.includes('паркомясто') || parkingText.includes('паркинг') || parkingText.includes('подземен')) {
+        parkingInfo = 'Паркомясто';
+        parkingClass = 'parking-space';
+    } else if (parkingText.includes('двор') || parkingText.includes('на терен')) {
+        parkingInfo = 'Паркомясто';
+        parkingClass = 'parking-space';
+    }
     
     return `
         <div class="property-card fade-in" onclick="showEnhancedPropertyModal(${property.id})">
@@ -642,6 +658,7 @@ function createEnhancedPropertyCard(property) {
             <div class="property-content">
                 <div class="property-content-top">
                     <div class="property-price">${property.price}</div>
+                    <div class="property-price-per-sqm">${property.price_per_sqm || 'Цена по договаряне'}</div>
                     <div class="property-title">${property.title}</div>
                     <div class="property-location">${property.location}</div>
                     <div class="property-details">
@@ -661,6 +678,10 @@ function createEnhancedPropertyCard(property) {
                             <div class="detail-icon"></div>
                             <span>${property.bathrooms}</span>
                         </div>
+                    </div>
+                    <div class="property-parking ${parkingClass}">
+                        <i class="fas ${parkingClass === 'garage' ? 'fa-warehouse' : parkingClass === 'parking-space' ? 'fa-car' : 'fa-times-circle'}"></i>
+                        <span>${parkingInfo}</span>
                     </div>
                     <p class="property-description">${property.description}</p>
                 </div>
@@ -817,11 +838,27 @@ window.showEnhancedPropertyModal = function(propertyId) {
     let currentModalImageIndex = 0;
     const isMobile = isMobileDevice();
     
+    // Get parking information for modal - categorized (SAME AS INDEX PAGE)
+    const parkingText = (property.parking || '').toLowerCase();
+    let parkingInfo = 'Няма паркинг';
+    let parkingClass = 'no-parking';
+    
+    if (parkingText.includes('гараж')) {
+        parkingInfo = 'Гараж';
+        parkingClass = 'garage';
+    } else if (parkingText.includes('паркомясто') || parkingText.includes('паркинг') || parkingText.includes('подземен')) {
+        parkingInfo = 'Паркомясто';
+        parkingClass = 'parking-space';
+    } else if (parkingText.includes('двор') || parkingText.includes('на терен')) {
+        parkingInfo = 'Паркомясто';
+        parkingClass = 'parking-space';
+    }
+    
     // Additional property details
     const additionalDetails = {
         year: property.year || '2020',
         heating: property.heating || 'Централно парно',
-        parking: property.parking || 'Гараж',
+        parking: parkingInfo, // Use the categorized parking info
         exposure: property.exposure || 'Изток/Запад',
         condition: property.condition || 'Отлично',
         furniture: property.furniture || 'Обзаведен',
@@ -837,14 +874,14 @@ window.showEnhancedPropertyModal = function(propertyId) {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.9);
+        background: rgba(77, 77, 77, 0.95);
         display: flex;
-        align-items: center;
+        align-items: ${isMobile ? 'flex-start' : 'center'};
         justify-content: center;
         z-index: 2000;
         opacity: 0;
-        transition: opacity 0.4s ease;
-        padding: ${isMobile ? '0' : '2rem'};
+        transition: opacity 0.3s ease;
+        padding: ${isMobile ? '0' : '1rem'};
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
     `;
@@ -852,173 +889,195 @@ window.showEnhancedPropertyModal = function(propertyId) {
     const modalContent = document.createElement('div');
     modalContent.style.cssText = `
         background: white;
-        border-radius: ${isMobile ? '0' : '24px'};
-        max-width: 900px;
+        border-radius: ${isMobile ? '0' : '25px'};
+        max-width: 1000px;
         width: 100%;
-        max-height: ${isMobile ? '100vh' : '90vh'};
-        overflow: hidden;
-        transform: ${isMobile ? 'translateY(100%)' : 'scale(0.9) translateY(20px)'};
-        transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
-        position: relative;
-        display: flex;
-        flex-direction: column;
+        max-height: 90vh;
+        overflow-y: auto;
+        transform: ${isMobile ? 'translateY(100%)' : 'scale(0.8)'};
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        ${isMobile ? 'margin-top: auto; border-radius: 25px 25px 0 0;' : ''}
     `;
 
     modalContent.innerHTML = `
-        <!-- Close Button -->
-        <button onclick="closeEnhancedModal()" style="position: absolute; top: ${isMobile ? '15px' : '20px'}; right: ${isMobile ? '15px' : '20px'}; z-index: 100; background: rgba(255, 255, 255, 0.9); border: none; border-radius: 50%; width: ${isMobile ? '44px' : '40px'}; height: ${isMobile ? '44px' : '40px'}; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(10px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s ease; touch-action: manipulation;">
-            <i class="fas fa-times" style="font-size: ${isMobile ? '1.2rem' : '1.1rem'}; color: #666;"></i>
-        </button>
-
-        <!-- Image Gallery Section -->
-        <div id="modal-image-gallery" style="position: relative; height: ${isMobile ? '280px' : '350px'}; overflow: hidden; background: #f8f6f3; flex-shrink: 0;">
-            <div id="modal-image-container" style="width: ${images.length * 100}%; height: 100%; display: flex; transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);">
-                ${images.map((image, index) => `
-                    <div style="width: ${100 / images.length}%; height: 100%; flex-shrink: 0; position: relative;">
-                        <img src="${image}" style="width: 100%; height: 100%; object-fit: cover;" alt="${property.title} - Image ${index + 1}" onerror="this.src='images/default.jpg'">
+        <div style="position: relative;">
+            <!-- Image Gallery Section -->
+            <div id="modal-image-gallery" style="position: relative; height: ${isMobile ? '350px' : '400px'}; overflow: hidden; border-radius: ${isMobile ? '25px 25px 0 0' : '25px 25px 0 0'}; background: #f8f6f3;">
+                <div id="modal-image-slider" style="display: flex; height: 100%; transition: transform 0.3s ease; width: ${images.length * 100}%;">
+                    ${images.map((image, index) => `
+                        <div style="width: ${100 / images.length}%; height: 100%; flex-shrink: 0;">
+                            <img src="${image}" style="width: 100%; height: 100%; object-fit: cover;" alt="${property.title} - Image ${index + 1}" onerror="this.src='images/default.jpg'">
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <!-- Navigation Arrows -->
+                ${images.length > 1 ? `
+                    <button onclick="changeModalImage(-1)" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: ${isMobile ? '50px' : '45px'}; height: ${isMobile ? '50px' : '45px'}; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; touch-action: manipulation; z-index: 10;">
+                        <i class="fas fa-chevron-left" style="font-size: ${isMobile ? '1.2rem' : '1rem'};"></i>
+                    </button>
+                    <button onclick="changeModalImage(1)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: ${isMobile ? '50px' : '45px'}; height: ${isMobile ? '50px' : '45px'}; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; touch-action: manipulation; z-index: 10;">
+                        <i class="fas fa-chevron-right" style="font-size: ${isMobile ? '1.2rem' : '1rem'};"></i>
+                    </button>
+                ` : ''}
+                
+                <!-- Image Counter -->
+                <div style="position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.8); color: white; padding: ${isMobile ? '8px 12px' : '6px 10px'}; border-radius: 15px; font-size: ${isMobile ? '0.9rem' : '0.8rem'}; font-weight: 600; z-index: 10;">
+                    <span id="image-counter">${currentModalImageIndex + 1} / ${images.length}</span>
+                </div>
+                
+                <!-- Property Badge -->
+                <div style="position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.95); color: #8b4513; padding: ${isMobile ? '8px 12px' : '6px 10px'}; border-radius: 12px; font-size: ${isMobile ? '0.8rem' : '0.75rem'}; font-weight: 700; text-transform: uppercase; z-index: 10; ${property.badge ? '' : 'display: none;'}">
+                    ${property.badge || ''}
+                </div>
+                
+                <!-- Image Dots -->
+                ${images.length > 1 ? `
+                    <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: ${isMobile ? '8px' : '6px'}; z-index: 10;" id="modal-image-dots">
+                        ${images.map((_, index) => 
+                            `<div onclick="setModalImage(${index})" style="width: ${isMobile ? '12px' : '10px'}; height: ${isMobile ? '12px' : '10px'}; border-radius: 50%; background: ${index === 0 ? 'white' : 'rgba(255,255,255,0.5)'}; cursor: pointer; transition: all 0.3s ease; touch-action: manipulation; border: 2px solid rgba(0,0,0,0.2);" class="modal-image-dot" data-index="${index}"></div>`
+                        ).join('')}
                     </div>
-                `).join('')}
+                ` : ''}
             </div>
             
-            <!-- Navigation Arrows -->
-            ${images.length > 1 ? `
-                <button onclick="changeModalImage(-1)" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.95); color: #333; border: none; border-radius: 50%; width: ${isMobile ? '50px' : '48px'}; height: ${isMobile ? '50px' : '48px'}; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; touch-action: manipulation; z-index: 10; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); backdrop-filter: blur(10px);">
-                    <i class="fas fa-chevron-left" style="font-size: ${isMobile ? '1.2rem' : '1.1rem'};"></i>
-                </button>
-                <button onclick="changeModalImage(1)" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.95); color: #333; border: none; border-radius: 50%; width: ${isMobile ? '50px' : '48px'}; height: ${isMobile ? '50px' : '48px'}; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; touch-action: manipulation; z-index: 10; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); backdrop-filter: blur(10px);">
-                    <i class="fas fa-chevron-right" style="font-size: ${isMobile ? '1.2rem' : '1.1rem'};"></i>
-                </button>
-            ` : ''}
-            
-            <!-- Image Counter -->
-            <div style="position: absolute; top: 20px; left: 20px; background: rgba(0, 0, 0, 0.7); color: white; padding: ${isMobile ? '8px 12px' : '6px 10px'}; border-radius: 20px; font-size: ${isMobile ? '0.85rem' : '0.8rem'}; font-weight: 600; z-index: 10; backdrop-filter: blur(10px);">
-                <span id="image-counter">${currentModalImageIndex + 1} / ${images.length}</span>
-            </div>
-            
-            <!-- Property Badge -->
-            ${property.badge ? `
-                <div style="position: absolute; top: 20px; right: 70px; background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%); color: white; padding: ${isMobile ? '8px 12px' : '6px 10px'}; border-radius: 16px; font-size: ${isMobile ? '0.8rem' : '0.75rem'}; font-weight: 700; text-transform: uppercase; z-index: 10; box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);">
-                    ${property.badge}
-                </div>
-            ` : ''}
-            
-            <!-- Image Dots -->
-            ${images.length > 1 ? `
-                <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: ${isMobile ? '8px' : '6px'}; z-index: 10;" id="modal-image-dots">
-                    ${images.map((_, index) => 
-                        `<div onclick="setModalImage(${index})" style="width: ${isMobile ? '12px' : '10px'}; height: ${isMobile ? '12px' : '10px'}; border-radius: 50%; background: ${index === 0 ? 'white' : 'rgba(255,255,255,0.4)'}; cursor: pointer; transition: all 0.3s ease; touch-action: manipulation; border: 2px solid rgba(255, 255, 255, 0.3); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);" class="modal-image-dot" data-index="${index}"></div>`
-                    ).join('')}
-                </div>
-            ` : ''}
-        </div>
-        
-        <!-- Scrollable Content -->
-        <div style="flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; scroll-behavior: smooth;">
-            <div style="padding: ${isMobile ? '2rem 1.5rem' : '2.5rem 3rem'};">
-                <!-- Header Section -->
-                <div style="margin-bottom: 2rem;">
-                    <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem;">
-                        <div style="flex: 1; margin-right: 1rem;">
-                            <h2 style="color: #2c1810; margin: 0 0 0.8rem 0; font-size: ${isMobile ? '1.5rem' : '1.8rem'}; font-weight: 800; line-height: 1.2;">${property.title}</h2>
-                            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
-                                <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800;">${property.price}</div>
-                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.1) 0%, rgba(210, 105, 30, 0.1) 100%); color: #8b4513; padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${additionalDetails.price_per_sqm}</div>
-                            </div>
+            <!-- Content Section -->
+            <div style="padding: ${isMobile ? '2rem 1.5rem' : '2.5rem'};">
+                <!-- Header -->
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                    <div style="flex: 1;">
+                        <h2 style="color: #3e2723; margin: 0 0 0.5rem 0; font-size: ${isMobile ? '1.5rem' : '1.8rem'}; font-weight: 800; line-height: 1.2;">${property.title}</h2>
+                        <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.5rem;">${property.price}</div>
+                        <div style="color: #d2691e; font-size: ${isMobile ? '1rem' : '1.1rem'}; font-weight: 600; margin-bottom: 0.5rem;">${additionalDetails.price_per_sqm}</div>
+                        <div style="color: #5d4e37; font-size: ${isMobile ? '1rem' : '1.1rem'}; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-map-marker-alt" style="color: #8b4513;"></i>
+                            ${property.location}
                         </div>
-                        <button onclick="toggleModalFavorite(${property.id})" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); border: none; color: white; padding: 0.8rem; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(238, 90, 82, 0.3); touch-action: manipulation; min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center;">
-                            <i class="far fa-heart" id="modal-heart-${property.id}" style="font-size: 1.1rem;"></i>
-                        </button>
                     </div>
-                    
-                    <div style="color: #5d4e37; font-size: ${isMobile ? '1rem' : '1.1rem'}; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
-                        <i class="fas fa-map-marker-alt" style="color: #8b4513;"></i>
-                        ${property.location}
+                    <button onclick="closeEnhancedModal()" style="background: none; border: none; font-size: ${isMobile ? '2.2rem' : '2rem'}; color: #999; cursor: pointer; padding: 0; margin-left: 1rem; min-width: ${isMobile ? '50px' : '40px'}; min-height: ${isMobile ? '50px' : '40px'}; touch-action: manipulation; display: flex; align-items: center; justify-content: center;">×</button>
+                </div>
+                
+                <!-- Key Details Grid -->
+                <div style="display: grid; grid-template-columns: repeat(${isMobile ? '2' : '4'}, 1fr); gap: ${isMobile ? '1rem' : '1.5rem'}; margin-bottom: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #f8f6f3 0%, #faf9f7 100%); border-radius: 20px; border: 1px solid rgba(139, 69, 19, 0.1);">
+                    <div style="text-align: center;">
+                        <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.area}</div>
+                        <div style="color: #5d4e37; font-size: ${isMobile ? '0.8rem' : '0.85rem'}; text-transform: uppercase; letter-spacing: 0.5px;">Площ</div>
                     </div>
-                    
-                    <!-- Key Stats Grid -->
-                    <div style="display: grid; grid-template-columns: repeat(${isMobile ? '2' : '4'}, 1fr); gap: 1rem; margin-bottom: 2rem;">
-                        <div style="text-align: center; padding: 1.2rem; background: linear-gradient(135deg, #f8f6f3 0%, #faf9f7 100%); border-radius: 16px; border: 1px solid rgba(139, 69, 19, 0.08);">
-                            <div style="color: #8b4513; font-size: ${isMobile ? '1.3rem' : '1.5rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.area}</div>
-                            <div style="color: #5d4e37; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Площ</div>
-                        </div>
-                        <div style="text-align: center; padding: 1.2rem; background: linear-gradient(135deg, #f8f6f3 0%, #faf9f7 100%); border-radius: 16px; border: 1px solid rgba(139, 69, 19, 0.08);">
-                            <div style="color: #8b4513; font-size: ${isMobile ? '1.3rem' : '1.5rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.rooms.replace(/\D/g, '') || '2'}</div>
-                            <div style="color: #5d4e37; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Стаи</div>
-                        </div>
-                        <div style="text-align: center; padding: 1.2rem; background: linear-gradient(135deg, #f8f6f3 0%, #faf9f7 100%); border-radius: 16px; border: 1px solid rgba(139, 69, 19, 0.08);">
-                            <div style="color: #8b4513; font-size: ${isMobile ? '1.3rem' : '1.5rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.floor.replace(/\D/g, '') || '2'}</div>
-                            <div style="color: #5d4e37; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Етаж</div>
-                        </div>
-                        <div style="text-align: center; padding: 1.2rem; background: linear-gradient(135deg, #f8f6f3 0%, #faf9f7 100%); border-radius: 16px; border: 1px solid rgba(139, 69, 19, 0.08);">
-                            <div style="color: #8b4513; font-size: ${isMobile ? '1.3rem' : '1.5rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.bathrooms.replace(/\D/g, '') || '1'}</div>
-                            <div style="color: #5d4e37; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Бани</div>
-                        </div>
+                    <div style="text-align: center;">
+                        <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.rooms.replace(/\D/g, '') || '2'}</div>
+                        <div style="color: #5d4e37; font-size: ${isMobile ? '0.8rem' : '0.85rem'}; text-transform: uppercase; letter-spacing: 0.5px;">Стаи</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.floor.replace(/\D/g, '') || '2'}</div>
+                        <div style="color: #5d4e37; font-size: ${isMobile ? '0.8rem' : '0.85rem'}; text-transform: uppercase; letter-spacing: 0.5px;">Етаж</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.bathrooms.replace(/\D/g, '') || '1'}</div>
+                        <div style="color: #5d4e37; font-size: ${isMobile ? '0.8rem' : '0.85rem'}; text-transform: uppercase; letter-spacing: 0.5px;">Бани</div>
                     </div>
                 </div>
                 
-                <!-- Description Section -->
-                <div style="margin-bottom: 2rem;">
-                    <h3 style="color: #2c1810; margin-bottom: 1rem; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-info-circle" style="color: #8b4513;"></i>
-                        Описание
+                <!-- Parking Information -->
+                <div style="margin-bottom: 2rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(139, 69, 19, 0.05) 0%, rgba(210, 105, 30, 0.05) 100%); border-radius: 20px; border: 1px solid rgba(139, 69, 19, 0.1);">
+                    <h3 style="color: #3e2723; margin-bottom: 1rem; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas ${parkingClass === 'garage' ? 'fa-warehouse' : parkingClass === 'parking-space' ? 'fa-car' : 'fa-times-circle'}" style="color: #8b4513;"></i>
+                        Паркиране
                     </h3>
-                    <div style="background: linear-gradient(135deg, rgba(248, 246, 243, 0.6) 0%, rgba(250, 249, 247, 0.6) 100%); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(139, 69, 19, 0.05);">
-                        <p style="color: #5d4e37; line-height: 1.7; font-size: ${isMobile ? '1rem' : '1.05rem'}; margin: 0 0 1rem 0;">${property.description}</p>
-                        <p style="color: #5d4e37; line-height: 1.7; font-size: ${isMobile ? '1rem' : '1.05rem'}; margin: 0;">Този имот предлага отлично съотношение цена-качество и се намира на стратегическо място с добра транспортна свързаност. Идеален за инвестиция или лично ползване.</p>
-                    </div>
+                    <p style="color: #5d4e37; font-size: ${isMobile ? '1rem' : '1.05rem'}; margin: 0; font-weight: 600;">${parkingInfo}</p>
                 </div>
                 
-                <!-- Features Grid -->
+                <!-- Description -->
                 <div style="margin-bottom: 2rem;">
-                    <h3 style="color: #2c1810; margin-bottom: 1rem; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-list-ul" style="color: #8b4513;"></i>
-                        Характеристики
-                    </h3>
-                    <div style="display: grid; grid-template-columns: repeat(${isMobile ? '1' : '2'}, 1fr); gap: 0.8rem;">
-                        ${[
-                            { icon: 'fas fa-calendar-alt', label: 'Година на строеж', value: additionalDetails.year },
-                            { icon: 'fas fa-fire', label: 'Отопление', value: additionalDetails.heating },
-                            { icon: 'fas fa-car', label: 'Паркинг', value: additionalDetails.parking },
-                            { icon: 'fas fa-compass', label: 'Изложение', value: additionalDetails.exposure },
-                            { icon: 'fas fa-tools', label: 'Състояние', value: additionalDetails.condition },
-                            { icon: 'fas fa-couch', label: 'Обзавеждане', value: additionalDetails.furniture },
-                            { icon: 'fas fa-arrow-up', label: 'Асансьор', value: additionalDetails.elevator },
-                            { icon: 'fas fa-tree', label: 'Балкон/Тераса', value: additionalDetails.balcony }
-                        ].map(item => `
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: white; border-radius: 12px; border: 1px solid rgba(139, 69, 19, 0.08); transition: all 0.3s ease;">
-                                <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.8rem; font-size: 0.9rem;">
-                                    <i class="${item.icon}" style="color: #8b4513; width: 16px; text-align: center;"></i>
-                                    ${item.label}
-                                </span>
-                                <span style="color: #2c1810; font-weight: 700; font-size: 0.9rem;">${item.value}</span>
-                            </div>
-                        `).join('')}
+                    <h3 style="color: #3e2723; margin-bottom: 1rem; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700;">Описание</h3>
+                    <p style="color: #5d4e37; line-height: 1.7; font-size: ${isMobile ? '1rem' : '1.05rem'}; margin-bottom: 1rem;">${property.description}</p>
+                    <p style="color: #5d4e37; line-height: 1.7; font-size: ${isMobile ? '1rem' : '1.05rem'};">Този имот предлага отлично съотношение цена-качество и се намира на стратегическо място с добра транспортна свързаност. Идеален за инвестиция или лично ползване.</p>
+                </div>
+                
+                <!-- Detailed Features -->
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: #3e2723; margin-bottom: 1rem; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700;">Детайли</h3>
+                    <div style="display: grid; grid-template-columns: repeat(${isMobile ? '1' : '2'}, 1fr); gap: ${isMobile ? '1rem' : '1.5rem'};">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid rgba(139, 69, 19, 0.1);">
+                            <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-calendar-alt" style="color: #8b4513; width: 16px;"></i>
+                                Година на строеж
+                            </span>
+                            <span style="color: #3e2723; font-weight: 700;">${additionalDetails.year}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid rgba(139, 69, 19, 0.1);">
+                            <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-fire" style="color: #8b4513; width: 16px;"></i>
+                                Отопление
+                            </span>
+                            <span style="color: #3e2723; font-weight: 700;">${additionalDetails.heating}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid rgba(139, 69, 19, 0.1);">
+                            <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-compass" style="color: #8b4513; width: 16px;"></i>
+                                Изложение
+                            </span>
+                            <span style="color: #3e2723; font-weight: 700;">${additionalDetails.exposure}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid rgba(139, 69, 19, 0.1);">
+                            <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-tools" style="color: #8b4513; width: 16px;"></i>
+                                Състояние
+                            </span>
+                            <span style="color: #3e2723; font-weight: 700;">${additionalDetails.condition}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid rgba(139, 69, 19, 0.1);">
+                            <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-couch" style="color: #8b4513; width: 16px;"></i>
+                                Обзавеждане
+                            </span>
+                            <span style="color: #3e2723; font-weight: 700;">${additionalDetails.furniture}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid rgba(139, 69, 19, 0.1);">
+                            <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-arrow-up" style="color: #8b4513; width: 16px;"></i>
+                                Асансьор
+                            </span>
+                            <span style="color: #3e2723; font-weight: 700;">${additionalDetails.elevator}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid rgba(139, 69, 19, 0.1);">
+                            <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-tree" style="color: #8b4513; width: 16px;"></i>
+                                Балкон/Тераса
+                            </span>
+                            <span style="color: #3e2723; font-weight: 700;">${additionalDetails.balcony}</span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Action Buttons -->
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-direction: ${isMobile ? 'column' : 'row'}; margin-bottom: 1rem;">
-                    <a href="tel:+359888123456" style="background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%); color: white; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 2rem'}; border-radius: ${isMobile ? '16px' : '50px'}; text-decoration: none; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.8rem; transition: all 0.3s ease; font-size: ${isMobile ? '1.1rem' : '1rem'}; min-height: ${isMobile ? '56px' : 'auto'}; touch-action: manipulation; box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3); flex: 1;">
+                <!-- Contact Actions -->
+                <div style="display: flex; gap: ${isMobile ? '1rem' : '1.5rem'}; justify-content: center; flex-direction: ${isMobile ? 'column' : 'row'}; margin-bottom: ${isMobile ? '2rem' : '1rem'};">
+                    <a href="tel:+359888123456" style="background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%); color: white; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 2rem'}; border-radius: ${isMobile ? '15px' : '25px'}; text-decoration: none; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.8rem; transition: all 0.3s ease; font-size: ${isMobile ? '1.1rem' : '1rem'}; min-height: ${isMobile ? '56px' : 'auto'}; touch-action: manipulation; box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);">
                         <i class="fas fa-phone" style="font-size: 1.1rem;"></i> 
                         <span>Обадете се сега</span>
                     </a>
-                    <a href="mailto:info@sandercorrect.com?subject=Интерес към ${encodeURIComponent(property.title)}&body=Здравейте, интересувам се от имота: ${encodeURIComponent(property.title)}" style="background: white; color: #8b4513; border: 2px solid #8b4513; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 2rem'}; border-radius: ${isMobile ? '16px' : '50px'}; text-decoration: none; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.8rem; transition: all 0.3s ease; font-size: ${isMobile ? '1.1rem' : '1rem'}; min-height: ${isMobile ? '56px' : 'auto'}; touch-action: manipulation; flex: 1;">
+                    <a href="mailto:info@sandercorrect.com?subject=Интерес към ${property.title}&body=Здравейте, интересувам се от имота: ${property.title}" style="background: transparent; color: #8b4513; border: 2px solid #8b4513; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 2rem'}; border-radius: ${isMobile ? '15px' : '25px'}; text-decoration: none; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.8rem; transition: all 0.3s ease; font-size: ${isMobile ? '1.1rem' : '1rem'}; min-height: ${isMobile ? '56px' : 'auto'}; touch-action: manipulation;">
                         <i class="fas fa-envelope" style="font-size: 1.1rem;"></i> 
                         <span>Изпрати имейл</span>
                     </a>
+                    <a href="properties.html" style="background: #f8f6f3; color: #5d4e37; border: none; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 2rem'}; border-radius: ${isMobile ? '15px' : '25px'}; text-decoration: none; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.8rem; transition: all 0.3s ease; font-size: ${isMobile ? '1.1rem' : '1rem'}; min-height: ${isMobile ? '56px' : 'auto'}; touch-action: manipulation;">
+                        <i class="fas fa-search" style="font-size: 1.1rem;"></i> 
+                        <span>Още имоти</span>
+                    </a>
                 </div>
                 
-                <!-- Share Section -->
-                <div style="display: flex; justify-content: center; gap: 1rem; padding-top: 1rem; border-top: 1px solid rgba(139, 69, 19, 0.1);">
-                    <button onclick="shareProperty('${property.title}', '${property.price}', '${property.location}')" style="background: #f8f6f3; border: 1px solid rgba(139, 69, 19, 0.2); color: #8b4513; padding: 0.8rem 1.2rem; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; font-weight: 600; touch-action: manipulation; font-size: 0.9rem;">
+                <!-- Share & Favorite Section -->
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem; padding-top: 1rem; border-top: 1px solid rgba(139, 69, 19, 0.1);">
+                    <button onclick="toggleModalFavorite(${property.id})" style="background: none; border: 2px solid #d2691e; color: #d2691e; padding: 0.8rem 1.2rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; font-weight: 600; touch-action: manipulation;">
+                        <i class="far fa-heart" id="modal-heart-${property.id}"></i>
+                        <span>Запази</span>
+                    </button>
+                    <button onclick="shareProperty('${property.title}', '${property.price}', '${property.location}')" style="background: none; border: 2px solid #8b4513; color: #8b4513; padding: 0.8rem 1.2rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; font-weight: 600; touch-action: manipulation;">
                         <i class="fas fa-share-alt"></i>
                         <span>Сподели</span>
                     </button>
-                    <a href="properties.html" style="background: #f8f6f3; border: 1px solid rgba(139, 69, 19, 0.2); color: #8b4513; padding: 0.8rem 1.2rem; border-radius: 50px; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; font-weight: 600; touch-action: manipulation; font-size: 0.9rem;">
-                        <i class="fas fa-search"></i>
-                        <span>Още имоти</span>
-                    </a>
                 </div>
                 
                 ${isMobile ? `<div style="height: 2rem;"></div>` : ''}
@@ -1026,30 +1085,23 @@ window.showEnhancedPropertyModal = function(propertyId) {
         </div>
     `;
 
-    // Modal image navigation functions with proper indexing
+    // Modal image navigation functions with smooth transitions
     window.changeModalImage = function(direction) {
         currentModalImageIndex += direction;
-        
-        // Proper boundary handling
-        if (currentModalImageIndex >= images.length) {
-            currentModalImageIndex = 0;
-        } else if (currentModalImageIndex < 0) {
-            currentModalImageIndex = images.length - 1;
-        }
+        if (currentModalImageIndex >= images.length) currentModalImageIndex = 0;
+        if (currentModalImageIndex < 0) currentModalImageIndex = images.length - 1;
         
         updateModalImageDisplay();
     };
     
     window.setModalImage = function(index) {
-        if (index >= 0 && index < images.length) {
-            currentModalImageIndex = index;
-            updateModalImageDisplay();
-        }
+        currentModalImageIndex = index;
+        updateModalImageDisplay();
     };
     
     window.closeEnhancedModal = function() {
         modal.style.opacity = '0';
-        modalContent.style.transform = isMobile ? 'translateY(100%)' : 'scale(0.9) translateY(20px)';
+        modalContent.style.transform = isMobile ? 'translateY(100%)' : 'scale(0.8)';
         setTimeout(() => {
             modal.remove();
             document.body.style.overflow = '';
@@ -1057,23 +1109,19 @@ window.showEnhancedPropertyModal = function(propertyId) {
             delete window.changeModalImage;
             delete window.setModalImage;
             delete window.closeEnhancedModal;
-        }, 500);
+        }, 400);
     };
     
     window.toggleModalFavorite = function(propertyId) {
         const heart = document.getElementById(`modal-heart-${propertyId}`);
-        const button = heart.parentElement;
         if (heart.classList.contains('fas')) {
             heart.classList.remove('fas');
             heart.classList.add('far');
-            button.style.background = 'linear-gradient(135deg, #f8f6f3 0%, #e8e6e3 100%)';
-            button.style.color = '#8b4513';
             showNotification('Премахнато от любими', 'info');
         } else {
             heart.classList.remove('far');
             heart.classList.add('fas');
-            button.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%)';
-            button.style.color = 'white';
+            heart.style.color = '#d2691e';
             showNotification('Добавено в любими', 'success');
         }
     };
@@ -1095,14 +1143,13 @@ window.showEnhancedPropertyModal = function(propertyId) {
     };
     
     function updateModalImageDisplay() {
-        const container = document.getElementById('modal-image-container');
+        const slider = document.getElementById('modal-image-slider');
         const counter = document.getElementById('image-counter');
         const dots = document.querySelectorAll('.modal-image-dot');
         
-        if (container) {
-            // Calculate the exact translation needed
+        if (slider) {
             const translateX = -(currentModalImageIndex * (100 / images.length));
-            container.style.transform = `translateX(${translateX}%)`;
+            slider.style.transform = `translateX(${translateX}%)`;
         }
         
         if (counter) {
@@ -1110,15 +1157,7 @@ window.showEnhancedPropertyModal = function(propertyId) {
         }
         
         dots.forEach((dot, i) => {
-            if (i === currentModalImageIndex) {
-                dot.style.background = 'white';
-                dot.style.transform = 'scale(1.2)';
-                dot.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
-            } else {
-                dot.style.background = 'rgba(255,255,255,0.4)';
-                dot.style.transform = 'scale(1)';
-                dot.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
-            }
+            dot.style.background = i === currentModalImageIndex ? 'white' : 'rgba(255,255,255,0.5)';
         });
     }
 
@@ -1129,10 +1168,10 @@ window.showEnhancedPropertyModal = function(propertyId) {
     // Prevent body scroll
     document.body.style.overflow = 'hidden';
 
-    // Animate modal appearance
+    // Animate modal appearance with smooth transitions
     setTimeout(() => {
         modal.style.opacity = '1';
-        modalContent.style.transform = isMobile ? 'translateY(0)' : 'scale(1) translateY(0)';
+        modalContent.style.transform = isMobile ? 'translateY(0)' : 'scale(1)';
     }, 10);
 
     // Close modal when clicking outside
@@ -1142,7 +1181,7 @@ window.showEnhancedPropertyModal = function(propertyId) {
         }
     });
 
-    // Enhanced mobile swipe support
+    // Enhanced mobile swipe support for modal and image gallery
     if (isMobile) {
         let modalStartY = 0;
         let modalCurrentY = 0;
@@ -1176,7 +1215,7 @@ window.showEnhancedPropertyModal = function(propertyId) {
             const deltaY = modalCurrentY - modalStartY;
             const deltaX = Math.abs(modalCurrentX - modalStartX);
             
-            if (deltaX < 50 && deltaY > 150) {
+            if (deltaX < 50 && deltaY > 120) { // Close if swiped down more than 120px
                 closeEnhancedModal();
             } else {
                 modalContent.style.transform = 'translateY(0)';
@@ -1186,7 +1225,7 @@ window.showEnhancedPropertyModal = function(propertyId) {
             modalIsDragging = false;
         }, { passive: true });
         
-        // Enhanced image gallery swipe support with fixed indexing
+        // Image gallery swipe support
         const imageGallery = document.getElementById('modal-image-gallery');
         if (imageGallery && images.length > 1) {
             let imageStartX = 0;
@@ -1212,9 +1251,9 @@ window.showEnhancedPropertyModal = function(propertyId) {
                 
                 if (Math.abs(deltaX) > 50) {
                     if (deltaX > 0) {
-                        changeModalImage(1); // Next image
+                        changeModalImage(1);
                     } else {
-                        changeModalImage(-1); // Previous image
+                        changeModalImage(-1);
                     }
                 }
                 

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
     <link rel="stylesheet" href="./styles/index.css">
     <link rel="stylesheet" href="./styles/common.css">
     <link rel="stylesheet" href="./styles/property-modal.css">
@@ -22,7 +21,6 @@
                 <li><a class="nav-link" href="properties.html">Имоти</a></li>
                 <li><a class="nav-link" href="services.html">Услуги</a></li>
                 <li><a class="nav-link" href="about.html">За нас</a></li>
-                <li><a class="nav-link" href="#map-section">Карта</a></li>
             </ul>
             <a class="contact-btn" href="contact.html">Контакт</a>
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
@@ -38,9 +36,6 @@
             
             <div class="cta-buttons">
                 <a href="properties.html" class="cta-btn cta-primary">Разгледай имоти</a>
-                <a href="#map-section" class="cta-btn cta-primary">
-                    <i class="fas fa-map-marked-alt"></i> Виж картата
-                </a>
                 <a href="contact.html" class="cta-btn cta-secondary">Безплатна консултация</a>
             </div>
             
@@ -208,14 +203,14 @@
                     <div class="advantage-highlight">+15% Стойност</div>
                 </div>
                 
-                <div class="advantage-card fade-in">
-                    <div class="advantage-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>24/7 Поддръжка</h3>
-                    <p>Винаги на разположение за вашите въпроси. Спешни случаи, консултации и оглед по всяко време</p>
-                    <div class="advantage-highlight">Non-Stop</div>
-                </div>
+                        <div class="advantage-card fade-in">
+            <div class="advantage-icon">
+                <i class="fas fa-search-dollar"></i>
+            </div>
+            <h3>Пълна прозрачност</h3>
+            <p>Без скрити такси и подвеждаща информация. Получавате ясна представа за всяка стъпка и разход</p>
+            <div class="advantage-highlight">100% яснота</div>
+        </div>
             </div>
             
             <div class="cta-section fade-in">
@@ -228,46 +223,6 @@
                     <a href="properties.html" class="cta-btn cta-secondary">
                         <i class="fas fa-search"></i> Разгледай имоти
                     </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Map Section -->
-    <section class="interactive-map" id="map-section">
-        <div class="map-container">
-            <div class="section-header" style="margin-bottom: 3rem;">
-                <h2 class="fade-in" style="color: #f5f5dc;">Интерактивна карта с всички имоти</h2>
-                <p class="fade-in" style="color: #f5f5dc; opacity: 0.9;">Разгледайте локациите на нашите имоти в реално време</p>
-            </div>
-            
-            <div class="map-controls-home fade-in">
-                <button class="map-control-btn active" onclick="filterHomeMapProperties('all')">Всички</button>
-                <button class="map-control-btn" onclick="filterHomeMapProperties('apartment')">Апартаменти</button>
-                <button class="map-control-btn" onclick="filterHomeMapProperties('house')">Къщи</button>
-                <button class="map-control-btn" onclick="filterHomeMapProperties('land')">Парцели</button>
-                <button class="map-control-btn" onclick="filterHomeMapProperties('commercial')">Търговски</button>
-            </div>
-            
-            <div class="home-map-container fade-in">
-                <div id="homeMap"></div>
-                <div class="map-legend">
-                    <div class="legend-item">
-                        <span class="legend-icon apartment">А</span>
-                        <span>Апартаменти</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-icon house">К</span>
-                        <span>Къщи</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-icon land">П</span>
-                        <span>Парцели</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-icon commercial">Т</span>
-                        <span>Търговски</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -317,7 +272,6 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <script src="properties-data.js"></script>
     <script src="common.js"></script>
     <script src="home.js"></script>
