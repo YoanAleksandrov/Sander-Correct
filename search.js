@@ -22,7 +22,8 @@ function handleAdvancedSearch(event) {
         priceMax: formData.get('priceMax'),
         rooms: formData.get('rooms'),
         areaMin: formData.get('areaMin'),
-        areaMax: formData.get('areaMax')
+        areaMax: formData.get('areaMax'),
+        newBuild: formData.get('newBuild') === '1'
     };
     
     // Simulate search delay
@@ -42,15 +43,24 @@ function performSearch(criteria) {
     
     // Filter by type
     if (criteria.type && criteria.type !== 'Всички типове') {
-        const typeMap = {
-            'Апартамент': 'apartment',
-            'Къща': 'house',
-            'Вила': 'house',
-            'Парцел': 'land',
-            'Офис': 'commercial',
-            'Търговски обект': 'commercial'
-        };
-        results = results.filter(p => p.type === typeMap[criteria.type]);
+        if (criteria.type === 'Ново строителство') {
+            results = results.filter(p => p.condition && p.condition.toLowerCase().includes('ново строителство'));
+        } else {
+            const typeMap = {
+                'Апартамент': 'apartment',
+                'Къща': 'house',
+                'Вила': 'house',
+                'Парцел': 'land',
+                'Офис': 'commercial',
+                'Търговски обект': 'commercial',
+                'apartment': 'apartment',
+                'house': 'house',
+                'villa': 'house',
+                'land': 'land',
+                'commercial': 'commercial'
+            };
+            results = results.filter(p => p.type === typeMap[criteria.type]);
+        }
     }
     
     // Filter by location
@@ -65,6 +75,16 @@ function performSearch(criteria) {
             const min = criteria.priceMin ? parseFloat(criteria.priceMin) : 0;
             const max = criteria.priceMax ? parseFloat(criteria.priceMax) : Infinity;
             return price >= min && price <= max;
+        });
+    }
+    
+    // Filter by area
+    if (criteria.areaMin || criteria.areaMax) {
+        results = results.filter(p => {
+            const area = parseFloat(p.area.replace(/[^0-9.]/g, ''));
+            const min = criteria.areaMin ? parseFloat(criteria.areaMin) : 0;
+            const max = criteria.areaMax ? parseFloat(criteria.areaMax) : Infinity;
+            return area >= min && area <= max;
         });
     }
     

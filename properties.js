@@ -102,6 +102,7 @@ function clearFilters() {
     document.getElementById('adv-rooms').value = '';
     document.getElementById('adv-area-min').value = '';
     document.getElementById('adv-area-max').value = '';
+    document.getElementById('quick-newbuild') && (document.getElementById('quick-newbuild').checked = false);
     
     // Reset variables
     currentFilter = 'all';
@@ -164,7 +165,8 @@ function showSearchSummary() {
                 'apartment': 'Апартаменти',
                 'house': 'Къщи',
                 'land': 'Парцели',
-                'commercial': 'Търговски обекти'
+                'commercial': 'Търговски обекти',
+                'Ново строителство': 'Ново строителство'
             };
             appliedFilters.push(typeMap[searchCriteria.type] || searchCriteria.type);
         }
@@ -230,7 +232,8 @@ function handleAdvancedSearch(event) {
         priceMax: formData.get('priceMax') || '',
         rooms: formData.get('rooms') || '',
         areaMin: formData.get('areaMin') || '',
-        areaMax: formData.get('areaMax') || ''
+        areaMax: formData.get('areaMax') || '',
+        newBuild: formData.get('newBuild') === '1'
     };
     
     // If advanced search has a type, reset the filter tabs to "all"
@@ -287,7 +290,11 @@ function applyFilters() {
         
         // Apply type filter (either from advanced search or tabs)
         if (activeTypeFilter) {
-            results = results.filter(property => property.type === activeTypeFilter);
+            if (activeTypeFilter === 'Ново строителство') {
+                results = results.filter(property => property.condition && property.condition.toLowerCase().includes('ново строителство'));
+            } else {
+                results = results.filter(property => property.type === activeTypeFilter);
+            }
         }
         
         // Apply other advanced search criteria
@@ -321,6 +328,10 @@ function applyFilters() {
                 const max = searchCriteria.areaMax ? parseFloat(searchCriteria.areaMax) : Infinity;
                 return area >= min && area <= max;
             });
+        }
+
+        if (searchCriteria.newBuild) {
+            results = results.filter(property => property.condition && property.condition.toLowerCase().includes('ново строителство'));
         }
         
         // Apply sorting
@@ -429,6 +440,11 @@ function loadFromURLParameters() {
         const areaMax = urlParams.get('areaMax');
         document.getElementById('adv-area-max').value = areaMax;
         searchCriteria.areaMax = areaMax;
+        hasParams = true;
+    }
+
+    if (urlParams.has('newBuild')) {
+        searchCriteria.newBuild = urlParams.get('newBuild') === '1';
         hasParams = true;
     }
     
@@ -595,6 +611,7 @@ function updateURL() {
     if (searchCriteria.rooms) params.set('rooms', searchCriteria.rooms);
     if (searchCriteria.areaMin) params.set('areaMin', searchCriteria.areaMin);
     if (searchCriteria.areaMax) params.set('areaMax', searchCriteria.areaMax);
+    if (searchCriteria.newBuild) params.set('newBuild', searchCriteria.newBuild ? '1' : '0');
     if (currentFilter !== 'all') params.set('filter', currentFilter);
     if (currentSort !== 'default') params.set('sort', currentSort);
     
@@ -668,7 +685,9 @@ function createEnhancedPropertyCard(property) {
                         </div>
                         <div class="detail-item">
                             <div class="detail-icon"></div>
-                            <span>${property.floor}</span>
+                            <span>
+                                ${property.type === 'house' && property.forSaleFloor ? `Продава се: ${property.forSaleFloor}${property.forSaleFloorNote ? ' (' + property.forSaleFloorNote + ')' : ''} от ${property.forSaleFloorTotal || property.floor.replace(/[^0-9]/g, '')} етажа` : property.type === 'house' ? property.floor : property.floor}
+                            </span>
                         </div>
                         <div class="detail-item">
                             <div class="detail-icon"></div>
@@ -967,11 +986,13 @@ window.showEnhancedPropertyModal = function(propertyId) {
                         <div style="color: #5d4e37; font-size: ${isMobile ? '0.8rem' : '0.85rem'}; text-transform: uppercase; letter-spacing: 0.5px;">Площ</div>
                     </div>
                     <div style="text-align: center;">
-                        <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.rooms.replace(/\D/g, '') || '2'}</div>
+                        <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.rooms}</div>
                         <div style="color: #5d4e37; font-size: ${isMobile ? '0.8rem' : '0.85rem'}; text-transform: uppercase; letter-spacing: 0.5px;">Стаи</div>
                     </div>
                     <div style="text-align: center;">
-                        <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.floor.replace(/\D/g, '') || '2'}</div>
+                        <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">
+                            ${property.type === 'house' && property.forSaleFloor ? `Продава се: ${property.forSaleFloor}${property.forSaleFloorNote ? ' (' + property.forSaleFloorNote + ')' : ''} от ${property.forSaleFloorTotal || property.floor.replace(/[^0-9]/g, '')} етажа` : property.type === 'house' ? property.floor : property.floor}
+                        </div>
                         <div style="color: #5d4e37; font-size: ${isMobile ? '0.8rem' : '0.85rem'}; text-transform: uppercase; letter-spacing: 0.5px;">Етаж</div>
                     </div>
                     <div style="text-align: center;">

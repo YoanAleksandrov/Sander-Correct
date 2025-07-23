@@ -205,7 +205,7 @@ const properties = [
         parking: 'Гараж за 2 коли',
         exposure: 'Югоизток',
         condition: 'Отлично',
-        furniture: 'Частично обзаведена',
+        furniture: 'Частично обзавена',
         elevator: 'Не',
         balcony: 'Двор 600 кв.м',
         price_per_sqm: '€ 2,500/кв.м'
@@ -296,7 +296,7 @@ const properties = [
         parking: 'Гараж за 3 коли',
         exposure: 'Югозапад',
         condition: 'Ново',
-        furniture: 'Луксозно обзаведена',
+        furniture: 'Луксозно обзавена',
         elevator: 'Да',
         balcony: 'Двор с басейн 1200 кв.м',
         price_per_sqm: '€ 3,179/кв.м'
@@ -383,7 +383,7 @@ const properties = [
         parking: 'Двор за паркиране',
         exposure: 'Юг',
         condition: 'Ново строителство',
-        furniture: 'Необзаведена',
+        furniture: 'Необзавена',
         elevator: 'Не',
         balcony: 'Двор 800 кв.м',
         price_per_sqm: '€ 1,833/кв.м'
@@ -474,6 +474,37 @@ const properties = [
         elevator: 'Н/А',
         balcony: 'Цял парцел',
         price_per_sqm: '€ 37.5/кв.м'
+    },
+    {
+        id: 17,
+        type: 'house',
+        title: 'Първи етаж от двуетажна къща',
+        price: '€ 180,000',
+        location: 'София, Горна баня',
+        area: '90 кв.м',
+        floor: '2 етажа',
+        forSaleFloor: '1',
+        forSaleFloorTotal: '2',
+        forSaleFloorNote: '',
+        rooms: '3 стаи',
+        bathrooms: '1 баня',
+        description: 'Продава се само първият етаж от двуетажна къща с отделен вход и двор. Отлична възможност за самостоятелно жилище.',
+        badge: 'Само етаж',
+        featured: false,
+        images: [
+            'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1460518451285-97b6aa326961?w=800&h=600&fit=crop'
+        ],
+        coordinates: [42.6700, 23.2700],
+        year: '2000',
+        heating: 'Климатик',
+        parking: 'Двор',
+        exposure: 'Юг',
+        condition: 'Много добро',
+        furniture: 'Обзаведен',
+        elevator: 'Не',
+        balcony: 'Двор 200 кв.м',
+        price_per_sqm: '€ 2,000/кв.м'
     }
 ];
 
