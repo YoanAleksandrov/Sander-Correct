@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./styles/common.css">
+    <link rel="stylesheet" href="./styles/documents.css">
+    <title>Документи - Sander Correct</title>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <img src="./images/sander-correct_logo.png" alt="Sander Correct Real Estate Agency" class="logo-image">
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a class="nav-link" href="index.html">Начало</a></li>
+                <li><a class="nav-link" href="properties.html">Имоти</a></li>
+                <li><a class="nav-link" href="services.html">Услуги</a></li>
+                <li><a class="nav-link" href="about.html">За нас</a></li>
+                <li><a class="nav-link active" href="documents.html">Документи</a></li>
+            </ul>
+            <a class="contact-btn" href="contact.html">Контакт</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </nav>
+    </header>
+
+    <!-- Documents Hero Section -->
+    <section class="documents-hero page-content">
+        <div class="documents-hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-shield-check"></i>
+                Официални документи
+            </div>
+            <h1 class="fade-in">Договори и декларации</h1>
+            <p class="fade-in">Всички необходими документи за професионално обслужване в областта на недвижимите имоти</p>
+            <div class="hero-stats fade-in">
+                <div class="stat-item">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Вида документи</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Актуални</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Достъпни</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documents Section -->
+    <section class="documents">
+        <div class="documents-container">
+            <!-- Documents Grid -->
+            <div class="documents-grid">
+                <!-- Договори -->
+                <div class="document-category fade-in">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Договори</h3>
+                        <p>Посреднически и други договори за различни видове сделки</p>
+                    </div>
+                    <div class="documents-list">
+                        <div class="document-item" onclick="viewDocument('protocol-ogled-pokupka.jpg', 'Протокол за оглед за покупка', 'image')">
+                            <div class="document-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Протокол за оглед за покупка</h4>
+                                <p>Документ за оглед на недвижим имот за покупка</p>
+                            </div>
+                            <div class="document-actions">
+                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('protocol-ogled-pokupka.jpg', 'Протокол за оглед за покупка', 'image')">
+                                    <i class="fas fa-eye"></i>
+                                    Прегледай
+                                </button>
+                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('protocol-ogled-pokupka.jpg')">
+                                    <i class="fas fa-download"></i>
+                                    Изтегли
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="document-item" onclick="viewDocument('dogovor-posrednichestvo-prodajba.jpg', 'Договор за посредничество при продажба', 'image')">
+                            <div class="document-icon">
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Договор за посредничество при продажба</h4>
+                                <p>Стандартен договор за посредничество при продажба на недвижими имоти</p>
+                            </div>
+                            <div class="document-actions">
+                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('dogovor-posrednichestvo-prodajba.jpg', 'Договор за посредничество при продажба', 'image')">
+                                    <i class="fas fa-eye"></i>
+                                    Прегледай
+                                </button>
+                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('dogovor-posrednichestvo-prodajba.jpg')">
+                                    <i class="fas fa-download"></i>
+                                    Изтегли
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="document-item" onclick="viewDocument('ekskluzivenm-dogovor-prodajba.jpg', 'Ексклузивен договор за посредничество при продажба', 'image')">
+                            <div class="document-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Ексклузивен договор за посредничество при продажба</h4>
+                                <p>Ексклузивен договор за посредничество при продажба на недвижими имоти</p>
+                            </div>
+                            <div class="document-actions">
+                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('ekskluzivenm-dogovor-prodajba.jpg', 'Ексклузивен договор за посредничество при продажба', 'image')">
+                                    <i class="fas fa-eye"></i>
+                                    Прегледай
+                                </button>
+                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('ekskluzivenm-dogovor-prodajba.jpg')">
+                                    <i class="fas fa-download"></i>
+                                    Изтегли
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="document-item" onclick="viewDocument('dogovor-naem-posrednichestvo.jpg', 'Договор за посредничество при наем', 'image')">
+                            <div class="document-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Договор за посредничество при наем</h4>
+                                <p>Договор за посредничество при отдаване под наем на недвижими имоти</p>
+                            </div>
+                            <div class="document-actions">
+                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('dogovor-naem-posrednichestvo.jpg', 'Договор за посредничество при наем', 'image')">
+                                    <i class="fas fa-eye"></i>
+                                    Прегледай
+                                </button>
+                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('dogovor-naem-posrednichestvo.jpg')">
+                                    <i class="fas fa-download"></i>
+                                    Изтегли
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="document-item" onclick="viewDocument('dogovor-investitori.jpg', 'Договор за посредничество за инвеститори', 'image')">
+                            <div class="document-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Договор за посредничество за инвеститори</h4>
+                                <p>Специализиран договор за посредничество при продажба на недвижими имоти за инвеститори</p>
+                            </div>
+                            <div class="document-actions">
+                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('dogovor-investitori.jpg', 'Договор за посредничество за инвеститори', 'image')">
+                                    <i class="fas fa-eye"></i>
+                                    Прегледай
+                                </button>
+                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('dogovor-investitori.jpg')">
+                                    <i class="fas fa-download"></i>
+                                    Изтегли
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Декларации -->
+                <div class="document-category fade-in">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h3>Декларации</h3>
+                        <p>Различни декларации и формуляри за официални процедури</p>
+                    </div>
+                    <div class="documents-list">
+                        <div class="document-item" onclick="viewDocument('deklaracia-poveritelnost.jpg', 'Политика за поверителност', 'image')">
+                            <div class="document-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Политика за поверителност</h4>
+                                <p>Политика за поверителност и защита на личните данни</p>
+                            </div>
+                            <div class="document-actions">
+                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('deklaracia-poveritelnost.jpg', 'Политика за поверителност', 'image')">
+                                    <i class="fas fa-eye"></i>
+                                    Прегледай
+                                </button>
+                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('deklaracia-poveritelnost.jpg')">
+                                    <i class="fas fa-download"></i>
+                                    Изтегли
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="document-item" onclick="viewDocument('deklaracia-gdpr.jpg', 'GDPR декларация', 'image')">
+                            <div class="document-icon">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>GDPR декларация</h4>
+                                <p>Декларация за съответствие с GDPR регламента</p>
+                            </div>
+                            <div class="document-actions">
+                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('deklaracia-gdpr.jpg', 'GDPR декларация', 'image')">
+                                    <i class="fas fa-eye"></i>
+                                    Прегледай
+                                </button>
+                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('deklaracia-gdpr.jpg')">
+                                    <i class="fas fa-download"></i>
+                                    Изтегли
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="document-item" onclick="viewDocument('deklaracia-lichni-danni.jpg', 'Декларация за обработка на лични данни', 'image')">
+                            <div class="document-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Декларация за обработка на лични данни</h4>
+                                <p>Формуляр за съгласие за обработка на лични данни</p>
+                            </div>
+                            <div class="document-actions">
+                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('deklaracia-lichni-danni.jpg', 'Декларация за обработка на лични данни', 'image')">
+                                    <i class="fas fa-eye"></i>
+                                    Прегледай
+                                </button>
+                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('deklaracia-lichni-danni.jpg')">
+                                    <i class="fas fa-download"></i>
+                                    Изтегли
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="document-item" onclick="viewDocument('deklaracia-suglasie.jpg', 'Декларация за съгласие', 'image')">
+                            <div class="document-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Декларация за съгласие</h4>
+                                <p>Обща декларация за съгласие с условията за услуги</p>
+                            </div>
+                            <div class="document-actions">
+                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('deklaracia-suglasie.jpg', 'Декларация за съгласие', 'image')">
+                                    <i class="fas fa-eye"></i>
+                                    Прегледай
+                                </button>
+                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('deklaracia-suglasie.jpg')">
+                                    <i class="fas fa-download"></i>
+                                    Изтегли
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="document-item" onclick="viewDocument('uslovnia-polzvane.jpg', 'Условия за ползване', 'image')">
+                            <div class="document-icon">
+                                <i class="fas fa-gavel"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Условия за ползване</h4>
+                                <p>Общи условия за ползване на услугите</p>
+                            </div>
+                            <div class="document-actions">
+                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('uslovnia-polzvane.jpg', 'Условия за ползване', 'image')">
+                                    <i class="fas fa-eye"></i>
+                                    Прегледай
+                                </button>
+                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('uslovnia-polzvane.jpg')">
+                                    <i class="fas fa-download"></i>
+                                    Изтегли
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Section -->
+            <div class="info-section fade-in">
+                <h3>
+                    <i class="fas fa-info-circle"></i>
+                    Важна информация за документите
+                </h3>
+                
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <h4>Внимание!</h4>
+                        <p>Всички документи са в актуална версия към момента на публикуване. Препоръчваме да се консултирате с наш експерт преди подписване.</p>
+                    </div>
+                </div>
+
+                <ul class="info-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Всички договори са съобразени с действащото българско законодателство
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Документите са актуализирани съгласно най-новите нормативни изисквания
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Предоставяме безплатна консултация за попълване на документите
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Всички документи се архивират за период от 5 години
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Гарантираме пълна защита на личните данни съгласно GDPR
+                    </li>
+                </ul>
+
+                <div class="contact-info-box">
+                    <h4>
+                        <i class="fas fa-phone"></i> Нуждаете се от помощ?
+                    </h4>
+                    <p>
+                        Свържете се с нас на <strong>+359 888 123 456</strong> или <strong>info@sandercorrect.com</strong> за консултация относно документите.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Document Viewer Modal -->
+    <div id="documentModal" class="document-modal">
+        <div class="document-modal-content">
+            <div class="document-modal-header">
+                <h3 id="documentModalTitle">Преглед на документ</h3>
+                <div class="document-modal-controls">
+                    <button id="zoomOut" class="control-btn" title="Намали">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <span id="zoomLevel">100%</span>
+                    <button id="zoomIn" class="control-btn" title="Увеличи">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                    <button id="fitToWidth" class="control-btn" title="Напасни в ширина">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        Fit
+                    </button>
+                    <button id="resetZoom" class="control-btn" title="Възстанови размер">
+                        <i class="fas fa-undo"></i>
+                        Reset
+                    </button>
+                    <button id="downloadFromModal" class="control-btn download-from-modal" title="Изтегли">
+                        <i class="fas fa-download"></i>
+                        Изтегли
+                    </button>
+                    <button id="closeDocumentModal" class="control-btn close-btn" title="Затвори">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="document-modal-body">
+                <div id="documentLoadingIndicator" class="document-loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Зареждане на документа...</p>
+                </div>
+                <iframe id="pdfViewer" class="document-viewer" style="display: none;"></iframe>
+                <img id="imageViewer" class="document-viewer" style="display: none;" alt="Преглед на документ">
+                <div id="documentError" class="document-error" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h4>Грешка при зареждане</h4>
+                    <p>Документът не може да бъде зареден. Моля, опитайте да го изтеглите директно.</p>
+                    <button onclick="downloadCurrentDocument()" class="cta-btn cta-primary">
+                        <i class="fas fa-download"></i>
+                        Изтегли документа
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="document-modal-overlay" onclick="closeDocumentModal()"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sander Correct</h3>
+                    <p>Професионални решения за недвижими имоти с над 15 години опит на българския пазар.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Услуги</h3>
+                    <ul>
+                        <li><a href="services.html">Продажба на имоти</a></li>
+                        <li><a href="services.html">Наем и управление</a></li>
+                        <li><a href="services.html">Инвестиционни консултации</a></li>
+                        <li><a href="services.html">Правни услуги</a></li>
+                        <li><a href="services.html">Оценка на имоти</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Информация</h3>
+                    <ul>
+                        <li><a href="about.html">За нас</a></li>
+                        <li><a href="about.html#team">Нашият екип</a></li>
+                        <li><a href="contact.html">Кариери</a></li>
+                        <li><a href="documents.html">Документи</a></li>
+                        <li><a href="#">Новини</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакти</h3>
+                    <ul>
+                        <li>бул. Витоша 1, ет. 5</li>
+                        <li>1000 София, България</li>
+                        <li>+359 888 123 456</li>
+                        <li>info@sandercorrect.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sander Correct. Всички права запазени.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="common.js"></script>
+    <script src="documents.js"></script>
+</body>
+</html>
