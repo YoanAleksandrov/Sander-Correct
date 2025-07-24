@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./styles/common.css">
+    <link rel="stylesheet" href="./styles/banking.css">
+    <title>Банково кредитиране - Sander Correct</title>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <img src="./images/sander-correct_logo.png" alt="Sander Correct Real Estate Agency" class="logo-image">
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a class="nav-link" href="index.html">Начало</a></li>
+                <li><a class="nav-link" href="properties.html">Имоти</a></li>
+                <li><a class="nav-link" href="services.html">Услуги</a></li>
+                <li><a class="nav-link" href="about.html">За нас</a></li>
+                <li><a class="nav-link active" href="banking.html">Банково кредитиране</a></li>
+                <li><a class="nav-link" href="documents.html">Документи</a></li>
+            </ul>
+            <a class="contact-btn" href="contact.html">Контакт</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </nav>
+    </header>
+
+    <!-- Banking Hero Section -->
+    <section class="banking-hero page-content">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge fade-in">
+                    <i class="fas fa-university"></i>
+                    <span>Банкови партньорства</span>
+                </div>
+                
+                <h1 class="hero-title fade-in">
+                    Банково <span class="title-highlight">кредитиране</span>
+                </h1>
+                
+                <p class="hero-description fade-in">
+                    Сме партньори с водещи банки в България за да ви предложим най-изгодните условия за ипотечно кредитиране
+                </p>
+
+                <div class="hero-stats fade-in">
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Банкови партньора</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3.5%</div>
+                        <div class="stat-label">От лихва</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">400+</div>
+                        <div class="stat-label">Одобрени кредита</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual fade-in">
+                <div class="hero-image-container">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Банково кредитиране" class="hero-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnership Info Section -->
+    <section class="partnership-info">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="fade-in">Нашите банкови партньори</h2>
+                <p class="fade-in">Работим с най-реномираните финансови институции в страната за да ви осигурим най-добрите условия</p>
+            </div>
+
+            <div class="info-content fade-in">
+                <div class="info-text">
+                    <h3>Защо да изберете нашите банкови партньори?</h3>
+                    <p>
+                        Разширихме мрежата си от банкови партньори, което ни позволява да предлагаме на клиентите си 
+                        най-изгодни условия за ипотечни кредити с лихви от 3.5%. Новите партньорства включват УниКредит Булбанк, 
+                        ОББ, Първа инвестиционна банка, Токуда банк и Алианц банк. Това дава възможност за по-гъвкави условия 
+                        и по-бързо одобрение.
+                    </p>
+                    
+                    <div class="benefits-grid">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="benefit-content">
+                                <h4>Най-ниски лихви</h4>
+                                <p>От 3.5% годишна лихва за ипотечни кредити</p>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="benefit-content">
+                                <h4>Бързо одобрение</h4>
+                                <p>Решение до 5 работни дни</p>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="benefit-content">
+                                <h4>Гъвкави условия</h4>
+                                <p>Индивидуален подход към всеки клиент</p>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="benefit-content">
+                                <h4>Пълна сигурност</h4>
+                                <p>Застраховани сделки и правна защита</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banks Grid Section -->
+    <section class="banks-section">
+        <div class="container">
+            <div class="banks-grid">
+                <div class="bank-card fade-in">
+                    <div class="bank-header">
+                        <div class="bank-logo">
+                            <img src="https://via.placeholder.com/120x60/8b4513/ffffff?text=UBB" alt="УниКредит Булбанк" />
+                        </div>
+                        <div class="bank-info">
+                            <h3>УниКредит Булбанк</h3>
+                            <span class="bank-type">Универсална банка</span>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="bank-card fade-in">
+                    <div class="bank-header">
+                        <div class="bank-logo">
+                            <img src="https://via.placeholder.com/120x60/8b4513/ffffff?text=OBB" alt="ОББ" />
+                        </div>
+                        <div class="bank-info">
+                            <h3>Обединена българска банка</h3>
+                            <span class="bank-type">Търговска банка</span>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="bank-card fade-in">
+                    <div class="bank-header">
+                        <div class="bank-logo">
+                            <img src="https://via.placeholder.com/120x60/8b4513/ffffff?text=PIB" alt="ПИБ" />
+                        </div>
+                        <div class="bank-info">
+                            <h3>Първа инвестиционна банка</h3>
+                            <span class="bank-type">Инвестиционна банка</span>
+                        </div>
+                    </div>
+                   
+                </div>
+
+                <div class="bank-card fade-in">
+                    <div class="bank-header">
+                        <div class="bank-logo">
+                            <img src="https://via.placeholder.com/120x60/8b4513/ffffff?text=TB" alt="Токуда банк" />
+                        </div>
+                        <div class="bank-info">
+                            <h3>Токуда банк</h3>
+                            <span class="bank-type">Търговска банка</span>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="bank-card fade-in">
+                    <div class="bank-header">
+                        <div class="bank-logo">
+                            <img src="https://via.placeholder.com/120x60/8b4513/ffffff?text=AB" alt="Алианц банк" />
+                        </div>
+                        <div class="bank-info">
+                            <h3>Алианц банк</h3>
+                            <span class="bank-type">Специализирана банка</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2>Готови за следващата стъпка?</h2>
+                <p>Свържете се с нас за персонализирана консултация и оферта за банково кредитиране</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="cta-btn cta-primary">
+                        <i class="fas fa-phone"></i> Безплатна консултация
+                    </a>
+                    <a href="properties.html" class="cta-btn cta-secondary">
+                        <i class="fas fa-search"></i> Разгледай имоти
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sander Correct</h3>
+                    <p>Професионални решения за недвижими имоти с над 15 години опит на българския пазар.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Услуги</h3>
+                    <ul>
+                        <li><a href="services.html">Продажба на имоти</a></li>
+                        <li><a href="services.html">Наем и управление</a></li>
+                        <li><a href="services.html">Инвестиционни консултации</a></li>
+                        <li><a href="services.html">Правни услуги</a></li>
+                        <li><a href="banking.html">Банково кредитиране</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Информация</h3>
+                    <ul>
+                        <li><a href="about.html">За нас</a></li>
+                        <li><a href="about.html#team">Нашият екип</a></li>
+                        <li><a href="contact.html">Кариери</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Новини</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакти</h3>
+                    <ul>
+                        <li>бул. Витоша 1, ет. 5</li>
+                        <li>1000 София, България</li>
+                        <li>+359 888 123 456</li>
+                        <li>info@sandercorrect.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sander Correct. Всички права запазени. | Условия за ползване | Политика за поверителност</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="common.js"></script>
+    <script src="banking.js"></script>
+</body>
+</html>
