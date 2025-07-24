@@ -13,8 +13,8 @@
     <header class="header">
         <nav class="nav-container">
             <div class="logo" onclick="window.location.href='index.html'">
-    <img src="./images/sander-correct_logo.png" alt="Sander Correct Real Estate Agency" class="logo-image">
-</div>
+                <img src="./images/sander-correct_logo.png" alt="Sander Correct Real Estate Agency" class="logo-image">
+            </div>
             <ul class="nav-menu" id="navMenu">
                 <li><a class="nav-link" href="index.html">Начало</a></li>
                 <li><a class="nav-link" href="properties.html">Имоти</a></li>
@@ -27,59 +27,150 @@
         </nav>
     </header>
 
-    <!-- Services Section -->
+    <!-- Hero Section -->
+    <section class="services-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Професионални услуги за недвижими имоти</h1>
+            <p class="hero-subtitle">Пълен спектър от експертни решения за всички ваши нужди</p>
+        </div>
+        <div class="hero-decoration">
+            <div class="floating-icon"><i class="fas fa-home"></i></div>
+            <div class="floating-icon"><i class="fas fa-key"></i></div>
+            <div class="floating-icon"><i class="fas fa-balance-scale"></i></div>
+        </div>
+    </section>
+
+    <!-- Main Services Grid -->
     <section class="services page-content">
         <div class="services-container">
-            <div class="section-header">
-                <h2 class="fade-in">Нашите услуги</h2>
-                <p class="fade-in">Пълен спектър от професионални услуги в областта на недвижимите имоти</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon"><i class="fas fa-building"></i></div>
+            <!-- Primary Services -->
+            <div class="primary-services">
+                <div class="service-card primary fade-in">
+                    <div class="service-icon primary"><i class="fas fa-building"></i></div>
                     <h3>Продажба на имоти</h3>
-                    <p>Професионално представяне и продажба на жилищни и търговски имоти. Пълна маркетингова подкрепа и експертна оценка на пазарната стойност.</p>
+                    <p>Професионално представяне и продажба на жилищни и търговски имоти с пълна маркетингова подкрепа.</p>
                     <a href="contact.html" class="service-btn">Научи повече</a>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon"><i class="fas fa-key"></i></div>
+                
+                <div class="service-card primary fade-in">
+                    <div class="service-icon primary"><i class="fas fa-key"></i></div>
                     <h3>Наем и управление</h3>
-                    <p>Управление на имотни портфейли и посредничество при отдаване под наем. Гарантираме надеждни наематели и редовни доходи.</p>
+                    <p>Управление на имотни портфейли и посредничество при отдаване под наем с гарантирани доходи.</p>
                     <a href="contact.html" class="service-btn">Научи повече</a>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                
+                <div class="service-card primary fade-in">
+                    <div class="service-icon primary"><i class="fas fa-chart-line"></i></div>
                     <h3>Инвестиционни консултации</h3>
-                    <p>Експертни анализи на пазара и препоръки за инвестиции в недвижими имоти с висок потенциал за растеж и рентабилност.</p>
+                    <p>Експертни анализи на пазара и препоръки за инвестиции с висок потенциал за растеж.</p>
                     <a href="contact.html" class="service-btn">Научи повече</a>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon"><i class="fas fa-balance-scale"></i></div>
-                    <h3>Правни услуги</h3>
-                    <p>Пълно правно обслужване на сделки с недвижими имоти. Проверка на документи и съпровождане до нотариус.</p>
-                    <a href="contact.html" class="service-btn">Научи повече</a>
+            </div>
+
+            <!-- Featured Legal Services Section -->
+            <div class="featured-service-section">
+                <div class="featured-service-content">
+                    <div class="featured-service-header">
+                        <div class="featured-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <div class="featured-text">
+                            <h2>Правни услуги</h2>
+                            <p>Професионално правно обслужване на сделки с недвижими имоти</p>
+                        </div>
+                    </div>
+                    
+                    <div class="legal-services-grid">
+                        <div class="legal-service-item">
+                            <div class="legal-icon"><i class="fas fa-file-contract"></i></div>
+                            <h4>Правен анализ</h4>
+                            <p>Пълен правен анализ на документацията за имота</p>
+                        </div>
+                        
+                        <div class="legal-service-item">
+                            <div class="legal-icon"><i class="fas fa-search"></i></div>
+                            <h4>Проверки в службите</h4>
+                            <p>Проверки за липса на тежести върху имота</p>
+                        </div>
+                        
+                        <div class="legal-service-item">
+                            <div class="legal-icon"><i class="fas fa-edit"></i></div>
+                            <h4>Изготвяне на договори</h4>
+                            <p>Договори и съпътстваща документация</p>
+                        </div>
+                        
+                        <div class="legal-service-item">
+                            <div class="legal-icon"><i class="fas fa-stamp"></i></div>
+                            <h4>Нотариално съдействие</h4>
+                            <p>Съдействие при нотариално изповядване</p>
+                        </div>
+                        
+                        <div class="legal-service-item">
+                            <div class="legal-icon"><i class="fas fa-handshake"></i></div>
+                            <h4>Предварителни договори</h4>
+                            <p>Изготвяне на предварителни договори и актове</p>
+                        </div>
+                        
+                        <div class="legal-service-item">
+                            <div class="legal-icon"><i class="fas fa-clipboard-list"></i></div>
+                            <h4>Декларации и партиди</h4>
+                            <p>Документи за деклариране и смяна на партидите</p>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-service-cta">
+                        <a href="contact.html" class="featured-btn">
+                            <i class="fas fa-gavel"></i>
+                            Правна консултация
+                        </a>
+                    </div>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon"><i class="fas fa-money-bill-wave"></i></div>
-                    <h3>Оценка на имоти</h3>
-                    <p>Професионална оценка на пазарната стойност на имоти за различни цели - продажба, застраховка, кредитиране.</p>
-                    <a href="contact.html" class="service-btn">Научи повече</a>
+            </div>
+
+            <!-- Secondary Services -->
+            <div class="secondary-services">
+                <div class="service-card secondary fade-in">
+                    <div class="service-icon secondary"><i class="fas fa-calculator"></i></div>
+                    <h3>Финансови консултации</h3>
+                    <p>Експертни съвети за финансиране, кредитиране и оптимизиране на инвестициите в недвижими имоти.</p>
+                    <a href="contact.html" class="service-btn secondary">Научи повече</a>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon"><i class="fas fa-handshake"></i></div>
+                
+                <div class="service-card secondary fade-in">
+                    <div class="service-icon secondary"><i class="fas fa-handshake"></i></div>
                     <h3>Консултации за купувачи</h3>
-                    <p>Индивидуален подход при избор на имот според нуждите и бюджета. Съпровождане през целия процес на покупка.</p>
-                    <a href="contact.html" class="service-btn">Научи повече</a>
+                    <p>Индивидуален подход при избор на имот според нуждите и бюджета.</p>
+                    <a href="contact.html" class="service-btn secondary">Научи повече</a>
+                </div>
+            </div>
+
+            <!-- Statistics Section -->
+            <div class="stats-section">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Успешни сделки</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Години опит</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Правна сигурност</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Поддръжка</div>
                 </div>
             </div>
 
             <!-- CTA Section -->
             <div class="cta-section fade-in">
-                <h3>Нуждаете се от професионална помощ?</h3>
-                <p>Нашите експерти са готови да ви консултират и да намерят най-доброто решение за вас</p>
+                <h3>Готови за следващата стъпка?</h3>
+                <p>Свържете се с нас за персонализирана консултация и оферта</p>
                 <div class="cta-buttons">
                     <a href="contact.html" class="cta-btn cta-primary">
-                        <i class="fas fa-phone"></i> Консултация
+                        <i class="fas fa-phone"></i> Безплатна консултация
                     </a>
                     <a href="properties.html" class="cta-btn cta-secondary">
                         <i class="fas fa-search"></i> Разгледай имоти
@@ -104,7 +195,7 @@
                         <li><a href="services.html">Наем и управление</a></li>
                         <li><a href="services.html">Инвестиционни консултации</a></li>
                         <li><a href="services.html">Правни услуги</a></li>
-                        <li><a href="services.html">Оценка на имоти</a></li>
+                        <li><a href="services.html">Финансови консултации</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -139,6 +230,728 @@
         document.addEventListener('DOMContentLoaded', () => {
             initializeAnimations();
         });
+
+        // Floating animations for hero icons
+        const floatingIcons = document.querySelectorAll('.floating-icon');
+        floatingIcons.forEach((icon, index) => {
+            icon.style.animationDelay = `${index * 0.5}s`;
+        });
     </script>
+
+    <style>
+        /* Enhanced Services Page Styles */
+        .services-hero {
+            background: linear-gradient(135deg, #2c1810 0%, #5d4e37 100%);
+            padding: 8rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .services-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(210, 105, 30, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(210, 105, 30, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-icon:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-icon:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-icon:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Services Layout */
+        .services {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #faf9f7 0%, #f8f6f3 100%);
+        }
+
+        .primary-services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card.primary {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .service-card.primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(139, 69, 19, 0.15);
+            border-color: rgba(139, 69, 19, 0.1);
+        }
+
+        .service-icon.primary {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        /* Featured Legal Services Section */
+        .featured-service-section {
+            background: white;
+            border-radius: 25px;
+            padding: 4rem 3rem;
+            margin: 4rem 0;
+            box-shadow: 0 20px 50px rgba(139, 69, 19, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-service-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+        }
+
+        .featured-service-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            gap: 2rem;
+        }
+
+        .featured-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .featured-text h2 {
+            font-size: 2.5rem;
+            color: #3e2723;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .featured-text p {
+            font-size: 1.2rem;
+            color: #5d4e37;
+            opacity: 0.8;
+        }
+
+        .legal-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .legal-service-item {
+            background: #f8f6f3;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .legal-service-item:hover {
+            background: #f5f3f0;
+            transform: translateY(-3px);
+        }
+
+        .legal-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #8b4513;
+            margin: 0 auto 1rem;
+        }
+
+        .legal-service-item h4 {
+            font-size: 1.1rem;
+            color: #3e2723;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .legal-service-item p {
+            font-size: 0.9rem;
+            color: #5d4e37;
+            line-height: 1.5;
+        }
+
+        .featured-service-cta {
+            text-align: center;
+        }
+
+        .featured-btn {
+            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .featured-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 69, 19, 0.3);
+        }
+
+        /* Secondary Services */
+        .secondary-services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card.secondary {
+            background: linear-gradient(135deg, #3e2723 0%, #5d4e37 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .service-card.secondary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(62, 39, 35, 0.3);
+        }
+
+        .service-icon.secondary {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #d2691e;
+        }
+
+        .service-card.secondary h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .service-card.secondary p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-btn.secondary {
+            background: transparent;
+            color: #d2691e;
+            border: 2px solid #d2691e;
+        }
+
+        .service-btn.secondary:hover {
+            background: #d2691e;
+            color: white;
+        }
+
+        /* Statistics Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+            padding: 3rem 0;
+            background: rgba(139, 69, 19, 0.05);
+            border-radius: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #8b4513;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #5d4e37;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Standard service buttons */
+        .service-btn {
+            background: transparent;
+            color: #8b4513;
+            border: 2px solid #8b4513;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .service-btn:hover {
+            background: #8b4513;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .services-container {
+                padding: 0 1.5rem;
+            }
+            
+            .primary-services {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .legal-services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .featured-service-section {
+                padding: 3rem 2rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .featured-service-header {
+                gap: 1.5rem;
+            }
+            
+            .featured-icon {
+                width: 90px;
+                height: 90px;
+                font-size: 2.2rem;
+            }
+            
+            .featured-text h2 {
+                font-size: 2.2rem;
+            }
+            
+            .primary-services {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .secondary-services {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            
+            .stats-section {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .services-hero {
+                padding: 6rem 0 4rem;
+                min-height: 50vh;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-content {
+                padding: 0 1.5rem;
+            }
+
+            .featured-service-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .featured-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+
+            .featured-text h2 {
+                font-size: 2rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .featured-text p {
+                font-size: 1.1rem;
+            }
+
+            .legal-services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 2.5rem;
+            }
+            
+            .legal-service-item {
+                padding: 1.5rem;
+            }
+            
+            .legal-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 1.3rem;
+            }
+
+            .primary-services,
+            .secondary-services {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .service-card.primary,
+            .service-card.secondary {
+                padding: 2rem 1.5rem;
+            }
+
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+                padding: 2.5rem 1rem;
+                margin: 3rem 0;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.9rem;
+            }
+            
+            .featured-service-section {
+                padding: 2.5rem 1.5rem;
+                margin: 3rem 0;
+            }
+            
+            .services {
+                padding: 4rem 0;
+            }
+            
+            .floating-icon {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-title {
+                font-size: 2.4rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .legal-services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .legal-service-item {
+                padding: 1.2rem;
+            }
+            
+            .service-card.primary,
+            .service-card.secondary {
+                padding: 1.8rem 1.2rem;
+            }
+            
+            .service-icon.primary,
+            .service-icon.secondary {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .featured-service-section {
+                padding: 2rem 1rem;
+            }
+            
+            .stats-section {
+                padding: 2rem 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .services-hero {
+                padding: 4rem 0 3rem;
+                min-height: 40vh;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+                line-height: 1.2;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+            
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .featured-service-section {
+                padding: 2rem 1rem;
+                border-radius: 20px;
+            }
+            
+            .featured-text h2 {
+                font-size: 1.8rem;
+            }
+            
+            .featured-text p {
+                font-size: 1rem;
+            }
+            
+            .featured-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+            }
+            
+            .legal-service-item {
+                padding: 1rem;
+            }
+            
+            .legal-service-item h4 {
+                font-size: 1rem;
+            }
+            
+            .legal-service-item p {
+                font-size: 0.85rem;
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1.5rem 0.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.85rem;
+            }
+            
+            .service-card.primary h3,
+            .service-card.secondary h3 {
+                font-size: 1.3rem;
+            }
+            
+            .service-card.primary p,
+            .service-card.secondary p {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+            
+            .service-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.8rem;
+            }
+            
+            .featured-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .cta-section {
+                padding: 3rem 1rem;
+            }
+            
+            .cta-section h3 {
+                font-size: 1.8rem;
+            }
+            
+            .cta-section p {
+                font-size: 1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+            
+            .cta-btn {
+                padding: 1rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+            
+            .floating-icon {
+                display: none;
+            }
+            
+            .services-container {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.95rem;
+            }
+            
+            .featured-service-section {
+                padding: 1.5rem 0.8rem;
+                margin: 2rem 0;
+            }
+            
+            .featured-text h2 {
+                font-size: 1.6rem;
+            }
+            
+            .legal-service-item {
+                padding: 0.8rem;
+            }
+            
+            .service-card.primary,
+            .service-card.secondary {
+                padding: 1.5rem 1rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .services-container {
+                padding: 0 0.8rem;
+            }
+        }
+    </style>
 </body>
 </html>
