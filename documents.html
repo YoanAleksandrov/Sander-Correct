@@ -27,34 +27,136 @@
         </nav>
     </header>
 
-    <!-- Documents Hero Section -->
-    <section class="documents-hero page-content">
-        <div class="documents-hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-shield-check"></i>
-                Официални документи
+    <!-- Enhanced Documents Hero Section -->
+    <section class="documents-hero">
+        <div class="hero-background-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        
+        <div class="hero-container">
+            <div class="hero-content-wrapper">
+                <div class="hero-left">
+                    <div class="hero-badge fade-in">
+                        <i class="fas fa-shield-check"></i>
+                        <span>Официални документи</span>
+                    </div>
+                    
+                    <h1 class="hero-title fade-in">
+                        Професионални
+                        <span class="title-highlight">договори</span> и 
+                        <span class="title-highlight">декларации</span>
+                    </h1>
+                    
+                    <p class="hero-description fade-in">
+                        Всички необходими документи за професионално обслужване в областта на недвижимите имоти. 
+                        Актуални, проверени и готови за употреба.
+                    </p>
+                    
+                    <div class="hero-features fade-in">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Актуални версии</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-download"></i>
+                            <span>Безплатно изтегляне</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Правно валидни</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-action fade-in">
+                        <a href="#documents-grid" class="hero-cta-btn">
+                            <span>Разгледай документите</span>
+                            <i class="fas fa-arrow-down"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-right fade-in">
+                    <div class="hero-visual">
+                        <div class="document-stack">
+                            <div class="document-card doc-1">
+                                <div class="doc-header">
+                                    <i class="fas fa-file-contract"></i>
+                                    <span>Договор</span>
+                                </div>
+                                <div class="doc-lines">
+                                    <div class="line line-full"></div>
+                                    <div class="line line-medium"></div>
+                                    <div class="line line-short"></div>
+                                    <div class="line line-full"></div>
+                                    <div class="line line-medium"></div>
+                                    <div class="line line-short"></div>
+                                    <div class="line line-full"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="document-card doc-2">
+                                <div class="doc-header">
+                                    <i class="fas fa-file-signature"></i>
+                                    <span>Декларация</span>
+                                </div>
+                                <div class="doc-lines">
+                                    <div class="line line-full"></div>
+                                    <div class="line line-medium"></div>
+                                    <div class="line line-short"></div>
+                                    <div class="line line-full"></div>
+                                    <div class="line line-medium"></div>
+                                    <div class="line line-short"></div>
+                                    <div class="line line-full"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="document-card doc-3">
+                                <div class="doc-header">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>Протокол</span>
+                                </div>
+                                <div class="doc-lines">
+                                    <div class="line line-full"></div>
+                                    <div class="line line-medium"></div>
+                                    <div class="line line-short"></div>
+                                    <div class="line line-full"></div>
+                                    <div class="line line-medium"></div>
+                                    <div class="line line-short"></div>
+                                    <div class="line line-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="floating-stats">
+                            <div class="stat-bubble stat-1">
+                                <span class="stat-number">10+</span>
+                                <span class="stat-label">Документи</span>
+                            </div>
+                            <div class="stat-bubble stat-2">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Актуални</span>
+                            </div>
+                            <div class="stat-bubble stat-3">
+                                <span class="stat-number">24/7</span>
+                                <span class="stat-label">Достъп</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h1 class="fade-in">Договори и декларации</h1>
-            <p class="fade-in">Всички необходими документи за професионално обслужване в областта на недвижимите имоти</p>
-            <div class="hero-stats fade-in">
-                <div class="stat-item">
-                    <span class="stat-number">10+</span>
-                    <span class="stat-label">Вида документи</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">Актуални</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">Достъпни</span>
-                </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-arrow" onclick="document.getElementById('documents-grid').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
             </div>
         </div>
     </section>
 
     <!-- Documents Section -->
-    <section class="documents">
+    <section class="documents page-content" id="documents-grid">
         <div class="documents-container">
             <!-- Documents Grid -->
             <div class="documents-grid">
@@ -174,79 +276,19 @@
                 <div class="document-category fade-in">
                     <div class="category-header">
                         <div class="category-icon">
-                            <i class="fas fa-clipboard-check"></i>
+                            <i class="fas fa-file-alt"></i>
                         </div>
                         <h3>Декларации</h3>
-                        <p>Различни декларации и формуляри за официални процедури</p>
+                        <p>Необходими декларации и съгласия за различни процедури</p>
                     </div>
                     <div class="documents-list">
-                        <div class="document-item" onclick="viewDocument('deklaracia-poveritelnost.jpg', 'Политика за поверителност', 'image')">
-                            <div class="document-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <div class="document-info">
-                                <h4>Политика за поверителност</h4>
-                                <p>Политика за поверителност и защита на личните данни</p>
-                            </div>
-                            <div class="document-actions">
-                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('deklaracia-poveritelnost.jpg', 'Политика за поверителност', 'image')">
-                                    <i class="fas fa-eye"></i>
-                                    Прегледай
-                                </button>
-                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('deklaracia-poveritelnost.jpg')">
-                                    <i class="fas fa-download"></i>
-                                    Изтегли
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="document-item" onclick="viewDocument('deklaracia-gdpr.jpg', 'GDPR декларация', 'image')">
-                            <div class="document-icon">
-                                <i class="fas fa-user-shield"></i>
-                            </div>
-                            <div class="document-info">
-                                <h4>GDPR декларация</h4>
-                                <p>Декларация за съответствие с GDPR регламента</p>
-                            </div>
-                            <div class="document-actions">
-                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('deklaracia-gdpr.jpg', 'GDPR декларация', 'image')">
-                                    <i class="fas fa-eye"></i>
-                                    Прегледай
-                                </button>
-                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('deklaracia-gdpr.jpg')">
-                                    <i class="fas fa-download"></i>
-                                    Изтегли
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="document-item" onclick="viewDocument('deklaracia-lichni-danni.jpg', 'Декларация за обработка на лични данни', 'image')">
-                            <div class="document-icon">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <div class="document-info">
-                                <h4>Декларация за обработка на лични данни</h4>
-                                <p>Формуляр за съгласие за обработка на лични данни</p>
-                            </div>
-                            <div class="document-actions">
-                                <button class="view-btn" onclick="event.stopPropagation(); viewDocument('deklaracia-lichni-danni.jpg', 'Декларация за обработка на лични данни', 'image')">
-                                    <i class="fas fa-eye"></i>
-                                    Прегледай
-                                </button>
-                                <button class="download-btn" onclick="event.stopPropagation(); downloadDocument('deklaracia-lichni-danni.jpg')">
-                                    <i class="fas fa-download"></i>
-                                    Изтегли
-                                </button>
-                            </div>
-                        </div>
-
                         <div class="document-item" onclick="viewDocument('deklaracia-suglasie.jpg', 'Декларация за съгласие', 'image')">
                             <div class="document-icon">
-                                <i class="fas fa-check-circle"></i>
+                                <i class="fas fa-clipboard-check"></i>
                             </div>
                             <div class="document-info">
                                 <h4>Декларация за съгласие</h4>
-                                <p>Обща декларация за съгласие с условията за услуги</p>
+                                <p>Декларация за съгласие за обработка на лични данни</p>
                             </div>
                             <div class="document-actions">
                                 <button class="view-btn" onclick="event.stopPropagation(); viewDocument('deklaracia-suglasie.jpg', 'Декларация за съгласие', 'image')">
@@ -294,94 +336,68 @@
                     <i class="fas fa-exclamation-triangle"></i>
                     <div>
                         <h4>Внимание!</h4>
-                        <p>Всички документи са в актуална версия към момента на публикуване. Препоръчваме да се консултирате с наш експерт преди подписване.</p>
+                        <p>Всички документи са в актуална версия към момента на публикуване. При възникване на въпроси или необходимост от консултация, моля свържете се с нас.</p>
                     </div>
                 </div>
-
+                
                 <ul class="info-list">
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        Всички договори са съобразени с действащото българско законодателство
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        Документите са актуализирани съгласно най-новите нормативни изисквания
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        Предоставяме безплатна консултация за попълване на документите
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        Всички документи се архивират за период от 5 години
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        Гарантираме пълна защита на личните данни съгласно GDPR
-                    </li>
+                    <li><i class="fas fa-check"></i> Всички документи са правно валидни и актуални</li>
+                    <li><i class="fas fa-check"></i> Безплатно изтегляне във формат PDF и JPG</li>
+                    <li><i class="fas fa-check"></i> Подходящи за различни видове сделки</li>
+                    <li><i class="fas fa-check"></i> Одобрени от правни експерти</li>
+                    <li><i class="fas fa-check"></i> Редовно актуализирани според новите закони</li>
                 </ul>
-
+                
                 <div class="contact-info-box">
-                    <h4>
-                        <i class="fas fa-phone"></i> Нуждаете се от помощ?
-                    </h4>
-                    <p>
-                        Свържете се с нас на <strong>+359 888 123 456</strong> или <strong>info@sandercorrect.com</strong> за консултация относно документите.
-                    </p>
+                    <h4><i class="fas fa-phone"></i> Нужда от консултация?</h4>
+                    <p>За въпроси относно документите или тяхното попълване се свържете с нас на <strong>+359 888 123 456</strong> или изпратете имейл на <strong>info@sandercorrect.bg</strong></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Document Viewer Modal -->
+    <!-- Document Modal -->
     <div id="documentModal" class="document-modal">
+        <div class="document-modal-overlay"></div>
         <div class="document-modal-content">
             <div class="document-modal-header">
-                <h3 id="documentModalTitle">Преглед на документ</h3>
+                <h3 id="documentModalTitle">Документ</h3>
                 <div class="document-modal-controls">
                     <button id="zoomOut" class="control-btn" title="Намали">
-                        <i class="fas fa-search-minus"></i>
+                        <i class="fas fa-minus"></i>
                     </button>
-                    <span id="zoomLevel">100%</span>
+                    <span id="zoomLevel" class="zoom-display">100%</span>
                     <button id="zoomIn" class="control-btn" title="Увеличи">
-                        <i class="fas fa-search-plus"></i>
+                        <i class="fas fa-plus"></i>
                     </button>
-                    <button id="fitToWidth" class="control-btn" title="Напасни в ширина">
+                    <button id="fitToWidth" class="control-btn" title="Побери в ширина">
                         <i class="fas fa-expand-arrows-alt"></i>
-                        Fit
                     </button>
-                    <button id="resetZoom" class="control-btn" title="Възстанови размер">
+                    <button id="resetZoom" class="control-btn" title="Нулирай">
                         <i class="fas fa-undo"></i>
-                        Reset
                     </button>
-                    <button id="downloadFromModal" class="control-btn download-from-modal" title="Изтегли">
+                    <button id="downloadFromModal" class="control-btn" title="Изтегли">
                         <i class="fas fa-download"></i>
-                        Изтегли
-                    </button>
-                    <button id="closeDocumentModal" class="control-btn close-btn" title="Затвори">
-                        <i class="fas fa-times"></i>
                     </button>
                 </div>
+                <button class="close-btn" onclick="closeDocumentModal()">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             <div class="document-modal-body">
                 <div id="documentLoadingIndicator" class="document-loading">
                     <i class="fas fa-spinner fa-spin"></i>
                     <p>Зареждане на документа...</p>
                 </div>
-                <iframe id="pdfViewer" class="document-viewer" style="display: none;"></iframe>
-                <img id="imageViewer" class="document-viewer" style="display: none;" alt="Преглед на документ">
                 <div id="documentError" class="document-error" style="display: none;">
                     <i class="fas fa-exclamation-triangle"></i>
-                    <h4>Грешка при зареждане</h4>
-                    <p>Документът не може да бъде зареден. Моля, опитайте да го изтеглите директно.</p>
-                    <button onclick="downloadCurrentDocument()" class="cta-btn cta-primary">
-                        <i class="fas fa-download"></i>
-                        Изтегли документа
-                    </button>
+                    <h4>Грешка при зареждането</h4>
+                    <p>Документът не може да бъде зареден в момента. Моля, опитайте отново.</p>
                 </div>
+                <iframe id="pdfViewer" class="document-viewer" style="display: none;"></iframe>
+                <img id="imageViewer" class="document-viewer" style="display: none;" alt="Документ">
             </div>
         </div>
-        <div class="document-modal-overlay" onclick="closeDocumentModal()"></div>
     </div>
 
     <!-- Footer -->
@@ -428,6 +444,7 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="common.js"></script>
     <script src="documents.js"></script>
 </body>
