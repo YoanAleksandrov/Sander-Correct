@@ -516,6 +516,11 @@ window.showEnhancedPropertyModal = function(propertyId) {
     const property = properties.find(p => p.id === propertyId);
     if (!property) return;
     
+if (property.type === 'land') {
+        showLandPropertyDetails(property);
+        return;
+    }
+
     const images = property.images || [property.image || 'images/default.jpg'];
     let currentModalImageIndex = 0;
     const isMobile = isMobileDevice();
@@ -1266,3 +1271,424 @@ window.addEventListener('beforeunload', () => {
         }
     });
 });
+
+// Специализирана функция за показване на детайли за парцели
+function showLandPropertyDetails(property) {
+    const isMobile = window.innerWidth <= 768;
+    const images = property.images || [property.image || 'images/default.jpg'];
+    let currentLandImageIndex = 0;
+    
+    // Създаване на modal
+    const modal = document.createElement('div');
+    const modalContent = document.createElement('div');
+    
+    // Специализирани данни за парцели
+    const landDetails = {
+        parcelType: property.parcelType || 'УПИ', // УПИ или ПИ
+        electricity: property.electricity || 'Да',
+        water: property.water || 'Да', 
+        sewerage: property.sewerage || 'Не',
+        regulation: property.regulation || 'Да',
+        idealProject: property.idealProject || 'Не',
+        designVisa: property.designVisa || 'Не',
+        year: property.year || 'Н/А',
+        parking: property.parking || 'Свободно паркиране',
+        exposure: property.exposure || 'Всички страни',
+        condition: property.condition || 'Добро',
+        price_per_sqm: property.price_per_sqm || 'Н/А'
+    };
+
+    // Стилове за модала
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(77, 77, 77, 0.95);
+        display: flex;
+        align-items: ${isMobile ? 'flex-start' : 'center'};
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        padding: ${isMobile ? '0' : '1rem'};
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    `;
+
+    modalContent.innerHTML = `
+        <div style="position: relative; width: 100%; max-width: ${isMobile ? '100%' : '1200px'}; max-height: ${isMobile ? '100vh' : '90vh'}; overflow-y: auto; background: white; border-radius: ${isMobile ? '0' : '25px'}; box-shadow: 0 25px 50px rgba(0,0,0,0.3); margin: ${isMobile ? '0' : 'auto'}; ${isMobile ? 'height: 100vh;' : ''}">
+            
+            <!-- Галерия със снимки -->
+            <div style="position: relative; height: ${isMobile ? '250px' : '350px'}; overflow: hidden; border-radius: ${isMobile ? '0' : '25px 25px 0 0'};">
+                <!-- Image Slider Container -->
+                <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+                    <div id="land-image-slider" style="display: flex; width: ${images.length * 100}%; height: 100%; transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);">
+                        ${images.map((img, index) => `
+                            <div style="width: ${100 / images.length}%; height: 100%; flex-shrink: 0;">
+                                <img src="${img}" alt="Снимка ${index + 1}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='images/default.jpg'">
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <!-- Navigation Arrows -->
+                ${images.length > 1 ? `
+                    <button onclick="changeLandImage(-1)" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: ${isMobile ? '45px' : '50px'}; height: ${isMobile ? '45px' : '50px'}; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; z-index: 10; touch-action: manipulation;">
+                        <i class="fas fa-chevron-left" style="color: #333; font-size: ${isMobile ? '16px' : '18px'};"></i>
+                    </button>
+                    <button onclick="changeLandImage(1)" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: ${isMobile ? '45px' : '50px'}; height: ${isMobile ? '45px' : '50px'}; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; z-index: 10; touch-action: manipulation;">
+                        <i class="fas fa-chevron-right" style="color: #333; font-size: ${isMobile ? '16px' : '18px'};"></i>
+                    </button>
+                ` : ''}
+                
+                <!-- Image Counter -->
+                ${images.length > 1 ? `
+                    <div style="position: absolute; bottom: 1rem; right: 1rem; background: rgba(0,0,0,0.7); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: ${isMobile ? '0.8rem' : '0.9rem'}; font-weight: 600; z-index: 10;">
+                        <span id="land-image-counter">1 / ${images.length}</span>
+                    </div>
+                ` : ''}
+                
+                <!-- Image Dots -->
+                ${images.length > 1 && images.length <= 5 ? `
+                    <div style="position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 10;">
+                        ${images.map((_, index) => `
+                            <button onclick="setLandImage(${index})" class="land-image-dot" style="width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; background: ${index === 0 ? 'white' : 'transparent'}; cursor: pointer; transition: all 0.3s ease; touch-action: manipulation;"></button>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                <!-- Close Button -->
+                <button onclick="closeLandModal()" style="position: absolute; top: 1rem; right: 1rem; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: ${isMobile ? '45px' : '50px'}; height: ${isMobile ? '45px' : '50px'}; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: ${isMobile ? '1.2rem' : '1.4rem'}; z-index: 10; transition: all 0.3s ease; touch-action: manipulation;">×</button>
+            </div>
+            
+            <!-- Header със заглавие -->
+            <div style="padding: ${isMobile ? '1.5rem 1rem 1rem' : '2rem 2.5rem 1rem'}; border-bottom: 1px solid rgba(139, 69, 19, 0.1);">
+                <div style="color: #d2691e; font-size: ${isMobile ? '0.9rem' : '1rem'}; font-weight: 600; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                    ${property.badge || 'ПАРЦЕЛ'}
+                </div>
+                <h2 style="color: #3e2723; margin: 0 0 0.8rem 0; font-size: ${isMobile ? '1.5rem' : '1.8rem'}; font-weight: 800; line-height: 1.2;">${property.title}</h2>
+                <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.5rem;">${property.price}</div>
+                <div style="color: #d2691e; font-size: ${isMobile ? '1rem' : '1.1rem'}; font-weight: 600; margin-bottom: 0.5rem;">${landDetails.price_per_sqm}</div>
+                <div style="color: #5d4e37; font-size: ${isMobile ? '1rem' : '1.1rem'}; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-map-marker-alt" style="color: #8b4513;"></i>
+                    ${property.location}
+                </div>
+            </div>
+            
+            <!-- Основни характеристики за парцел -->
+            <div style="display: grid; grid-template-columns: repeat(${isMobile ? '2' : '3'}, 1fr); gap: ${isMobile ? '1rem' : '1.5rem'}; margin-bottom: 2rem; padding: ${isMobile ? '1rem' : '1.5rem 2.5rem'}; background: linear-gradient(135deg, #f8f6f3 0%, #faf9f7 100%); border-radius: 20px; border: 1px solid rgba(139, 69, 19, 0.1); margin: 2rem;">
+                <div style="text-align: center;">
+                    <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.area}</div>
+                    <div style="color: #5d4e37; font-size: ${isMobile ? '0.8rem' : '0.85rem'}; text-transform: uppercase; letter-spacing: 0.5px;">Площ</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">${landDetails.parcelType}</div>
+                    <div style="color: #5d4e37; font-size: ${isMobile ? '0.8rem' : '0.85rem'}; text-transform: uppercase; letter-spacing: 0.5px;">Вид парцел</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">${landDetails.regulation}</div>
+                    <div style="color: #5d4e37; font-size: ${isMobile ? '0.8rem' : '0.85rem'}; text-transform: uppercase; letter-spacing: 0.5px;">Регулация</div>
+                </div>
+            </div>
+            
+            <!-- Комуникации и инфраструктура -->
+            <div style="padding: 0 ${isMobile ? '1rem' : '2.5rem'}; margin-bottom: 2rem;">
+                <h3 style="color: #3e2723; margin-bottom: 1.5rem; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700;">Комуникации и инфраструктура</h3>
+                <div style="display: grid; grid-template-columns: repeat(${isMobile ? '1' : '2'}, 1fr); gap: ${isMobile ? '1rem' : '1.5rem'};">
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: ${landDetails.electricity === 'Да' ? 'rgba(76, 175, 80, 0.1)' : 'rgba(244, 67, 54, 0.1)'}; border-radius: 12px; border-left: 4px solid ${landDetails.electricity === 'Да' ? '#4CAF50' : '#F44336'};">
+                        <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-bolt" style="color: #8b4513; width: 16px;"></i>
+                            Ток
+                        </span>
+                        <span style="color: #3e2723; font-weight: 700; display: flex; align-items: center; gap: 0.3rem;">
+                            <i class="fas ${landDetails.electricity === 'Да' ? 'fa-check-circle' : 'fa-times-circle'}" style="color: ${landDetails.electricity === 'Да' ? '#4CAF50' : '#F44336'};"></i>
+                            ${landDetails.electricity}
+                        </span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: ${landDetails.water === 'Да' ? 'rgba(76, 175, 80, 0.1)' : 'rgba(244, 67, 54, 0.1)'}; border-radius: 12px; border-left: 4px solid ${landDetails.water === 'Да' ? '#4CAF50' : '#F44336'};">
+                        <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-tint" style="color: #8b4513; width: 16px;"></i>
+                            Вода
+                        </span>
+                        <span style="color: #3e2723; font-weight: 700; display: flex; align-items: center; gap: 0.3rem;">
+                            <i class="fas ${landDetails.water === 'Да' ? 'fa-check-circle' : 'fa-times-circle'}" style="color: ${landDetails.water === 'Да' ? '#4CAF50' : '#F44336'};"></i>
+                            ${landDetails.water}
+                        </span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: ${landDetails.sewerage === 'Да' ? 'rgba(76, 175, 80, 0.1)' : 'rgba(244, 67, 54, 0.1)'}; border-radius: 12px; border-left: 4px solid ${landDetails.sewerage === 'Да' ? '#4CAF50' : '#F44336'};">
+                        <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-water" style="color: #8b4513; width: 16px;"></i>
+                            Канал
+                        </span>
+                        <span style="color: #3e2723; font-weight: 700; display: flex; align-items: center; gap: 0.3rem;">
+                            <i class="fas ${landDetails.sewerage === 'Да' ? 'fa-check-circle' : 'fa-times-circle'}" style="color: ${landDetails.sewerage === 'Да' ? '#4CAF50' : '#F44336'};"></i>
+                            ${landDetails.sewerage}
+                        </span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: ${landDetails.regulation === 'Да' ? 'rgba(76, 175, 80, 0.1)' : 'rgba(244, 67, 54, 0.1)'}; border-radius: 12px; border-left: 4px solid ${landDetails.regulation === 'Да' ? '#4CAF50' : '#F44336'};">
+                        <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-clipboard-check" style="color: #8b4513; width: 16px;"></i>
+                            Регулация
+                        </span>
+                        <span style="color: #3e2723; font-weight: 700; display: flex; align-items: center; gap: 0.3rem;">
+                            <i class="fas ${landDetails.regulation === 'Да' ? 'fa-check-circle' : 'fa-times-circle'}" style="color: ${landDetails.regulation === 'Да' ? '#4CAF50' : '#F44336'};"></i>
+                            ${landDetails.regulation}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Документи и разрешения -->
+            <div style="padding: 0 ${isMobile ? '1rem' : '2.5rem'}; margin-bottom: 2rem;">
+                <h3 style="color: #3e2723; margin-bottom: 1.5rem; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700;">Документи и разрешения</h3>
+                <div style="display: grid; grid-template-columns: repeat(${isMobile ? '1' : '2'}, 1fr); gap: ${isMobile ? '1rem' : '1.5rem'};">
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: ${landDetails.idealProject === 'Да' ? 'rgba(76, 175, 80, 0.1)' : 'rgba(255, 193, 7, 0.1)'}; border-radius: 12px; border-left: 4px solid ${landDetails.idealProject === 'Да' ? '#4CAF50' : '#FFC107'};">
+                        <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-drafting-compass" style="color: #8b4513; width: 16px;"></i>
+                            Идеен проект
+                        </span>
+                        <span style="color: #3e2723; font-weight: 700; display: flex; align-items: center; gap: 0.3rem;">
+                            <i class="fas ${landDetails.idealProject === 'Да' ? 'fa-check-circle' : 'fa-exclamation-triangle'}" style="color: ${landDetails.idealProject === 'Да' ? '#4CAF50' : '#FFC107'};"></i>
+                            ${landDetails.idealProject}
+                        </span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: ${landDetails.designVisa === 'Да' ? 'rgba(76, 175, 80, 0.1)' : 'rgba(255, 193, 7, 0.1)'}; border-radius: 12px; border-left: 4px solid ${landDetails.designVisa === 'Да' ? '#4CAF50' : '#FFC107'};">
+                        <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-stamp" style="color: #8b4513; width: 16px;"></i>
+                            Виза за проектиране
+                        </span>
+                        <span style="color: #3e2723; font-weight: 700; display: flex; align-items: center; gap: 0.3rem;">
+                            <i class="fas ${landDetails.designVisa === 'Да' ? 'fa-check-circle' : 'fa-exclamation-triangle'}" style="color: ${landDetails.designVisa === 'Да' ? '#4CAF50' : '#FFC107'};"></i>
+                            ${landDetails.designVisa}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Описание -->
+            <div style="padding: 0 ${isMobile ? '1rem' : '2.5rem'}; margin-bottom: 2rem;">
+                <h3 style="color: #3e2723; margin-bottom: 1rem; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700;">Описание</h3>
+                <p style="color: #5d4e37; line-height: 1.7; font-size: ${isMobile ? '1rem' : '1.05rem'}; margin-bottom: 1rem;">${property.description}</p>
+                <p style="color: #5d4e37; line-height: 1.7; font-size: ${isMobile ? '1rem' : '1.05rem'};">Този парцел предлага отлични възможности за строителство с добра локация и достъп до основни комуникации. Подходящ за жилищно или търговско строителство в зависимост от регулационния план.</p>
+            </div>
+
+            <!-- Допълнителни детайли -->
+            <div style="padding: 0 ${isMobile ? '1rem' : '2.5rem'}; margin-bottom: 2rem;">
+                <h3 style="color: #3e2723; margin-bottom: 1rem; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700;">Допълнителна информация</h3>
+                <div style="display: grid; grid-template-columns: repeat(${isMobile ? '1' : '2'}, 1fr); gap: ${isMobile ? '1rem' : '1.5rem'};">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid rgba(139, 69, 19, 0.1);">
+                        <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-compass" style="color: #8b4513; width: 16px;"></i>
+                            Изложение
+                        </span>
+                        <span style="color: #3e2723; font-weight: 700;">${landDetails.exposure}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid rgba(139, 69, 19, 0.1);">
+                        <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-car" style="color: #8b4513; width: 16px;"></i>
+                            Паркиране
+                        </span>
+                        <span style="color: #3e2723; font-weight: 700;">${landDetails.parking}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid rgba(139, 69, 19, 0.1);">
+                        <span style="color: #5d4e37; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-star" style="color: #8b4513; width: 16px;"></i>
+                            Състояние
+                        </span>
+                        <span style="color: #3e2723; font-weight: 700;">${landDetails.condition}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Действия -->
+            <div style="padding: ${isMobile ? '1rem' : '2rem 2.5rem'}; border-top: 1px solid rgba(139, 69, 19, 0.1); background: #fafafa;">
+                <div style="display: grid; grid-template-columns: repeat(${isMobile ? '1' : '2'}, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                    <a href="mailto:office@example.com?subject=Интерес към ${property.title}&body=Здравейте,%0D%0A%0D%0AИмам интерес към парцела: ${property.title}%0D%0AЦена: ${property.price}%0D%0AЛокация: ${property.location}%0D%0A%0D%0AБих искал/а да получа повече информация.%0D%0A%0D%0AБлагодаря!" style="background: #8b4513; color: white; border: none; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 2rem'}; border-radius: ${isMobile ? '15px' : '25px'}; text-decoration: none; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.8rem; transition: all 0.3s ease; font-size: ${isMobile ? '1.1rem' : '1rem'}; min-height: ${isMobile ? '56px' : 'auto'}; touch-action: manipulation;">
+                        <i class="fas fa-envelope" style="font-size: 1.1rem;"></i> 
+                        <span>Изпрати имейл</span>
+                    </a>
+                    <a href="properties.html" style="background: #f8f6f3; color: #5d4e37; border: none; padding: ${isMobile ? '1.2rem 1.5rem' : '1rem 2rem'}; border-radius: ${isMobile ? '15px' : '25px'}; text-decoration: none; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.8rem; transition: all 0.3s ease; font-size: ${isMobile ? '1.1rem' : '1rem'}; min-height: ${isMobile ? '56px' : 'auto'}; touch-action: manipulation;">
+                        <i class="fas fa-search" style="font-size: 1.1rem;"></i> 
+                        <span>Още парцели</span>
+                    </a>
+                </div>
+                
+                <!-- Share & Favorite Section -->
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem; padding-top: 1rem; border-top: 1px solid rgba(139, 69, 19, 0.1);">
+                    <button onclick="toggleLandFavorite(${property.id})" style="background: none; border: 2px solid #d2691e; color: #d2691e; padding: 0.8rem 1.2rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; font-weight: 600; touch-action: manipulation;">
+                        <i class="far fa-heart" id="land-heart-${property.id}"></i>
+                        <span>Запази</span>
+                    </button>
+                    <button onclick="shareLandProperty('${property.title}', '${property.price}', '${property.location}')" style="background: none; border: 2px solid #8b4513; color: #8b4513; padding: 0.8rem 1.2rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; font-weight: 600; touch-action: manipulation;">
+                        <i class="fas fa-share-alt"></i>
+                        <span>Сподели</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+
+    // Анимация за появяване
+    setTimeout(() => {
+        modal.style.opacity = '1';
+        modalContent.style.transform = isMobile ? 'translateY(0)' : 'scale(1)';
+    }, 10);
+
+    // Затваряне при клик извън модала
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeLandModal();
+        }
+    });
+
+    // Предотвратяване скрол на body
+    document.body.style.overflow = 'hidden';
+    
+    // Функции за навигация в снимките
+    function updateLandImageDisplay() {
+        const slider = document.getElementById('land-image-slider');
+        const counter = document.getElementById('land-image-counter');
+        const dots = document.querySelectorAll('.land-image-dot');
+        
+        if (slider) {
+            const translateX = -(currentLandImageIndex * (100 / images.length));
+            slider.style.transform = `translateX(${translateX}%)`;
+        }
+        
+        if (counter) {
+            counter.textContent = `${currentLandImageIndex + 1} / ${images.length}`;
+        }
+        
+        dots.forEach((dot, i) => {
+            dot.style.background = i === currentLandImageIndex ? 'white' : 'transparent';
+        });
+    }
+    
+    // Глобални функции за парцелите
+    window.closeLandModal = function() {
+        modal.style.opacity = '0';
+        modalContent.style.transform = isMobile ? 'translateY(100%)' : 'scale(0.8)';
+        setTimeout(() => {
+            modal.remove();
+            document.body.style.overflow = '';
+            delete window.closeLandModal;
+            delete window.changeLandImage;
+            delete window.setLandImage;
+            delete window.toggleLandFavorite;
+            delete window.shareLandProperty;
+        }, 400);
+    };
+    
+    window.changeLandImage = function(direction) {
+        currentLandImageIndex += direction;
+        if (currentLandImageIndex >= images.length) currentLandImageIndex = 0;
+        if (currentLandImageIndex < 0) currentLandImageIndex = images.length - 1;
+        updateLandImageDisplay();
+    };
+    
+    window.setLandImage = function(index) {
+        currentLandImageIndex = index;
+        updateLandImageDisplay();
+    };
+    
+    window.toggleLandFavorite = function(propertyId) {
+        const heart = document.getElementById(`land-heart-${propertyId}`);
+        if (heart.classList.contains('fas')) {
+            heart.classList.remove('fas');
+            heart.classList.add('far');
+            showNotification('Премахнато от любими', 'info');
+        } else {
+            heart.classList.remove('far');
+            heart.classList.add('fas');
+            heart.style.color = '#d2691e';
+            showNotification('Добавено в любими', 'success');
+        }
+    };
+    
+    window.shareLandProperty = function(title, price, location) {
+        if (navigator.share) {
+            navigator.share({
+                title: title,
+                text: `${title} - ${price} в ${location}`,
+                url: window.location.href
+            });
+        } else {
+            const shareText = `${title} - ${price} в ${location}\n${window.location.href}`;
+            navigator.clipboard.writeText(shareText).then(() => {
+                showNotification('Информацията е копирана в клипборда', 'success');
+            });
+        }
+    };
+
+    // Touch/Swipe поддръжка за мобилни устройства
+    if (isMobile && images.length > 1) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        const imageContainer = modalContent.querySelector('#land-image-slider').parentElement;
+        
+        imageContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        imageContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleLandSwipe();
+        }, { passive: true });
+        
+        function handleLandSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next image
+                    window.changeLandImage(1);
+                } else {
+                    // Swipe right - previous image
+                    window.changeLandImage(-1);
+                }
+            }
+        }
+    }
+
+    // Keyboard navigation
+    function handleLandKeyPress(e) {
+        if (images.length <= 1) return;
+        
+        switch(e.key) {
+            case 'ArrowLeft':
+                e.preventDefault();
+                window.changeLandImage(-1);
+                break;
+            case 'ArrowRight':
+                e.preventDefault();
+                window.changeLandImage(1);
+                break;
+            case 'Escape':
+                e.preventDefault();
+                window.closeLandModal();
+                break;
+        }
+    }
+    
+    document.addEventListener('keydown', handleLandKeyPress);
+    
+    // Clean up keyboard listener when modal closes
+    const originalCloseLandModal = window.closeLandModal;
+    window.closeLandModal = function() {
+        document.removeEventListener('keydown', handleLandKeyPress);
+        originalCloseLandModal();
+    };
+}
