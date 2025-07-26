@@ -257,6 +257,157 @@
         </div>
     </section>
 
+<section class="testimonials-section">
+    <div class="testimonials-container">
+        <div class="section-header">
+            <h2 class="fade-in">Какво казват нашите клиенти</h2>
+            <p class="fade-in">Вашето доверие е най-голямата ни награда</p>
+        </div>
+
+        <!-- Testimonials Carousel -->
+        <div class="testimonials-carousel fade-in">
+            <div class="testimonials-wrapper" id="testimonialsWrapper">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Изключително професионален подход! Sander Correct ни помогнаха да намерим идеалния дом за нашето семейство."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Мария Петрова</h4>
+                                <span>София, Борово</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Продадохме апартамента си за рекордно време - само 3 седмици! Екипът показа изключителна компетентност."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Георги Иванов</h4>
+                                <span>София, Лозенец</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Благодарение на съветите на консултантите, успяхме да инвестираме в имот с голям потенциал."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Елена Стоянова</h4>
+                                <span>София, Витоша</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Carousel Controls -->
+            <div class="carousel-controls">
+                <button class="carousel-btn prev" onclick="prevTestimonial()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel-dots" id="carouselDots"></div>
+                <button class="carousel-btn next" onclick="nextTestimonial()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Google Review CTA - Compact -->
+        <div class="google-review-cta fade-in">
+            <div class="review-summary">
+                <div class="review-icon">
+                    <i class="fab fa-google"></i>
+                </div>
+                <div class="review-actions">
+                    <h3>Сподели твоето мнение</h3>
+                    <p>Помогни на други хора да направят добрия избор</p>
+                    <div class="review-buttons">
+                        <a href="#" class="google-review-btn" onclick="openGoogleReview()">
+                            <i class="fab fa-google"></i>
+                            Остави Google Review
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Feedback Modal -->
+<div class="modal" id="feedbackModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Оцени нашата работа</h3>
+            <span class="modal-close" onclick="closeFeedbackModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="quick-rating">
+                <p>Как оценявате нашите услуги?</p>
+                <div class="rating-stars-interactive" id="interactiveStars">
+                    <i class="fas fa-star" data-rating="1"></i>
+                    <i class="fas fa-star" data-rating="2"></i>
+                    <i class="fas fa-star" data-rating="3"></i>
+                    <i class="fas fa-star" data-rating="4"></i>
+                    <i class="fas fa-star" data-rating="5"></i>
+                </div>
+                <div class="rating-text" id="ratingText">Изберете оценка</div>
+            </div>
+            <div class="feedback-options" id="feedbackOptions" style="display: none;">
+                <h4>Благодарим за оценката!</h4>
+                <p>Искате ли да споделите вашето мнение публично?</p>
+                <div class="feedback-buttons">
+                    <button class="feedback-btn primary" onclick="redirectToGoogleReview()">
+                        <i class="fab fa-google"></i>
+                        Да, остави Google Review
+                    </button>
+                    <button class="feedback-btn secondary" onclick="submitPrivateFeedback()">
+                        <i class="fas fa-envelope"></i>
+                        Изпрати като частна обратна връзка
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
     <!-- Why Choose Us Section -->
     <section class="why-choose-us">
         <div class="why-choose-container">

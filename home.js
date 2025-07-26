@@ -1733,3 +1733,164 @@ function showLandPropertyDetails(property) {
                 }
             });
         });
+        let currentTestimonial = 0;
+const testimonials = document.querySelectorAll('.testimonial-card');
+const totalTestimonials = testimonials.length;
+
+// Initialize carousel
+document.addEventListener('DOMContentLoaded', function() {
+    initializeCarousel();
+    initializeInteractiveRating();
+    
+    // Auto-rotate testimonials every 5 seconds
+    setInterval(nextTestimonial, 5000);
+});
+
+function initializeCarousel() {
+    const dotsContainer = document.getElementById('carouselDots');
+    
+    // Create dots
+    for (let i = 0; i < totalTestimonials; i++) {
+        const dot = document.createElement('div');
+        dot.className = `dot ${i === 0 ? 'active' : ''}`;
+        dot.onclick = () => goToTestimonial(i);
+        dotsContainer.appendChild(dot);
+    }
+    
+    updateCarousel();
+}
+
+function nextTestimonial() {
+    currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+    updateCarousel();
+}
+
+function prevTestimonial() {
+    currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
+    updateCarousel();
+}
+
+function goToTestimonial(index) {
+    currentTestimonial = index;
+    updateCarousel();
+}
+
+function updateCarousel() {
+    const wrapper = document.getElementById('testimonialsWrapper');
+    const dots = document.querySelectorAll('.dot');
+    
+    wrapper.style.transform = `translateX(-${currentTestimonial * 100}%)`;
+    
+    // Update dots
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentTestimonial);
+    });
+    
+    // Update navigation buttons
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    
+    prevBtn.disabled = currentTestimonial === 0;
+    nextBtn.disabled = currentTestimonial === totalTestimonials - 1;
+}
+
+// Google Review functionality
+function openGoogleReview() {
+    // Replace with your actual Google My Business review URL
+    // You can get this from your Google My Business dashboard
+    const googleReviewUrl = 'https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID';
+    
+    // For now, using a search URL - replace with your actual review URL
+    const searchUrl = 'https://www.google.com/search?q=Sander+Correct&rlz=1C1GCEA_enBG1063BG1063&oq=Sander&gs_lcrp=EgZjaHJvbWUqBggCEEUYOzIGCAAQRRg8MgYIARBFGDsyBggCEEUYOzIJCAMQRRg5GIAEMgcIBBAAGIAEMgYIBRBFGDwyBggGEEUYPDIGCAcQRRg80gEIMzk4NmowajeoAgCwAgA&sourceid=chrome&ie=UTF-8';
+    
+    window.open(searchUrl, '_blank');
+}
+
+// Feedback modal functionality
+function openFeedbackModal() {
+    document.getElementById('feedbackModal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeFeedbackModal() {
+    document.getElementById('feedbackModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+    resetFeedbackModal();
+}
+
+function resetFeedbackModal() {
+    const stars = document.querySelectorAll('.rating-stars-interactive i');
+    stars.forEach(star => star.classList.remove('active'));
+    document.getElementById('ratingText').textContent = 'Изберете оценка';
+    document.getElementById('feedbackOptions').style.display = 'none';
+}
+
+// Interactive rating system
+function initializeInteractiveRating() {
+    const stars = document.querySelectorAll('.rating-stars-interactive i');
+    let currentRating = 0;
+    
+    stars.forEach(star => {
+        star.addEventListener('mouseenter', function() {
+            const rating = parseInt(this.dataset.rating);
+            highlightStars(rating);
+        });
+        
+        star.addEventListener('mouseleave', function() {
+            highlightStars(currentRating);
+        });
+        
+        star.addEventListener('click', function() {
+            currentRating = parseInt(this.dataset.rating);
+            highlightStars(currentRating);
+            showRatingText(currentRating);
+            
+            setTimeout(() => {
+                document.getElementById('feedbackOptions').style.display = 'block';
+            }, 500);
+        });
+    });
+    
+    function highlightStars(rating) {
+        stars.forEach((star, index) => {
+            if (index < rating) {
+                star.classList.add('active');
+            } else {
+                star.classList.remove('active');
+            }
+        });
+    }
+    
+    function showRatingText(rating) {
+        const texts = {
+            1: 'Незадоволителна услуга',
+            2: 'Може да се подобри',
+            3: 'Добра услуга',
+            4: 'Много добра услуга',
+            5: 'Отлична услуга!'
+        };
+        
+        const textElement = document.getElementById('ratingText');
+        textElement.textContent = texts[rating];
+        textElement.style.color = rating >= 4 ? '#8b4513' : rating >= 3 ? '#ffc107' : '#dc3545';
+    }
+}
+
+function redirectToGoogleReview() {
+    closeFeedbackModal();
+    openGoogleReview();
+}
+
+function submitPrivateFeedback() {
+    // Here you would typically send the feedback to your server
+    alert('Благодарим за обратната връзка! Тя ще бъде разгледана от нашия екип.');
+    closeFeedbackModal();
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('feedbackModal');
+    if (event.target === modal) {
+        closeFeedbackModal();
+    }
+}

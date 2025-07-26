@@ -183,13 +183,25 @@ const newsData = [
 
 // Team member modal functionality
 function showTeamMemberModal(memberId) {
+    console.log('Функцията е извикана с ID:', memberId);
+    
     const member = teamMembers[memberId];
-    if (!member) return;
+    if (!member) {
+        console.error('Не е намерен член с ID:', memberId);
+        return;
+    }
+
+    // Проверка дали properties съществува (може да е в друг файл)
+    let memberProperties = [];
+    if (typeof properties !== 'undefined') {
+        memberProperties = properties.filter(property => 
+            property.assignedBroker === memberId
+        );
+    }
 
     const isMobile = window.innerWidth <= 768;
     
     const modal = document.createElement('div');
-    modal.className = 'team-modal';
     modal.style.cssText = `
         position: fixed;
         top: 0;
@@ -211,7 +223,7 @@ function showTeamMemberModal(memberId) {
     modalContent.style.cssText = `
         background: white;
         border-radius: ${isMobile ? '20px' : '25px'};
-        max-width: 700px;
+        max-width: 900px;
         width: 100%;
         max-height: 90vh;
         overflow-y: auto;
@@ -220,6 +232,163 @@ function showTeamMemberModal(memberId) {
         box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
         position: relative;
     `;
+
+    // HTML за показване на имотите
+   // HTML за показване на имотите с хоризонтален скрол
+const propertiesHTML = memberProperties.length > 0 ? `
+    <div style="margin-bottom: 2rem;">
+        <h3 style="color: #3e2723; margin-bottom: 1rem; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-home" style="color: #8b4513;"></i>
+            Отговаря за ${memberProperties.length} ${memberProperties.length === 1 ? 'имот' : 'имота'}
+        </h3>
+        
+        <!-- Хоризонтален скрол контейнер -->
+        <div style="position: relative; background: linear-gradient(135deg, #f8f6f3 0%, #fff 100%); border-radius: 20px; border: 1px solid rgba(139, 69, 19, 0.08); padding: 1.5rem; overflow: hidden;">
+            <div id="broker-properties-scroll" style="display: flex; gap: 1.5rem; overflow-x: auto; overflow-y: hidden; padding-bottom: 10px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(139, 69, 19, 0.3) transparent;">
+                ${memberProperties.map(property => {
+                    // Определяне на категория
+                    let categoryText = 'Имот';
+                    if (property.featured) {
+                        categoryText = 'Промоция';
+                    } else if (property.type === 'apartment') {
+                        categoryText = 'Апартамент';
+                    } else if (property.type === 'house') {
+                        categoryText = 'Къща';
+                    } else if (property.type === 'land') {
+                        categoryText = 'Парцел';
+                    } else if (property.type === 'commercial') {
+                        categoryText = 'Търговски';
+                    }
+                    
+                    return `
+                        <div class="broker-property-card" style="
+                            flex: 0 0 ${isMobile ? '280px' : '320px'}; 
+                            background: white; 
+                            border-radius: 20px; 
+                            overflow: hidden; 
+                            box-shadow: 0 8px 30px rgba(139, 69, 19, 0.1); 
+                            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+                            cursor: pointer; 
+                            position: relative; 
+                            border: 1px solid rgba(139, 69, 19, 0.05);
+                            height: ${isMobile ? '420px' : '450px'};
+                        " 
+                             onclick="showEnhancedPropertyModal(${property.id})"
+                             onmouseenter="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px rgba(139, 69, 19, 0.15)'"
+                             onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 30px rgba(139, 69, 19, 0.1)'">
+                            
+                            <!-- Image Container -->
+                            <div style="position: relative; height: ${isMobile ? '200px' : '220px'}; overflow: hidden; background: linear-gradient(45deg, #f8f6f3, #fff);">
+                                <img src="${property.image || 'images/default-property.jpg'}" 
+                                     style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" 
+                                     onmouseenter="this.style.transform='scale(1.05)'"
+                                     onmouseleave="this.style.transform='scale(1)'"
+                                     onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop&crop=center'"
+                                     alt="${property.title}" loading="lazy">
+                                
+                                <!-- Category Badge -->
+                                <div style="position: absolute; top: 12px; left: 12px; background: rgba(139, 69, 19, 0.95); backdrop-filter: blur(10px); color: white; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);">
+                                    ${categoryText}
+                                </div>
+                                
+                                <!-- Price Badge -->
+                                <div style="position: absolute; top: 12px; right: 12px; background: rgba(210, 105, 30, 0.95); backdrop-filter: blur(10px); color: white; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 800; box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3);">
+                                    ${property.price}
+                                </div>
+                                
+                                <!-- Featured Badge -->
+                                ${property.featured ? `
+                                    <div style="position: absolute; bottom: 12px; left: 12px; background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; padding: 0.3rem 0.7rem; border-radius: 15px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
+                                        <i class="fas fa-star" style="margin-right: 0.3rem;"></i>Промоция
+                                    </div>
+                                ` : ''}
+                            </div>
+                            
+                            <!-- Content -->
+                            <div style="padding: 1.2rem;">
+                                <!-- Title -->
+                                <h4 style="margin: 0 0 0.8rem 0; font-size: 1rem; font-weight: 700; color: #2c1810; line-height: 1.3; height: 2.6rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                    ${property.title}
+                                </h4>
+                                
+                                <!-- Location -->
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; color: #8b4513; font-weight: 600;">
+                                    <i class="fas fa-map-marker-alt" style="font-size: 0.8rem;"></i>
+                                    <span style="font-size: 0.85rem;">${property.location}</span>
+                                </div>
+                                
+                                <!-- Details Grid -->
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 1rem;">
+                                    <div style="text-align: center; padding: 0.6rem 0.4rem; background: rgba(139, 69, 19, 0.05); border-radius: 10px;">
+                                        <i class="fas fa-expand-arrows-alt" style="color: #8b4513; font-size: 0.9rem; margin-bottom: 0.2rem; display: block;"></i>
+                                        <div style="font-size: 0.65rem; color: #666; margin-bottom: 0.1rem; text-transform: uppercase;">Площ</div>
+                                        <div style="font-weight: 700; color: #2c1810; font-size: 0.75rem;">${property.area}</div>
+                                    </div>
+                                    <div style="text-align: center; padding: 0.6rem 0.4rem; background: rgba(139, 69, 19, 0.05); border-radius: 10px;">
+                                        <i class="fas fa-bed" style="color: #8b4513; font-size: 0.9rem; margin-bottom: 0.2rem; display: block;"></i>
+                                        <div style="font-size: 0.65rem; color: #666; margin-bottom: 0.1rem; text-transform: uppercase;">Стаи</div>
+                                        <div style="font-weight: 700; color: #2c1810; font-size: 0.75rem;">${property.rooms}</div>
+                                    </div>
+                                    <div style="text-align: center; padding: 0.6rem 0.4rem; background: rgba(139, 69, 19, 0.05); border-radius: 10px;">
+                                        <i class="fas fa-building" style="color: #8b4513; font-size: 0.9rem; margin-bottom: 0.2rem; display: block;"></i>
+                                        <div style="font-size: 0.65rem; color: #666; margin-bottom: 0.1rem; text-transform: uppercase;">Етаж</div>
+                                        <div style="font-weight: 700; color: #2c1810; font-size: 0.75rem;">${property.floor}</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Action Button -->
+                                <button onclick="event.stopPropagation(); showEnhancedPropertyModal(${property.id})" 
+                                        style="width: 100%; background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%); color: white; border: none; padding: 0.8rem; border-radius: 12px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"
+                                        onmouseenter="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(139, 69, 19, 0.3)'"
+                                        onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                                    <i class="fas fa-eye"></i>
+                                    Виж детайли
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+            
+            <!-- Scroll Navigation Buttons -->
+            ${memberProperties.length > (isMobile ? 1 : 2) ? `
+                <button onclick="scrollBrokerProperties('left')" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(139, 69, 19, 0.9); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3); transition: all 0.3s ease;">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button onclick="scrollBrokerProperties('right')" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(139, 69, 19, 0.9); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3); transition: all 0.3s ease;">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            ` : ''}
+        </div>
+        
+        <!-- View All Button -->
+        ${memberProperties.length > 6 ? `
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <button onclick="showAllBrokerProperties('${memberId}')" style="background: transparent; color: #8b4513; border: 2px solid #8b4513; padding: 0.8rem 2rem; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem;"
+                        onmouseenter="this.style.background='#8b4513'; this.style.color='white'"
+                        onmouseleave="this.style.background='transparent'; this.style.color='#8b4513'">
+                    <i class="fas fa-arrow-right"></i>
+                    Виж всички ${memberProperties.length} имота
+                </button>
+            </div>
+        ` : ''}
+    </div>
+` : `
+    <div style="margin-bottom: 2rem;">
+        <div style="text-align: center; padding: 2rem; background: #f8f6f3; border-radius: 15px; color: #8b4513;">
+            <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+            <div style="font-weight: 600;">Няма назначени имоти за ${member.name}</div>
+            <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">
+                Общо имоти: ${properties ? properties.length : 0}<br>
+                Имоти с брокер: ${properties ? properties.filter(p => p.assignedBroker).length : 0}<br>
+                Търсен брокер: ${memberId}
+            </div>
+            <div style="font-size: 0.85rem; margin-top: 1rem; padding: 1rem; background: rgba(139, 69, 19, 0.1); border-radius: 8px;">
+                💡 За да се покажат имоти, добавете поле <code>assignedBroker: "${memberId}"</code> в properties-data.js
+            </div>
+        </div>
+    </div>
+`;
 
     modalContent.innerHTML = `
         <div style="position: relative; height: ${isMobile ? '200px' : '250px'}; background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%); border-radius: ${isMobile ? '20px' : '25px'} ${isMobile ? '20px' : '25px'} 0 0; overflow: hidden; display: flex; align-items: center; justify-content: center;">
@@ -242,6 +411,8 @@ function showTeamMemberModal(memberId) {
                 <div style="font-weight: 700; color: #8b4513; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Специализация</div>
                 <div style="color: #3e2723; font-size: ${isMobile ? '1rem' : '1.1rem'}; font-weight: 600;">${member.specialization}</div>
             </div>
+            
+            ${propertiesHTML}
             
             <div style="margin-bottom: 2rem;">
                 <h3 style="color: #3e2723; margin-bottom: 1rem; font-size: ${isMobile ? '1.2rem' : '1.3rem'}; font-weight: 700;">За ${member.name.split(' ')[0]}</h3>
@@ -285,17 +456,46 @@ function showTeamMemberModal(memberId) {
         </div>
     `;
 
-    window.closeTeamModal = function() {
-        modal.style.opacity = '0';
-        modalContent.style.transform = 'scale(0.8) translateY(20px)';
-        setTimeout(() => {
-            if (modal.parentNode) {
-                modal.remove();
-            }
-            document.body.style.overflow = '';
-            delete window.closeTeamModal;
-        }, 400);
+    // Функция за показване на всички имоти на брокера
+    window.showAllBrokerProperties = function(brokerId) {
+        closeTeamModal();
+        window.location.href = `properties.html?broker=${brokerId}`;
     };
+
+// Функция за скролиране на имотите
+window.scrollBrokerProperties = function(direction) {
+    const container = document.getElementById('broker-properties-scroll');
+    if (!container) return;
+    
+    const scrollAmount = isMobile ? 300 : 350; // Колко пиксела да скролира
+    const currentScroll = container.scrollLeft;
+    
+    if (direction === 'left') {
+        container.scrollTo({
+            left: currentScroll - scrollAmount,
+            behavior: 'smooth'
+        });
+    } else {
+        container.scrollTo({
+            left: currentScroll + scrollAmount,
+            behavior: 'smooth'
+        });
+    }
+};
+
+    window.closeTeamModal = function() {
+    modal.style.opacity = '0';
+    modalContent.style.transform = 'scale(0.8) translateY(20px)';
+    setTimeout(() => {
+        if (modal.parentNode) {
+            modal.remove();
+        }
+        document.body.style.overflow = '';
+        delete window.closeTeamModal;
+        delete window.showAllBrokerProperties;
+        delete window.scrollBrokerProperties; // Добавете този ред
+    }, 400);
+};
 
     modal.appendChild(modalContent);
     document.body.appendChild(modal);
@@ -311,6 +511,7 @@ function showTeamMemberModal(memberId) {
             closeTeamModal();
         }
     });
+
 }
 
 // News modal functionality
