@@ -279,7 +279,7 @@ const propertiesHTML = memberProperties.length > 0 ? `
                             
                             <!-- Image Container -->
                             <div style="position: relative; height: ${isMobile ? '200px' : '220px'}; overflow: hidden; background: linear-gradient(45deg, #f8f6f3, #fff);">
-                                <img src="${property.image || 'images/default-property.jpg'}" 
+                                <img src="${property.images || 'images/default-property.jpg'}" 
                                      style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" 
                                      onmouseenter="this.style.transform='scale(1.05)'"
                                      onmouseleave="this.style.transform='scale(1)'"
@@ -379,12 +379,6 @@ const propertiesHTML = memberProperties.length > 0 ? `
             <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
             <div style="font-weight: 600;">Няма назначени имоти за ${member.name}</div>
             <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">
-                Общо имоти: ${properties ? properties.length : 0}<br>
-                Имоти с брокер: ${properties ? properties.filter(p => p.assignedBroker).length : 0}<br>
-                Търсен брокер: ${memberId}
-            </div>
-            <div style="font-size: 0.85rem; margin-top: 1rem; padding: 1rem; background: rgba(139, 69, 19, 0.1); border-radius: 8px;">
-                💡 За да се покажат имоти, добавете поле <code>assignedBroker: "${memberId}"</code> в properties-data.js
             </div>
         </div>
     </div>
