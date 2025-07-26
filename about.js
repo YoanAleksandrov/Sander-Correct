@@ -271,7 +271,7 @@ const propertiesHTML = memberProperties.length > 0 ? `
                             cursor: pointer; 
                             position: relative; 
                             border: 1px solid rgba(139, 69, 19, 0.05);
-                            height: ${isMobile ? '420px' : '450px'};
+                            height: ${isMobile ? '420px' : '490px'};
                         " 
                              onclick="showEnhancedPropertyModal(${property.id})"
                              onmouseenter="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px rgba(139, 69, 19, 0.15)'"
