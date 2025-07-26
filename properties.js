@@ -383,8 +383,10 @@ function updateFilterTab(type) {
 
 // Load and apply URL parameters from index page
 function loadFromURLParameters() {
+    
     const urlParams = new URLSearchParams(window.location.search);
     let hasParams = false;
+    
     
     // Map URL parameters to search criteria
     if (urlParams.has('type')) {
