@@ -1692,3 +1692,44 @@ function showLandPropertyDetails(property) {
         originalCloseLandModal();
     };
 }
+
+ function openVideo(videoId) {
+            const url = `https://www.youtube.com/watch?v=${videoId}`;
+            window.open(url, '_blank');
+        }
+
+        // Intersection Observer за анимации при скролиране
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Наблюдаване на всички елементи за анимация
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.video-card, .videos-header h2, .videos-subtitle, .cta-section');
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Smooth scroll за anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });

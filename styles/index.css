@@ -1622,3 +1622,319 @@ html {
 }
 
 /* Remove unused parking styling */
+.videos-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #faf9f7 0%, #f5f3f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .videos-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(210, 105, 30, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .videos-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .videos-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .videos-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #3e2723;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .videos-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #d2691e 0%, #ff8c00 100%);
+            border-radius: 2px;
+        }
+
+        .videos-subtitle {
+            font-size: 1.2rem;
+            color: #5d4e37;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #d2691e 0%, #ff8c00 100%);
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.1);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #d2691e;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-card:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-content {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #3e2723;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .video-description {
+            color: #5d4e37;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #8b7355;
+        }
+
+        .video-duration {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .video-views {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .youtube-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .youtube-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .youtube-button:hover::before {
+            left: 100%;
+        }
+
+        .youtube-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+            background: linear-gradient(135deg, #ff3333 0%, #e60000 100%);
+        }
+
+        .youtube-button i {
+            font-size: 1.3rem;
+        }
+
+        .cta-section-video {
+            text-align: center;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section-video::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #d2691e 0%, #ff8c00 50%, #d2691e 100%);
+        }
+
+        .cta-title-video {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #3e2723;
+            margin-bottom: 1rem;
+        }
+
+        .cta-description-video {
+            color: #5d4e37;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .video-card:nth-child(1) { animation-delay: 0.1s; }
+        .video-card:nth-child(2) { animation-delay: 0.2s; }
+        .video-card:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Responsive дизайн */
+        @media (max-width: 768px) {
+            .videos-section {
+                padding: 3rem 1rem;
+            }
+
+            .videos-header h2 {
+                font-size: 2.2rem;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .video-card {
+                margin: 0 auto;
+                max-width: 400px;
+            }
+
+            .cta-section-video {
+                padding: 2rem 1.5rem;
+            }
+
+            .cta-title-video {
+                font-size: 1.5rem;
+            }
+
+            .youtube-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .videos-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-thumbnail {
+                height: 200px;
+            }
+
+            .play-button {
+                width: 60px;
+                height: 60px;
+                font-size: 1.2rem;
+            }
+        }
