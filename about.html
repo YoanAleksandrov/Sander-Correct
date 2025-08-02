@@ -22,6 +22,7 @@
                 <li><a class="nav-link active" href="about.html">За нас</a></li>
                 <li><a class="nav-link" href="banking.html">Банково кредитиране</a></li>
                 <li><a class="nav-link" href="documents.html">Документи</a></li>
+                <li><a class="nav-link" href="news.html">Новини</a></li>
             </ul>
             <a class="contact-btn" href="contact.html">Контакт</a>
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
@@ -337,92 +338,7 @@
         </div>
     </section>
 
-    <!-- News Section -->
-    <section class="news-section" id="news">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Новини</span>
-                <h2>Последни новини и събития</h2>
-                <p>Следете най-актуалните новини от света на недвижимите имоти</p>
-            </div>
 
-            <div class="news-container">
-                <div class="news-compact-grid">
-                    <article class="news-card" onclick="showNewsModal(1)">
-                        <div class="news-image">
-                            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Нови апартаменти в Витоша" loading="lazy">
-                            <div class="news-category">Нови проекти</div>
-                        </div>
-                        <div class="news-content">
-                            <div class="news-date">25.06.2025</div>
-                            <h3>Нови апартаменти в Витоша</h3>
-                            <p>Открихме нова жилищна сграда с луксозни апартаменти в подножието на Витоша.</p>
-                        </div>
-                    </article>
-
-                    <article class="news-card" onclick="showNewsModal(2)">
-                        <div class="news-image">
-                            <img src="https://images.unsplash.com/photo-1460472178825-e5240623afd5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Ръст на цените на имотите" loading="lazy">
-                            <div class="news-category">Пазарен анализ</div>
-                        </div>
-                        <div class="news-content">
-                            <div class="news-date">20.06.2025</div>
-                            <h3>Ръст на цените на имотите</h3>
-                            <p>Анализ на пазара показва 5% ръст на цените на жилищните имоти в София.</p>
-                        </div>
-                    </article>
-
-                    <article class="news-card" onclick="showNewsModal(3)">
-                        <div class="news-image">
-                            <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Виртуални обиколки" loading="lazy">
-                            <div class="news-category">Иновации</div>
-                        </div>
-                        <div class="news-content">
-                            <div class="news-date">15.06.2025</div>
-                            <h3>Виртуални обиколки 360°</h3>
-                            <p>Въведохме най-новата технология за 360° виртуални обиколки.</p>
-                        </div>
-                    </article>
-
-                    <article class="news-card" onclick="showNewsModal(4)">
-                        <div class="news-image">
-                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Партньорство с банки" loading="lazy">
-                            <div class="news-category">Партньорства</div>
-                        </div>
-                        <div class="news-content">
-                            <div class="news-date">10.06.2025</div>
-                            <h3>Партньорство с водещи банки</h3>
-                            <p>Сключихме договори с 5 нови банки за по-изгодни кредитни условия.</p>
-                        </div>
-                    </article>
-
-                    <article class="news-card" onclick="showNewsModal(5)">
-                        <div class="news-image">
-                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Нов офис" loading="lazy">
-                            <div class="news-category">Компания</div>
-                        </div>
-                        <div class="news-content">
-                            <div class="news-date">05.06.2025</div>
-                            <h3>Откриване на нов офис</h3>
-                            <p>Откриваме нов офис в центъра на София за по-добро обслужване.</p>
-                        </div>
-                    </article>
-
-                    <article class="news-card" onclick="showNewsModal(6)">
-                        <div class="news-image">
-                            <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Нова услуга оценка" loading="lazy">
-                            <div class="news-category">Услуги</div>
-                        </div>
-                        <div class="news-content">
-                            <div class="news-date">01.06.2025</div>
-                            <h3>Безплатна оценка на имоти</h3>
-                            <p>Стартираме нова услуга за безплатна оценка на жилищни имоти.</p>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Values Section -->
     <section class="values-section">
@@ -505,7 +421,7 @@
                         <li><a href="about.html">За нас</a></li>
                         <li><a href="about.html#team">Нашият екип</a></li>
                         <li><a href="contact.html">Кариери</a></li>
-                        <li><a href="#news">Новини</a></li>
+                        <li><a href="news.html">Новини</a></li>
                         <li><a href="#">Блог</a></li>
                     </ul>
                 </div>

@@ -16,7 +16,6 @@ body {
 
 /* Page content padding for fixed header */
 .page-content {
-    margin-top: 80px;
     padding-top: 4rem;
     min-height: calc(100vh - 80px);
 }
