@@ -7,8 +7,25 @@
     <link rel="stylesheet" href="./styles/common.css">
     <link rel="stylesheet" href="./styles/news.css">
     <title>Новини - Sander Correct</title>
+    <style>
+        /* Ensure all interactive elements are clickable */
+        * {
+            pointer-events: auto !important;
+        }
+        
+        /* Ensure body and html are not blocking interactions */
+        html, body {
+            pointer-events: auto !important;
+            user-select: auto !important;
+            -webkit-user-select: auto !important;
+            -moz-user-select: auto !important;
+            -ms-user-select: auto !important;
+        }
+    </style>
 </head>
 <body>
+
+    
     <!-- Header -->
     <header class="header">
         <nav class="nav-container">
@@ -25,7 +42,7 @@
                 <li><a class="nav-link active" href="news.html">Новини</a></li>
             </ul>
             <a class="contact-btn" href="contact.html">Контакт</a>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </nav>
     </header>
 
@@ -72,7 +89,7 @@
                                 Румяна Александрова: Хора, които имат по-голям процент от изискуемите лични средства на банките, предпочитат да си вземат кредит на ниски нива
                             </p>
                             <div class="news-actions">
-                                <a href="#" class="news-read-more" onclick="showNewsDetails(1)">
+                                <a href="#" class="news-read-more" data-news-id="1">
                                     <i class="fas fa-arrow-right"></i>
                                     Прочети повече
                                 </a>
@@ -102,7 +119,7 @@
                                 Експертът коментира и съветва: В София може да се направи най-смислената инвестиция в имот
                             </p>
                             <div class="news-actions">
-                                <a href="#" class="news-read-more" onclick="showNewsDetails(2)">
+                                <a href="#" class="news-read-more" data-news-id="2">
                                     <i class="fas fa-arrow-right"></i>
                                     Прочети повече
                                 </a>
@@ -132,7 +149,7 @@
                                 "Имотите на София: Безплатни консултации за Вашите имотни казуси"
                             </p>
                             <div class="news-actions">
-                                <a href="#" class="news-read-more" onclick="showNewsDetails(3)">
+                                <a href="#" class="news-read-more" data-news-id="3">
                                     <i class="fas fa-arrow-right"></i>
                                     Прочети повече
                                 </a>
@@ -162,7 +179,7 @@
                                 Да запазим баланса в съвремие на крайности е наша професионална отговорност, смята собственикът на "Сандер Корект"
                             </p>
                             <div class="news-actions">
-                                <a href="#" class="news-read-more" onclick="showNewsDetails(4)">
+                                <a href="#" class="news-read-more" data-news-id="4">
                                     <i class="fas fa-arrow-right"></i>
                                     Прочети повече
                                 </a>
@@ -192,7 +209,7 @@
                                 За втора година ДСК Дом награди най-добрите ФЦ и клонове по продажба за 2021г. на жилищни и ипотечни кредити
                             </p>
                             <div class="news-actions">
-                                <a href="#" class="news-read-more" onclick="showNewsDetails(5)">
+                                <a href="#" class="news-read-more" data-news-id="5">
                                     <i class="fas fa-arrow-right"></i>
                                     Прочети повече
                                 </a>
@@ -222,7 +239,7 @@
                                 Потребителите определиха техния фаворит за изминалата 2020 година
                             </p>
                             <div class="news-actions">
-                                <a href="#" class="news-read-more" onclick="showNewsDetails(6)">
+                                <a href="#" class="news-read-more" data-news-id="6">
                                     <i class="fas fa-arrow-right"></i>
                                     Прочети повече
                                 </a>
@@ -233,7 +250,7 @@
 
                 <!-- Load More Button -->
                 <div class="news-footer fade-in">
-                    <button class="load-more-btn" onclick="loadMoreNews()">
+                    <button class="load-more-btn" id="loadMoreBtn">
                         <i class="fas fa-plus"></i>
                         Зареди още новини
                     </button>
@@ -247,7 +264,7 @@
                 <div class="newsletter-content">
                     <h2 class="fade-in">Абонирайте се за нашия бюлетин</h2>
                     <p class="fade-in">Получете най-новите новини и анализи за недвижимите имоти директно в пощата си</p>
-                    <form class="newsletter-form fade-in" onsubmit="subscribeNewsletter(event)">
+                    <form class="newsletter-form fade-in" id="newsletterForm">
                         <div class="form-group">
                             <input type="email" id="newsletter-email" placeholder="Вашият имейл адрес" required>
                         </div>
@@ -262,11 +279,11 @@
     </div>
 
     <!-- News Modal -->
-    <div class="modal" id="newsModal">
+    <div class="modal" id="newsModal" style="display: none;">
         <div class="modal-content news-modal-content">
             <div class="modal-header">
                 <h3 id="modalNewsTitle"></h3>
-                <span class="modal-close" onclick="closeNewsModal()">&times;</span>
+                <span class="modal-close" id="closeModalBtn">&times;</span>
             </div>
             <div class="modal-body">
                 <div class="news-modal-meta">
@@ -327,7 +344,6 @@
         </div>
     </footer>
 
-    <script src="common.js"></script>
     <script src="news.js"></script>
 </body>
 </html> 

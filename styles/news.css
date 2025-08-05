@@ -1,4 +1,30 @@
-/* News Page Styles */
+News Page Styles
+
+/* Ensure interactive elements are clickable */
+.news-read-more,
+.load-more-btn,
+.newsletter-btn,
+.modal-close,
+.mobile-menu-btn {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    position: relative;
+    z-index: 100;
+}
+
+/* Ensure no overlapping elements block interactions */
+.news-card,
+.news-content,
+.news-actions {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure modal doesn't block interactions when hidden */
+.modal:not(.show) {
+    pointer-events: none !important;
+    z-index: -1 !important;
+}
 
 /* News Hero Section */
 .news-hero {

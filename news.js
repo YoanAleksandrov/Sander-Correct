@@ -1,5 +1,21 @@
 // News Page JavaScript
 
+// Mobile menu toggle function
+function toggleMobileMenu() {
+    const navMenu = document.getElementById('navMenu');
+    const mobileBtn = document.querySelector('.mobile-menu-btn');
+    
+    if (navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+        mobileBtn.textContent = '☰';
+        document.body.style.overflow = ''; // Restore scroll
+    } else {
+        navMenu.classList.add('active');
+        mobileBtn.textContent = '✕';
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+    }
+}
+
 // News data - всички новини от оригиналния сайт
 const newsData = [
     {
@@ -139,87 +155,25 @@ const newsData = [
     }
 ];
 
-// Global functions - make them available in global scope
-window.showNewsDetails = function(newsId) {
-    console.log('showNewsDetails called with:', newsId);
-    const news = newsData.find(item => item.id === newsId);
-    if (!news) {
-        console.error('News not found:', newsId);
-        return;
-    }
-
-    // Populate modal content
-    document.getElementById('modalNewsTitle').textContent = news.title;
-    document.getElementById('modalNewsDate').innerHTML = `<i class="fas fa-calendar"></i> ${news.date}`;
-    document.getElementById('modalNewsAuthor').innerHTML = `<i class="fas fa-user"></i> ${news.author}`;
-    document.getElementById('modalNewsImage').src = news.image;
-    document.getElementById('modalNewsImage').alt = news.title;
-    document.getElementById('modalNewsContent').innerHTML = news.fullContent;
-
-    // Show modal
-    const modal = document.getElementById('newsModal');
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-};
-
-window.closeNewsModal = function() {
-    console.log('closeNewsModal called');
-    const modal = document.getElementById('newsModal');
-    modal.classList.remove('show');
-    document.body.style.overflow = 'auto';
-};
-
-window.loadMoreNews = function() {
-    console.log('loadMoreNews called');
-    const loadMoreBtn = document.querySelector('.load-more-btn');
-    const originalText = loadMoreBtn.innerHTML;
-    
-    // Show loading state
-    loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Зареждане...';
-    loadMoreBtn.disabled = true;
-
-    // Simulate loading delay
-    setTimeout(() => {
-        // Here you would typically load more news from a server
-        // For now, we'll just show a message
-        showNotification('Всички новини са заредени!', 'success');
-        
-        // Reset button
-        loadMoreBtn.innerHTML = originalText;
-        loadMoreBtn.disabled = false;
-    }, 2000);
-};
-
-window.subscribeNewsletter = function(event) {
-    console.log('subscribeNewsletter called');
-    event.preventDefault();
-    
-    const email = document.getElementById('newsletter-email').value;
-    const submitBtn = event.target.querySelector('.newsletter-btn');
-    const originalText = submitBtn.innerHTML;
-    
-    // Show loading state
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Абониране...';
-    submitBtn.disabled = true;
-
-    // Simulate API call
-    setTimeout(() => {
-        if (email) {
-            showNotification('Успешно се абонирахте за нашия бюлетин!', 'success');
-            document.getElementById('newsletter-email').value = '';
-        } else {
-            showNotification('Моля, въведете валиден имейл адрес.', 'error');
-        }
-        
-        // Reset button
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-    }, 1500);
-};
-
 // Initialize page when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log('News page DOM loaded');
+    
+    // Debug: Check if elements exist
+    console.log('Mobile menu button:', document.getElementById('mobileMenuBtn'));
+    console.log('News read more links:', document.querySelectorAll('.news-read-more').length);
+    console.log('Load more button:', document.getElementById('loadMoreBtn'));
+    console.log('Newsletter form:', document.getElementById('newsletterForm'));
+    console.log('Modal:', document.getElementById('newsModal'));
+    
+    // Debug: Check for any invisible overlays
+    const allElements = document.querySelectorAll('*');
+    const fixedElements = Array.from(allElements).filter(el => {
+        const style = window.getComputedStyle(el);
+        return style.position === 'fixed' && style.zIndex !== 'auto';
+    });
+    console.log('Fixed elements with z-index:', fixedElements);
+    
     initializeNewsPage();
     initializeAnimations();
     setupEventListeners();
@@ -265,6 +219,44 @@ function initializeAnimations() {
 function setupEventListeners() {
     console.log('Setting up event listeners');
     
+    // News read more buttons
+    document.querySelectorAll('.news-read-more').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const newsId = parseInt(this.getAttribute('data-news-id'));
+            console.log('News read more clicked:', newsId);
+            showNewsDetails(newsId);
+        });
+    });
+
+    // Load more button
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            console.log('Load more clicked');
+            loadMoreNews();
+        });
+    }
+
+    // Newsletter form
+    const newsletterForm = document.getElementById('newsletterForm');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            console.log('Newsletter form submitted');
+            e.preventDefault();
+            subscribeNewsletter(e);
+        });
+    }
+
+    // Close modal button
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', function() {
+            console.log('Close modal clicked');
+            closeNewsModal();
+        });
+    }
+
     // Close modal when clicking outside
     document.addEventListener('click', function(event) {
         const modal = document.getElementById('newsModal');
@@ -280,14 +272,108 @@ function setupEventListeners() {
         }
     });
 
-    // Add click listeners to news cards
-    document.querySelectorAll('.news-read-more').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const newsId = parseInt(this.getAttribute('onclick').match(/\d+/)[0]);
-            showNewsDetails(newsId);
+    // Mobile menu button
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+            console.log('Mobile menu clicked');
+            toggleMobileMenu();
         });
+    }
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        const navMenu = document.getElementById('navMenu');
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        
+        if (navMenu && navMenu.classList.contains('active')) {
+            if (!navMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
+                navMenu.classList.remove('active');
+                mobileBtn.textContent = '☰';
+                document.body.style.overflow = '';
+            }
+        }
     });
+}
+
+// Show news details in modal
+function showNewsDetails(newsId) {
+    console.log('showNewsDetails called with:', newsId);
+    const news = newsData.find(item => item.id === newsId);
+    if (!news) {
+        console.error('News not found:', newsId);
+        return;
+    }
+
+    // Populate modal content
+    document.getElementById('modalNewsTitle').textContent = news.title;
+    document.getElementById('modalNewsDate').innerHTML = `<i class="fas fa-calendar"></i> ${news.date}`;
+    document.getElementById('modalNewsAuthor').innerHTML = `<i class="fas fa-user"></i> ${news.author}`;
+    document.getElementById('modalNewsImage').src = news.image;
+    document.getElementById('modalNewsImage').alt = news.title;
+    document.getElementById('modalNewsContent').innerHTML = news.fullContent;
+
+    // Show modal
+    const modal = document.getElementById('newsModal');
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close news modal
+function closeNewsModal() {
+    console.log('closeNewsModal called');
+    const modal = document.getElementById('newsModal');
+    modal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+}
+
+// Load more news
+function loadMoreNews() {
+    console.log('loadMoreNews called');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const originalText = loadMoreBtn.innerHTML;
+    
+    // Show loading state
+    loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Зареждане...';
+    loadMoreBtn.disabled = true;
+
+    // Simulate loading delay
+    setTimeout(() => {
+        // Here you would typically load more news from a server
+        // For now, we'll just show a message
+        showNotification('Всички новини са заредени!', 'success');
+        
+        // Reset button
+        loadMoreBtn.innerHTML = originalText;
+        loadMoreBtn.disabled = false;
+    }, 2000);
+}
+
+// Subscribe to newsletter
+function subscribeNewsletter(event) {
+    console.log('subscribeNewsletter called');
+    
+    const email = document.getElementById('newsletter-email').value;
+    const submitBtn = event.target.querySelector('.newsletter-btn');
+    const originalText = submitBtn.innerHTML;
+    
+    // Show loading state
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Абониране...';
+    submitBtn.disabled = true;
+
+    // Simulate API call
+    setTimeout(() => {
+        if (email) {
+            showNotification('Успешно се абонирахте за нашия бюлетин!', 'success');
+            document.getElementById('newsletter-email').value = '';
+        } else {
+            showNotification('Моля, въведете валиден имейл адрес.', 'error');
+        }
+        
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }, 1500);
 }
 
 // Show notification function
