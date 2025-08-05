@@ -1,4 +1,4 @@
-// News Page JavaScript
+// News Page JavaScript - Updated without Newsletter
 
 // Mobile menu toggle function
 function toggleMobileMenu() {
@@ -22,6 +22,10 @@ const newsData = [
         id: 1,
         title: "Румяна Александрова – член на Управителния съвет на Софийската структура на Националното сдружение",
         subtitle: "Румяна Александрова: Хора, които имат по-голям процент от изискуемите лични средства на банките, предпочитат да си вземат кредит на ниски нива",
+        date: "12 февруари 2025",
+        author: "Румяна Александрова",
+        category: "Експертни мнения",
+        image: "https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Новини",
         fullContent: `
             <h3>Румяна Александрова в предаването "Утрото на фокус" на Радио "Фокус"</h3>
             <p>Водещият експерт Румяна Александрова - член на УС на Софийската структура на Националното сдружение "Недвижими имоти" беше гост в предаването "Утрото на фокус" на Радио "Фокус".</p>
@@ -29,159 +33,138 @@ const newsData = [
             <p><strong>Ключови моменти от интервюто:</strong></p>
             <ul>
                 <li>Анализ на текущото състояние на имотния пазар</li>
-                <li>Съвети за правилно инвестиране в недвижими имоти</li>
-                <li>Прогнози за развитието на сектора</li>
-                <li>Информация за новите регулации в сферата</li>
+                <li>Съвети за първо купуване на жилище</li>
+                <li>Тенденции в банковото кредитиране</li>
+                <li>Препоръки за инвеститори в недвижими имоти</li>
             </ul>
-            <p>Румяна Александрова подчерта важността на професионалните консултации при сделки с недвижими имоти и насърчи гражданите да се консултират с експерти преди да вземат важни решения.</p>
-        `,
-        date: "12 февруари 2025",
-        author: "Румяна Александрова",
-        category: "Експертни мнения",
-        image: "https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Новини"
+            <p>Румяна Александрова подчерта, че хората с по-голям процент собствени средства предпочитат да ползват кредитиране при ниски лихвени проценти, което е разумна стратегия в текущата икономическа обстановка.</p>
+        `
     },
     {
         id: 2,
-        title: "Водещият експерт Румяна Александрова с интервю за БНР Радио София",
-        subtitle: "Експертът коментира и съветва: В София може да се направи най-смислената инвестиция в имот",
-        fullContent: `
-            <h3>Интервю за БНР Радио София - Ритъмът на столицата</h3>
-            <p>Водещият експерт Румяна Александрова - член на УС на Софийската структура на Националното сдружение "Недвижими имоти" даде ексклузивно интервю за БНР Радио София.</p>
-            <p>В разговора тя анализира инвестиционните възможности в столицата и даде конкретни съвети за купувачите на недвижими имоти.</p>
-            <p><strong>Основни теми:</strong></p>
-            <ul>
-                <li>Най-добрите инвестиционни зони в София</li>
-                <li>Тенденции в цените на недвижимите имоти</li>
-                <li>Съвети за избор на имот</li>
-                <li>Правни аспекти на сделките</li>
-            </ul>
-            <p>Експертът подчерта, че София продължава да бъде най-атрактивният град за инвестиции в недвижими имоти в България.</p>
-        `,
-        date: "4 октомври 2024",
+        title: "Ръстът на цените на жилищата в София продължава през 2025 година",
+        subtitle: "Анализ на пазарните тенденции показва устойчив ръст на цените на недвижимите имоти в столицата",
+        date: "10 януари 2025",
         author: "Румяна Александрова",
-        category: "Интервю",
-        image: "https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Интервю"
+        category: "Пазарни тенденции",
+        image: "https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Тенденции",
+        fullContent: `
+            <h3>Пазарен анализ за 2025 година</h3>
+            <p>Анализът на данните за първото тримесечие на 2025 година показва продължаващ ръст на цените на жилищата в София и областта.</p>
+            <p><strong>Основни тенденции:</strong></p>
+            <ul>
+                <li>Средно увеличение на цените с 8-12% спрямо същия период на предходната година</li>
+                <li>Най-голям ръст в кварталите Лозенец, Център и Витоша</li>
+                <li>Увеличено търсене на имоти в строеж</li>
+                <li>Растящ интерес към енергийно ефективни жилища</li>
+            </ul>
+            <p>Експертите прогнозират запазване на тенденцията към повишение през цялата 2025 година, като очакват стабилизиране на пазара към края на годината.</p>
+        `
     },
     {
         id: 3,
         title: "Експерти на Националното сдружение консултират безплатно столичани",
-        subtitle: '"Имотите на София: Безплатни консултации за Вашите имотни казуси"',
-        fullContent: `
-            <h3>Безплатни консултации за столичани</h3>
-            <p>Експерти на Националното сдружение "Недвижими имоти" проведоха безплатни консултации за граждани на София по въпроси за недвижимите имоти.</p>
-            <p>Инициативата "Имотите на София" беше насочена към предоставяне на професионални съвети и насоки за всички заинтересовани от сделки с недвижими имоти.</p>
-            <p><strong>Услуги, които бяха предоставени:</strong></p>
-            <ul>
-                <li>Оценка на имоти</li>
-                <li>Консултации за инвестиции</li>
-                <li>Правни съвети</li>
-                <li>Информация за пазарните тенденции</li>
-                <li>Съвети за избор на имот</li>
-            </ul>
-            <p>Мероприятието беше посетено от над 200 граждани и получи високи оценки за професионализма и полезността на предоставената информация.</p>
-        `,
+        subtitle: "Имотите на София: Безплатни консултации за Вашите имотни казуси",
         date: "30 септември 2024",
         author: "Експертен екип",
         category: "Събития",
-        image: "https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Консултации"
+        image: "https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Безплатни+консултации",
+        fullContent: `
+            <h3>Инициатива за безплатни консултации</h3>
+            <p>Националното сдружение "Недвижими имоти" организира поредица от безплатни консултации за жителите на София по въпроси, свързани с недвижимите имоти.</p>
+            <p><strong>Услуги, които се предлагат:</strong></p>
+            <ul>
+                <li>Правни консултации по сделки с недвижими имоти</li>
+                <li>Оценка на пазарната стойност на имоти</li>
+                <li>Съвети за инвестиции в недвижими имоти</li>
+                <li>Помощ при избор на ипотечен кредит</li>
+            </ul>
+            <p>Консултациите се провеждат всеки четвъртък от 10:00 до 16:00 часа в офиса на сдружението. За записване на час се изисква предварително обаждане.</p>
+        `
     },
     {
         id: 4,
         title: "Запазването устойчивостта на имотния пазар е от най-големите предизвикателства през 2022 година",
-        subtitle: "Да запазим баланса в съвремие на крайности е наша професионална отговорност, смята собственикът на 'Сандер Корект'",
-        fullContent: `
-            <h3>Анализ на имотния пазар за 2022 година</h3>
-            <p>Румяна Александрова, собственик на "Сандер Корект", коментира предизвикателствата пред имотния пазар през 2022 година.</p>
-            <p>В условията на глобална нестабилност и икономически промени, запазването на устойчивостта на имотния пазар се оказва ключово за развитието на сектора.</p>
-            <p><strong>Основни предизвикателства:</strong></p>
-            <ul>
-                <li>Инфлационни натиски</li>
-                <li>Промени в кредитните условия</li>
-                <li>Глобална икономическа нестабилност</li>
-                <li>Промени в потребителското поведение</li>
-            </ul>
-            <p>Експертът подчерта важността на професионалния подход и етичните практики в работата с клиентите.</p>
-        `,
+        subtitle: "Да запазим баланса в съвремие на крайности е наша професионална отговорност",
         date: "16 май 2022",
         author: "Румяна Александрова",
         category: "Пазарен анализ",
-        image: "https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Пазарен+анализ"
+        image: "https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Пазарен+анализ",
+        fullContent: `
+            <h3>Предизвикателства пред имотния пазар</h3>
+            <p>В условията на глобална икономическа несигурност, българският пазар на недвижими имоти се изправя пред сериозни предизвикателства.</p>
+            <p><strong>Основни фактори за внимание:</strong></p>
+            <ul>
+                <li>Повишение на лихвените проценти</li>
+                <li>Инфлационни натиски</li>
+                <li>Промени в потребителското търсене</li>
+                <li>Регулаторни промени</li>
+            </ul>
+            <p>"Нашата отговорност като професионалисти е да помогнем на клиентите да вземат информирани решения в тези несигурни времена", коментира Румяна Александрова.</p>
+        `
     },
     {
         id: 5,
         title: "Румяна Александрова е отличена с награда за отлични постижения в партньорството си с ДСК Дом",
-        subtitle: "За втора година ДСК Дом награди най-добрите ФЦ и клонове по продажба за 2021г. на жилищни и ипотечни кредити",
-        fullContent: `
-            <h3>Награда за отлични постижения от ДСК Дом</h3>
-            <p>На 12.05.2022 година, за втора година ДСК Дом награди най-добрите ФЦ и клонове по продажба за 2021г. на жилищни и ипотечни кредити в съвместното партньорство с ДСК Дом.</p>
-            <p>Румяна Александрова от "Сандер Корект" беше отличена за изключителни постижения в партньорството с банката.</p>
-            <p><strong>Критерии за наградата:</strong></p>
-            <ul>
-                <li>Високо качество на обслужване</li>
-                <li>Професионализъм в работата</li>
-                <li>Успешни сделки</li>
-                <li>Доверие на клиентите</li>
-                <li>Спазване на етичните стандарти</li>
-            </ul>
-            <p>Наградата е признание за дългогодишната работа и принос в развитието на имотния пазар в България.</p>
-        `,
+        subtitle: "За втора година ДСК Дом награди най-добрите ФЦ и клонове по продажба на жилищни и ипотечни кредити",
         date: "12 май 2022",
         author: "Румяна Александрова",
         category: "Награди",
-        image: "https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Награди"
+        image: "https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Награди",
+        fullContent: `
+            <h3>Отличие за професионализъм</h3>
+            <p>Румяна Александрова от Sander Correct получи престижно отличие от ДСК Дом за изключителни постижения в областта на жилищното кредитиране.</p>
+            <p><strong>Постижения през 2021 година:</strong></p>
+            <ul>
+                <li>Над 50 успешно реализирани жилищни кредита</li>
+                <li>Най-висок рейтинг на клиентско удовлетворение</li>
+                <li>Иновативни решения за сложни случаи</li>
+                <li>Професионална етика и прозрачност</li>
+            </ul>
+            <p>Това отличие потвърждава високия професионален стандарт и ангажимента на екипа на Sander Correct към качествено обслужване на клиентите.</p>
+        `
     },
     {
         id: 6,
         title: "Румяна Александрова от Сандер Корект Р.А. е отличена за Брокер на годината 2020",
         subtitle: "Потребителите определиха техния фаворит за изминалата 2020 година",
-        fullContent: `
-            <h3>Брокер на годината 2020</h3>
-            <p>Румяна Александрова от "Сандер Корект" Р.А. беше отличена за "Брокер на годината 2020" в национално класиране.</p>
-            <p>Наградата е резултат от гласуване на потребителите, които определиха техния фаворит за изминалата 2020 година.</p>
-            <p><strong>Основни постижения през 2020:</strong></p>
-            <ul>
-                <li>Високо качество на обслужване</li>
-                <li>Професионален подход към клиентите</li>
-                <li>Успешни сделки в трудни условия</li>
-                <li>Иновативни решения</li>
-                <li>Доверие и репутация</li>
-            </ul>
-            <p>Наградата е признание за професионализма и приноса в развитието на имотния пазар в България.</p>
-        `,
         date: "9 юли 2021",
         author: "Румяна Александрова",
         category: "Признания",
-        image: "https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Брокер+на+годината"
+        image: "https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Брокер+на+годината",
+        fullContent: `
+            <h3>Най-високо потребителско признание</h3>
+            <p>В национално проучване сред потребители на услуги за недвижими имоти, Румяна Александрова е определена за "Брокер на годината 2020".</p>
+            <p><strong>Критерии за оценка:</strong></p>
+            <ul>
+                <li>Професионализъм и експертиза</li>
+                <li>Качество на обслужване</li>
+                <li>Прозрачност в работата</li>
+                <li>Постигнати резултати</li>
+                <li>Клиентска удовлетвореност</li>
+            </ul>
+            <p>Това признание е резултат от дългогодишната работа и посвещение на Румяна Александрова в областта на недвижимите имоти, както и на високите стандарти, които поддържа Sander Correct.</p>
+        `
     }
 ];
 
-// Initialize page when DOM is loaded
+// DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('News page DOM loaded');
+    console.log('DOM loaded, initializing news page...');
     
-    // Debug: Check if elements exist
-    console.log('Mobile menu button:', document.getElementById('mobileMenuBtn'));
-    console.log('News read more links:', document.querySelectorAll('.news-read-more').length);
-    console.log('Load more button:', document.getElementById('loadMoreBtn'));
-    console.log('Newsletter form:', document.getElementById('newsletterForm'));
-    console.log('Modal:', document.getElementById('newsModal'));
-    
-    // Debug: Check for any invisible overlays
-    const allElements = document.querySelectorAll('*');
-    const fixedElements = Array.from(allElements).filter(el => {
-        const style = window.getComputedStyle(el);
-        return style.position === 'fixed' && style.zIndex !== 'auto';
-    });
-    console.log('Fixed elements with z-index:', fixedElements);
-    
+    // Initialize all components
     initializeNewsPage();
     initializeAnimations();
     setupEventListeners();
+    
+    // Add smooth scrolling for hero buttons
+    setupSmoothScrolling();
 });
 
 // Initialize news page functionality
 function initializeNewsPage() {
     console.log('Initializing news page');
+    
     // Add scroll event listener for header
     window.addEventListener('scroll', function() {
         const header = document.querySelector('.header');
@@ -191,6 +174,12 @@ function initializeNewsPage() {
             header.classList.remove('scrolled');
         }
     });
+    
+    // Mobile menu setup
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    }
 }
 
 // Initialize animations
@@ -212,6 +201,22 @@ function initializeAnimations() {
     // Observe all fade-in elements
     document.querySelectorAll('.fade-in').forEach(el => {
         observer.observe(el);
+    });
+}
+
+// Setup smooth scrolling for anchor links
+function setupSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     });
 }
 
@@ -238,59 +243,23 @@ function setupEventListeners() {
         });
     }
 
-    // Newsletter form
-    const newsletterForm = document.getElementById('newsletterForm');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            console.log('Newsletter form submitted');
-            e.preventDefault();
-            subscribeNewsletter(e);
-        });
-    }
-
-    // Close modal button
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', function() {
-            console.log('Close modal clicked');
-            closeNewsModal();
-        });
-    }
-
     // Close modal when clicking outside
-    document.addEventListener('click', function(event) {
-        const modal = document.getElementById('newsModal');
-        if (event.target === modal) {
-            closeNewsModal();
-        }
-    });
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            closeNewsModal();
-        }
-    });
-
-    // Mobile menu button
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function() {
-            console.log('Mobile menu clicked');
-            toggleMobileMenu();
+    const newsModal = document.getElementById('newsModal');
+    if (newsModal) {
+        newsModal.addEventListener('click', function(e) {
+            if (e.target === newsModal) {
+                console.log('Modal background clicked');
+                closeNewsModal();
+            }
         });
     }
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-        const navMenu = document.getElementById('navMenu');
-        const mobileBtn = document.querySelector('.mobile-menu-btn');
-        
-        if (navMenu && navMenu.classList.contains('active')) {
-            if (!navMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
-                navMenu.classList.remove('active');
-                mobileBtn.textContent = '☰';
-                document.body.style.overflow = '';
+    // Keyboard events
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('newsModal');
+            if (modal && modal.classList.contains('show')) {
+                closeNewsModal();
             }
         }
     });
@@ -305,17 +274,74 @@ function showNewsDetails(newsId) {
         return;
     }
 
-    // Populate modal content
-    document.getElementById('modalNewsTitle').textContent = news.title;
-    document.getElementById('modalNewsDate').innerHTML = `<i class="fas fa-calendar"></i> ${news.date}`;
-    document.getElementById('modalNewsAuthor').innerHTML = `<i class="fas fa-user"></i> ${news.author}`;
-    document.getElementById('modalNewsImage').src = news.image;
-    document.getElementById('modalNewsImage').alt = news.title;
-    document.getElementById('modalNewsContent').innerHTML = news.fullContent;
-
-    // Show modal
+    const isMobile = window.innerWidth <= 768;
     const modal = document.getElementById('newsModal');
-    modal.classList.add('show');
+    const modalContent = modal.querySelector('.news-modal-content');
+
+    // Create modal content with same design as property modals
+    modalContent.innerHTML = `
+        <div style="position: relative; width: 100%; background: white; border-radius: ${isMobile ? '0' : '25px'}; overflow: hidden;">
+            
+            <!-- Header Image Section -->
+            <div style="position: relative; height: ${isMobile ? '200px' : '300px'}; overflow: hidden; background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);">
+                <img src="${news.image}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;" alt="${news.title}">
+                
+                <!-- Close Button -->
+                <button onclick="closeNewsModal()" style="position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; z-index: 10;">
+                    <i class="fas fa-times" style="color: #666; font-size: 1.1rem;"></i>
+                </button>
+                
+                <!-- Category Badge -->
+                <div style="position: absolute; top: 15px; left: 15px;">
+                    <div style="background: rgba(255,255,255,0.9); color: #8b4513; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">${news.category}</div>
+                </div>
+                
+                <!-- Gradient Overlay -->
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 50%; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);"></div>
+            </div>
+            
+            <!-- Content Section -->
+            <div style="padding: ${isMobile ? '1.5rem' : '2rem'};">
+                <!-- Title and Meta -->
+                <h2 style="color: #3e2723; margin-bottom: 1rem; font-size: ${isMobile ? '1.4rem' : '1.8rem'}; font-weight: 800; line-height: 1.3;">${news.title}</h2>
+                
+                <!-- Meta Info -->
+                <div style="display: flex; gap: ${isMobile ? '1rem' : '2rem'}; margin-bottom: 1.5rem; font-size: 0.9rem; color: #666; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-calendar" style="color: #8b4513;"></i>
+                        <span>${news.date}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-user" style="color: #8b4513;"></i>
+                        <span>${news.author}</span>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div style="color: #5d4e37; line-height: 1.7; font-size: ${isMobile ? '1rem' : '1.1rem'};">
+                    ${news.fullContent}
+                </div>
+                
+                <!-- Action Buttons -->
+                <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(139, 69, 19, 0.1); display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="shareNews('${news.title}', '${news.date}', '${news.author}')" style="background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; font-weight: 600; font-size: 0.9rem;">
+                        <i class="fas fa-share-alt"></i>
+                        <span>Сподели</span>
+                    </button>
+                    <button onclick="closeNewsModal()" style="background: transparent; color: #8b4513; border: 2px solid #8b4513; padding: 0.8rem 1.5rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; font-weight: 600; font-size: 0.9rem;">
+                        <i class="fas fa-times"></i>
+                        <span>Затвори</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Show modal with same animation as property modals
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
     document.body.style.overflow = 'hidden';
 }
 
@@ -324,7 +350,68 @@ function closeNewsModal() {
     console.log('closeNewsModal called');
     const modal = document.getElementById('newsModal');
     modal.classList.remove('show');
-    document.body.style.overflow = 'auto';
+    setTimeout(() => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }, 300);
+}
+
+// Share news function
+function shareNews(title, date, author) {
+    const shareText = `${title}\n\nПубликувано на: ${date}\nАвтор: ${author}\n\nПрочети повече в Sander Correct: ${window.location.href}`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            text: shareText,
+            url: window.location.href
+        }).then(() => {
+            showNotification('Новината е споделена успешно!', 'success');
+        }).catch((error) => {
+            console.log('Error sharing:', error);
+            // Fallback to clipboard
+            copyToClipboard(shareText);
+        });
+    } else {
+        // Fallback - copy to clipboard
+        copyToClipboard(shareText);
+    }
+}
+
+// Copy to clipboard function
+function copyToClipboard(text) {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+            showNotification('Информацията е копирана в клипборда', 'success');
+        }).catch(() => {
+            // Fallback method
+            fallbackCopyTextToClipboard(text);
+        });
+    } else {
+        fallbackCopyTextToClipboard(text);
+    }
+}
+
+// Fallback copy method
+function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+    
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        showNotification('Информацията е копирана в клипборда', 'success');
+    } catch (err) {
+        showNotification('Грешка при копиране', 'error');
+    }
+    
+    document.body.removeChild(textArea);
 }
 
 // Load more news
@@ -347,33 +434,6 @@ function loadMoreNews() {
         loadMoreBtn.innerHTML = originalText;
         loadMoreBtn.disabled = false;
     }, 2000);
-}
-
-// Subscribe to newsletter
-function subscribeNewsletter(event) {
-    console.log('subscribeNewsletter called');
-    
-    const email = document.getElementById('newsletter-email').value;
-    const submitBtn = event.target.querySelector('.newsletter-btn');
-    const originalText = submitBtn.innerHTML;
-    
-    // Show loading state
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Абониране...';
-    submitBtn.disabled = true;
-
-    // Simulate API call
-    setTimeout(() => {
-        if (email) {
-            showNotification('Успешно се абонирахте за нашия бюлетин!', 'success');
-            document.getElementById('newsletter-email').value = '';
-        } else {
-            showNotification('Моля, въведете валиден имейл адрес.', 'error');
-        }
-        
-        // Reset button
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-    }, 1500);
 }
 
 // Show notification function
@@ -461,4 +521,4 @@ if (!document.querySelector('#notification-styles')) {
     document.head.appendChild(style);
 }
 
-console.log('News.js loaded successfully'); 
+console.log('News.js loaded successfully');

@@ -50,16 +50,38 @@
     <div class="page-content">
         <!-- Hero Section -->
         <section class="news-hero">
-            <div class="news-hero-container">
-                <div class="news-hero-content">
-                    <h1 class="fade-in">Новини и анализи</h1>
-                    <p class="fade-in">Най-новите тенденции, анализи и експертни мнения за недвижимите имоти в България</p>
+            <div class="hero-content">
+                <h1 class="animated">Новини и анализи</h1>
+                <p class="hero-subtitle animated">Най-новите тенденции, анализи и експертни мнения за недвижимите имоти в България</p>
+                <div class="cta-buttons">
+                    <a href="#news-section" class="cta-btn cta-primary">
+                        <i class="fas fa-newspaper"></i>
+                        Последни новини
+                    </a>
+                    <a href="about.html" class="cta-btn cta-secondary">
+                        <i class="fas fa-users"></i>
+                        Нашите експерти
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label">Публикации</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Години опит</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">25K+</span>
+                        <span class="stat-label">Читатели</span>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- News Section -->
-        <section class="news-section">
+        <section class="news-section" id="news-section">
             <div class="news-container">
                 <div class="section-header">
                     <h2 class="fade-in">Последни новини</h2>
@@ -100,23 +122,23 @@
                     <!-- News Article 2 -->
                     <article class="news-card fade-in">
                         <div class="news-image">
-                            <img src="https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Интервю" alt="Интервю с експерт">
-                            <div class="news-category">Интервю</div>
+                            <img src="https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Тенденции" alt="Тенденции в недвижими имоти">
+                            <div class="news-category">Пазарни тенденции</div>
                         </div>
                         <div class="news-content">
                             <div class="news-meta">
                                 <span class="news-date">
                                     <i class="fas fa-calendar"></i>
-                                    4 октомври 2024
+                                    10 януари 2025
                                 </span>
                                 <span class="news-author">
                                     <i class="fas fa-user"></i>
                                     Румяна Александрова
                                 </span>
                             </div>
-                            <h3 class="news-title">Водещият експерт Румяна Александрова с интервю за БНР Радио София</h3>
+                            <h3 class="news-title">Ръстът на цените на жилищата в София продължава през 2025 година</h3>
                             <p class="news-excerpt">
-                                Експертът коментира и съветва: В София може да се направи най-смислената инвестиция в имот
+                                Анализ на пазарните тенденции показва устойчив ръст на цените на недвижимите имоти в столицата. Експертите очакват...
                             </p>
                             <div class="news-actions">
                                 <a href="#" class="news-read-more" data-news-id="2">
@@ -130,7 +152,7 @@
                     <!-- News Article 3 -->
                     <article class="news-card fade-in">
                         <div class="news-image">
-                            <img src="https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Консултации" alt="Безплатни консултации">
+                            <img src="https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Безплатни+консултации" alt="Безплатни консултации">
                             <div class="news-category">Събития</div>
                         </div>
                         <div class="news-content">
@@ -206,7 +228,7 @@
                             </div>
                             <h3 class="news-title">Румяна Александрова е отличена с награда за отлични постижения в партньорството си с ДСК Дом</h3>
                             <p class="news-excerpt">
-                                За втора година ДСК Дом награди най-добрите ФЦ и клонове по продажба за 2021г. на жилищни и ипотечни кредити
+                                За втора година ДСК Дом награди най-добрите ФЦ и клонове по продажба на жилищни и ипотечни кредити
                             </p>
                             <div class="news-actions">
                                 <a href="#" class="news-read-more" data-news-id="5">
@@ -257,46 +279,12 @@
                 </div>
             </div>
         </section>
-
-        <!-- Newsletter Section -->
-        <section class="newsletter-section">
-            <div class="newsletter-container">
-                <div class="newsletter-content">
-                    <h2 class="fade-in">Абонирайте се за нашия бюлетин</h2>
-                    <p class="fade-in">Получете най-новите новини и анализи за недвижимите имоти директно в пощата си</p>
-                    <form class="newsletter-form fade-in" id="newsletterForm">
-                        <div class="form-group">
-                            <input type="email" id="newsletter-email" placeholder="Вашият имейл адрес" required>
-                        </div>
-                        <button type="submit" class="newsletter-btn">
-                            <i class="fas fa-paper-plane"></i>
-                            Абонирай се
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
     </div>
 
     <!-- News Modal -->
-    <div class="modal" id="newsModal" style="display: none;">
-        <div class="modal-content news-modal-content">
-            <div class="modal-header">
-                <h3 id="modalNewsTitle"></h3>
-                <span class="modal-close" id="closeModalBtn">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div class="news-modal-meta">
-                    <span class="news-modal-date" id="modalNewsDate"></span>
-                    <span class="news-modal-author" id="modalNewsAuthor"></span>
-                </div>
-                <div class="news-modal-image">
-                    <img id="modalNewsImage" src="" alt="News Image">
-                </div>
-                <div class="news-modal-content-text" id="modalNewsContent">
-                    <!-- News content will be loaded here -->
-                </div>
-            </div>
+    <div class="news-modal" id="newsModal" style="display: none;">
+        <div class="news-modal-content">
+            <!-- Modal will be populated by JavaScript -->
         </div>
     </div>
 
@@ -346,4 +334,4 @@
 
     <script src="news.js"></script>
 </body>
-</html> 
+</html>
