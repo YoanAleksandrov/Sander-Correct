@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./styles/common.css">
+    <link rel="stylesheet" href="./styles/news.css">
+    <title>Новини - Sander Correct</title>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <img src="./images/sander-correct_logo.png" alt="Sander Correct Real Estate Agency" class="logo-image">
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a class="nav-link" href="index.html">Начало</a></li>
+                <li><a class="nav-link" href="properties.html">Имоти</a></li>
+                <li><a class="nav-link" href="services.html">Услуги</a></li>
+                <li><a class="nav-link" href="about.html">За нас</a></li>
+                <li><a class="nav-link" href="banking.html">Банково кредитиране</a></li>
+                <li><a class="nav-link" href="documents.html">Документи</a></li>
+                <li><a class="nav-link active" href="news.html">Новини</a></li>
+            </ul>
+            <a class="contact-btn" href="contact.html">Контакт</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </nav>
+    </header>
+
+    <!-- Page Content -->
+    <div class="page-content">
+        <!-- Hero Section -->
+        <section class="news-hero">
+            <div class="news-hero-container">
+                <div class="news-hero-content">
+                    <h1 class="fade-in">Новини и анализи</h1>
+                    <p class="fade-in">Най-новите тенденции, анализи и експертни мнения за недвижимите имоти в България</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section class="news-section">
+            <div class="news-container">
+                <div class="section-header">
+                    <h2 class="fade-in">Последни новини</h2>
+                    <p class="fade-in">Следете най-новите събития и тенденции в сектора на недвижимите имоти</p>
+                </div>
+
+                <div class="news-grid" id="newsGrid">
+                    <!-- News Article 1 -->
+                    <article class="news-card fade-in">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Новини" alt="Новини за недвижими имоти">
+                            <div class="news-category">Експертни мнения</div>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-date">
+                                    <i class="fas fa-calendar"></i>
+                                    12 февруари 2025
+                                </span>
+                                <span class="news-author">
+                                    <i class="fas fa-user"></i>
+                                    Румяна Александрова
+                                </span>
+                            </div>
+                            <h3 class="news-title">Румяна Александрова – член на Управителния съвет на Софийската структура на Националното сдружение</h3>
+                            <p class="news-excerpt">
+                                Румяна Александрова: Хора, които имат по-голям процент от изискуемите лични средства на банките, предпочитат да си вземат кредит на ниски нива
+                            </p>
+                            <div class="news-actions">
+                                <a href="#" class="news-read-more" onclick="showNewsDetails(1)">
+                                    <i class="fas fa-arrow-right"></i>
+                                    Прочети повече
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- News Article 2 -->
+                    <article class="news-card fade-in">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Интервю" alt="Интервю с експерт">
+                            <div class="news-category">Интервю</div>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-date">
+                                    <i class="fas fa-calendar"></i>
+                                    4 октомври 2024
+                                </span>
+                                <span class="news-author">
+                                    <i class="fas fa-user"></i>
+                                    Румяна Александрова
+                                </span>
+                            </div>
+                            <h3 class="news-title">Водещият експерт Румяна Александрова с интервю за БНР Радио София</h3>
+                            <p class="news-excerpt">
+                                Експертът коментира и съветва: В София може да се направи най-смислената инвестиция в имот
+                            </p>
+                            <div class="news-actions">
+                                <a href="#" class="news-read-more" onclick="showNewsDetails(2)">
+                                    <i class="fas fa-arrow-right"></i>
+                                    Прочети повече
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- News Article 3 -->
+                    <article class="news-card fade-in">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Консултации" alt="Безплатни консултации">
+                            <div class="news-category">Събития</div>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-date">
+                                    <i class="fas fa-calendar"></i>
+                                    30 септември 2024
+                                </span>
+                                <span class="news-author">
+                                    <i class="fas fa-user"></i>
+                                    Експертен екип
+                                </span>
+                            </div>
+                            <h3 class="news-title">Експерти на Националното сдружение консултират безплатно столичани</h3>
+                            <p class="news-excerpt">
+                                "Имотите на София: Безплатни консултации за Вашите имотни казуси"
+                            </p>
+                            <div class="news-actions">
+                                <a href="#" class="news-read-more" onclick="showNewsDetails(3)">
+                                    <i class="fas fa-arrow-right"></i>
+                                    Прочети повече
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- News Article 4 -->
+                    <article class="news-card fade-in">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Пазарен+анализ" alt="Пазарен анализ">
+                            <div class="news-category">Пазарен анализ</div>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-date">
+                                    <i class="fas fa-calendar"></i>
+                                    16 май 2022
+                                </span>
+                                <span class="news-author">
+                                    <i class="fas fa-user"></i>
+                                    Румяна Александрова
+                                </span>
+                            </div>
+                            <h3 class="news-title">Запазването устойчивостта на имотния пазар е от най-големите предизвикателства през 2022 година</h3>
+                            <p class="news-excerpt">
+                                Да запазим баланса в съвремие на крайности е наша професионална отговорност, смята собственикът на "Сандер Корект"
+                            </p>
+                            <div class="news-actions">
+                                <a href="#" class="news-read-more" onclick="showNewsDetails(4)">
+                                    <i class="fas fa-arrow-right"></i>
+                                    Прочети повече
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- News Article 5 -->
+                    <article class="news-card fade-in">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Награди" alt="Награди и признания">
+                            <div class="news-category">Награди</div>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-date">
+                                    <i class="fas fa-calendar"></i>
+                                    12 май 2022
+                                </span>
+                                <span class="news-author">
+                                    <i class="fas fa-user"></i>
+                                    Румяна Александрова
+                                </span>
+                            </div>
+                            <h3 class="news-title">Румяна Александрова е отличена с награда за отлични постижения в партньорството си с ДСК Дом</h3>
+                            <p class="news-excerpt">
+                                За втора година ДСК Дом награди най-добрите ФЦ и клонове по продажба за 2021г. на жилищни и ипотечни кредити
+                            </p>
+                            <div class="news-actions">
+                                <a href="#" class="news-read-more" onclick="showNewsDetails(5)">
+                                    <i class="fas fa-arrow-right"></i>
+                                    Прочети повече
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- News Article 6 -->
+                    <article class="news-card fade-in">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Брокер+на+годината" alt="Брокер на годината">
+                            <div class="news-category">Признания</div>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-date">
+                                    <i class="fas fa-calendar"></i>
+                                    9 юли 2021
+                                </span>
+                                <span class="news-author">
+                                    <i class="fas fa-user"></i>
+                                    Румяна Александрова
+                                </span>
+                            </div>
+                            <h3 class="news-title">Румяна Александрова от Сандер Корект Р.А. е отличена за Брокер на годината 2020</h3>
+                            <p class="news-excerpt">
+                                Потребителите определиха техния фаворит за изминалата 2020 година
+                            </p>
+                            <div class="news-actions">
+                                <a href="#" class="news-read-more" onclick="showNewsDetails(6)">
+                                    <i class="fas fa-arrow-right"></i>
+                                    Прочети повече
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="news-footer fade-in">
+                    <button class="load-more-btn" onclick="loadMoreNews()">
+                        <i class="fas fa-plus"></i>
+                        Зареди още новини
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="newsletter-container">
+                <div class="newsletter-content">
+                    <h2 class="fade-in">Абонирайте се за нашия бюлетин</h2>
+                    <p class="fade-in">Получете най-новите новини и анализи за недвижимите имоти директно в пощата си</p>
+                    <form class="newsletter-form fade-in" onsubmit="subscribeNewsletter(event)">
+                        <div class="form-group">
+                            <input type="email" id="newsletter-email" placeholder="Вашият имейл адрес" required>
+                        </div>
+                        <button type="submit" class="newsletter-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Абонирай се
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- News Modal -->
+    <div class="modal" id="newsModal">
+        <div class="modal-content news-modal-content">
+            <div class="modal-header">
+                <h3 id="modalNewsTitle"></h3>
+                <span class="modal-close" onclick="closeNewsModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="news-modal-meta">
+                    <span class="news-modal-date" id="modalNewsDate"></span>
+                    <span class="news-modal-author" id="modalNewsAuthor"></span>
+                </div>
+                <div class="news-modal-image">
+                    <img id="modalNewsImage" src="" alt="News Image">
+                </div>
+                <div class="news-modal-content-text" id="modalNewsContent">
+                    <!-- News content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sander Correct</h3>
+                    <p>Професионални решения за недвижими имоти с над 15 години опит на българския пазар.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Услуги</h3>
+                    <ul>
+                        <li><a href="services.html">Продажба на имоти</a></li>
+                        <li><a href="services.html">Наем и управление</a></li>
+                        <li><a href="services.html">Инвестиционни консултации</a></li>
+                        <li><a href="services.html">Правни услуги</a></li>
+                        <li><a href="services.html">Оценка на имоти</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Информация</h3>
+                    <ul>
+                        <li><a href="about.html">За нас</a></li>
+                        <li><a href="about.html#team">Нашият екип</a></li>
+                        <li><a href="contact.html">Кариери</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="news.html">Новини</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакти</h3>
+                    <ul>
+                        <li>бул. Витоша 1, ет. 5</li>
+                        <li>1000 София, България</li>
+                        <li>+359 888 123 456</li>
+                        <li>info@sandercorrect.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sander Correct. Всички права запазени. | Условия за ползване | Политика за поверителност</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="common.js"></script>
+    <script src="news.js"></script>
+</body>
+</html> 
