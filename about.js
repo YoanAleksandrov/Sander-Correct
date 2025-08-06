@@ -266,7 +266,7 @@ function showTeamMemberModal(memberId) {
     if (brokerProperties.length > 0) {
         propertiesHTML = `
             <div class="broker-properties-section">
-                <h4><i class="fas fa-home"></i> Имоти на брокера (${propertiesCount})</h4>
+                <h4> Имоти на брокера (${propertiesCount})</h4>
                 <div class="properties-scroll-container">
                     <div class="properties-scroll" id="brokerPropertiesScroll">
                         ${brokerProperties.map(property => `
@@ -277,7 +277,7 @@ function showTeamMemberModal(memberId) {
                                 </div>
                                 <div class="property-info">
                                     <h5>${property.title}</h5>
-                                    <p class="property-location"><i class="fas fa-map-marker-alt"></i> ${property.location}</p>
+                                    <p class="property-location"> ${property.location}</p>
                                     <p class="property-price"><i class="fas fa-tag"></i> ${property.price}</p>
                                     <p class="property-area"><i class="fas fa-ruler-combined"></i> ${property.area}</p>
                                 </div>
@@ -295,7 +295,7 @@ function showTeamMemberModal(memberId) {
                         </div>
                     ` : ''}
                 </div>
-                <div class="view-all-properties">
+                <div>
                     <button class="btn btn-primary" onclick="showAllBrokerProperties('${memberId}')">
                         <span><i class="fas fa-external-link-alt"></i> Виж всички имоти (${propertiesCount})</span>
                     </button>
@@ -343,26 +343,13 @@ function showTeamMemberModal(memberId) {
                 
                 <div class="modal-body">
                     <div class="member-description">
-                        <h4><i class="fas fa-user-circle"></i> За брокера</h4>
+                        <h4> За брокера</h4>
                         <p>${member.description}</p>
                     </div>
                     
-                    <div class="member-achievements">
-                        <h4><i class="fas fa-trophy"></i> Постижения</h4>
-                        <ul>
-                            ${member.achievements.map(achievement => `<li><i class="fas fa-check-circle"></i> ${achievement}</li>`).join('')}
-                        </ul>
-                    </div>
                     
-                    <div class="member-specialization">
-                        <h4><i class="fas fa-briefcase"></i> Специализация</h4>
-                        <p>${member.specialization}</p>
-                    </div>
                     
-                    <div class="member-languages">
-                        <h4><i class="fas fa-globe"></i> Езици</h4>
-                        <p>${member.languages.join(', ')}</p>
-                    </div>
+                   
             
             ${propertiesHTML}
             
