@@ -387,9 +387,13 @@
     overflow: hidden;
     transition: var(--transition);
     cursor: pointer;
-    min-width: 250px;
+    min-width: 350px;
     flex-shrink: 0;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 200px;
 }
 
 .team-card:hover {
@@ -403,6 +407,14 @@
     overflow: hidden;
 }
 
+.card-image-left {
+    position: relative;
+    width: 120px;
+    height: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
 .card-image img {
     width: 100%;
     height: 100%;
@@ -410,7 +422,18 @@
     transition: var(--transition);
 }
 
+.card-image-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
 .team-card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+.team-card:hover .card-image-left img {
     transform: scale(1.1);
 }
 
@@ -452,6 +475,10 @@
 
 .card-content {
     padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .card-content h4 {
@@ -1374,6 +1401,34 @@
         gap: 0.8rem;
     }
     
+    .properties-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .property-card-modal {
+        min-height: 320px;
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 280px;
+    }
+    
+    .property-image-modal {
+        height: 45%;
+        width: 100%;
+        flex-shrink: 0;
+    }
+    
+    .property-info-modal {
+        padding: 1rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 0;
+        overflow: hidden;
+    }
+    
     .team-modal .broker-achievements {
         grid-template-columns: 1fr;
         gap: 0.8rem;
@@ -1784,10 +1839,18 @@
     
     .team-card {
         min-width: 280px;
+        flex-direction: column;
+        min-height: auto;
+    }
+    
+    .card-image-left {
+        width: 100%;
+        height: 200px;
     }
     
     .card-content {
         padding: 1.5rem;
+        flex: none;
     }
     
     .card-image {
@@ -1801,6 +1864,8 @@
     .team-modal .modal-content {
         max-height: 95vh;
         margin: 1rem;
+        max-width: 95vw;
+        width: 95vw;
     }
     
     .team-modal .modal-header {
@@ -1845,7 +1910,8 @@
     }
     
     .property-card {
-        flex: 0 0 260px;
+        flex: 0 0 280px;
+        min-width: 280px;
     }
     
     .properties-scroll-controls {
@@ -1889,8 +1955,44 @@
         padding: 1rem;
     }
     
+    .properties-scroll {
+        gap: 1rem;
+    }
+    
     .property-card {
-        flex: 0 0 240px;
+        flex: 0 0 280px;
+        min-width: 280px;
+    }
+    
+    .property-card-modal {
+        min-height: 280px;
+        max-width: 240px;
+    }
+    
+    .property-image-modal {
+        height: 40%;
+    }
+    
+    .property-info-modal {
+        padding: 0.8rem;
+        justify-content: space-between;
+        min-height: 0;
+        overflow: hidden;
+    }
+    
+    .property-info-modal h5 {
+        font-size: 0.9rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .property-details-modal {
+        gap: 0.4rem;
+    }
+    
+    .property-location-modal,
+    .property-price-modal,
+    .property-area-modal {
+        font-size: 0.75rem;
     }
 }
 
@@ -2063,7 +2165,7 @@
     color: white;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 10%;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -2223,11 +2325,25 @@
     margin-bottom: 2.5rem;
     background: linear-gradient(135deg, #f8f6f3 0%, #ffffff 100%);
     border-radius: 25px;
-    padding: 2rem;
+    padding: 1rem;
     border: 1px solid rgba(139, 69, 19, 0.1);
     box-shadow: 0 8px 25px rgba(139, 69, 19, 0.08);
     position: relative;
     overflow: hidden;
+}
+
+.properties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .properties-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
 }
 
 .broker-properties-section::before {
@@ -2311,11 +2427,35 @@
     transform: translateY(20px);
 }
 
+.property-card-modal {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 1px solid rgba(139, 69, 19, 0.1);
+    position: relative;
+    z-index: 2;
+    animation: propertyCardFadeIn 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 .property-card:nth-child(1) { animation-delay: 0.1s; }
 .property-card:nth-child(2) { animation-delay: 0.2s; }
 .property-card:nth-child(3) { animation-delay: 0.3s; }
 .property-card:nth-child(4) { animation-delay: 0.4s; }
 .property-card:nth-child(5) { animation-delay: 0.5s; }
+
+.property-card-modal:nth-child(1) { animation-delay: 0.1s; }
+.property-card-modal:nth-child(2) { animation-delay: 0.2s; }
+.property-card-modal:nth-child(3) { animation-delay: 0.3s; }
+.property-card-modal:nth-child(4) { animation-delay: 0.4s; }
+.property-card-modal:nth-child(5) { animation-delay: 0.5s; }
 
 @keyframes propertyCardFadeIn {
     to {
@@ -2330,10 +2470,23 @@
     border-color: rgba(139, 69, 19, 0.2);
 }
 
+.property-card-modal:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(139, 69, 19, 0.3);
+    border-color: rgba(139, 69, 19, 0.2);
+}
+
 .property-image {
     position: relative;
     height: 160px;
     overflow: hidden;
+}
+
+.property-image-modal {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 .property-image img {
@@ -2343,7 +2496,18 @@
     transition: transform 0.3s ease;
 }
 
+.property-image-modal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
 .property-card:hover .property-image img {
+    transform: scale(1.05);
+}
+
+.property-card-modal:hover .property-image-modal img {
     transform: scale(1.05);
 }
 
@@ -2360,8 +2524,40 @@
     text-transform: uppercase;
 }
 
+.property-badge-modal {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(139, 69, 19, 0.95);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 18px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.3);
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .property-badge-modal {
+        top: 8px;
+        left: 8px;
+        padding: 0.3rem 0.8rem;
+        font-size: 0.7rem;
+    }
+}
+
 .property-info {
     padding: 1rem;
+}
+
+.property-info-modal {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .property-info h5 {
@@ -2370,6 +2566,27 @@
     font-weight: 700;
     color: #3e2723;
     line-height: 1.3;
+}
+
+.property-info-modal h5 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #3e2723;
+    line-height: 1.3;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .property-info-modal h5 {
+        font-size: 1rem;
+        line-height: 1.2;
+        margin-bottom: 0.4rem;
+    }
+    
+    .property-info-modal {
+        padding: 0.8rem;
+    }
 }
 
 .property-location {
@@ -2413,6 +2630,67 @@
 
 .property-area i {
     font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.property-details-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .property-details-modal {
+        gap: 0.5rem;
+    }
+}
+
+.property-location-modal,
+.property-price-modal,
+.property-area-modal {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .property-location-modal,
+    .property-price-modal,
+    .property-area-modal {
+        font-size: 0.85rem;
+        gap: 0.4rem;
+    }
+}
+
+.property-location-modal {
+    color: #8b4513;
+}
+
+.property-location-modal i {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.property-price-modal {
+    color: #d2691e;
+    font-weight: 700;
+}
+
+.property-price-modal i {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.property-area-modal {
+    color: #5d4e37;
+}
+
+.property-area-modal i {
+    font-size: 0.85rem;
     opacity: 0.7;
 }
 

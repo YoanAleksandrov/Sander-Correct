@@ -272,39 +272,38 @@ function showTeamMemberModal(memberId) {
         propertiesHTML = `
             <div class="broker-properties-section">
                 <h4> Имоти на брокера (${propertiesCount})</h4>
-                <div class="properties-scroll-container">
-                    <div class="properties-scroll" id="brokerPropertiesScroll">
-                        ${brokerProperties.map(property => `
-                            <div class="property-card" onclick="showPropertyModal('${property.title}', '${property.price}', '${property.location}', '${property.description}')">
-                                <div class="property-image">
-                                    <img src="${property.images[0]}" alt="${property.title}">
-                                    <div class="property-badge">${property.badge}</div>
-                                </div>
-                                <div class="property-info">
-                                    <h5>${property.title}</h5>
-                                    <p class="property-location"> ${property.location}</p>
-                                    <p class="property-price"><i class="fas fa-tag"></i> ${property.price}</p>
-                                    <p class="property-area"><i class="fas fa-ruler-combined"></i> ${property.area}</p>
+                <div class="properties-grid">
+                    ${brokerProperties.map(property => `
+                        <div class="property-card-modal" onclick="showPropertyModal('${property.title}', '${property.price}', '${property.location}', '${property.description}')">
+                            <div class="property-image-modal">
+                                <img src="${property.images[0]}" alt="${property.title}">
+                                <div class="property-badge-modal">${property.badge}</div>
+                            </div>
+                            <div class="property-info-modal">
+                                <h5>${property.title}</h5>
+                                <div class="property-details-modal">
+                                    <div class="property-location-modal">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>${property.location}</span>
+                                    </div>
+                                    <div class="property-price-modal">
+                                        <i class="fas fa-tag"></i>
+                                        <span>${property.price}</span>
+                                    </div>
+                                    <div class="property-area-modal">
+                                        <i class="fas fa-ruler-combined"></i>
+                                        <span>${property.area}</span>
+                                    </div>
                                 </div>
                             </div>
-                        `).join('')}
-                    </div>
-                    ${brokerProperties.length > 3 ? `
-                        <div class="properties-scroll-controls">
-                            <button class="property-scroll-btn left" onclick="scrollBrokerProperties('left')">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button class="property-scroll-btn right" onclick="scrollBrokerProperties('right')">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
                         </div>
-                    ` : ''}
-                </div>
-                <div>
+                    `).join('')}
+            </div>
+                <div >
                     <button class="btn btn-primary" onclick="showAllBrokerProperties('${memberId}')">
                         <span><i class="fas fa-external-link-alt"></i> Виж всички имоти (${propertiesCount})</span>
-                    </button>
-                </div>
+                </button>
+        </div>
             </div>
         `;
     } else {
@@ -314,7 +313,7 @@ function showTeamMemberModal(memberId) {
                     <i class="fas fa-home" style="font-size: 3rem; color: #8b4513; margin-bottom: 1rem;"></i>
                     <h4>В момента няма активни имоти</h4>
                     <p>Този брокер все още не е отговорен за имоти.</p>
-                </div>
+    </div>
             </div>
         `;
     }
@@ -334,20 +333,20 @@ function showTeamMemberModal(memberId) {
                                         <i class="fas fa-home"></i>
                                         <span>${propertiesCount} ${propertiesCount === 1 ? 'имот' : propertiesCount < 5 ? 'имота' : 'имота'}</span>
                                     </div>
-                                </div>
-                            </div>
+            </div>
+        </div>
     </div>
                     <button class="modal-close" onclick="closeTeamModal()">
                         <i class="fas fa-times"></i>
-                    </button>
+            </button>
                 </div>
                 
                 <div class="modal-body">
                     <div class="member-description">
                         <h4> За брокера</h4>
                         <p>${member.description}</p>
-                    </div>
-                    
+        </div>
+        
                     
                     
                    
@@ -420,9 +419,9 @@ function closeTeamModal() {
     const modal = document.getElementById('teamModal');
     if (modal) {
         modal.classList.remove('show');
-        setTimeout(() => {
+    setTimeout(() => {
             modal.remove();
-        }, 400);
+    }, 400);
     }
 }
 
