@@ -334,10 +334,6 @@ function showTeamMemberModal(memberId) {
                                         <i class="fas fa-home"></i>
                                         <span>${propertiesCount} ${propertiesCount === 1 ? 'имот' : propertiesCount < 5 ? 'имота' : 'имота'}</span>
                                     </div>
-                                    <div class="stat-item">
-                                        <i class="fas fa-star"></i>
-                                        <span>${member.achievements.length} постижения</span>
-                                    </div>
                                 </div>
                             </div>
     </div>
