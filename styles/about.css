@@ -1507,13 +1507,20 @@
     right: 1rem;
     background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 700;
     backdrop-filter: blur(10px);
-    box-shadow: 0 2px 10px rgba(139, 69, 19, 0.3);
+    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.4);
     z-index: 3;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.properties-count:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(139, 69, 19, 0.5);
 }
 
 /* Card Content */
@@ -1553,14 +1560,22 @@
 .stat-badge {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    background: rgba(139, 69, 19, 0.08);
+    gap: 0.6rem;
+    background: linear-gradient(135deg, rgba(139, 69, 19, 0.08) 0%, rgba(210, 105, 30, 0.08) 100%);
     color: #8b4513;
-    padding: 0.6rem 1rem;
-    border-radius: 15px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border: 1px solid rgba(139, 69, 19, 0.1);
+    padding: 0.7rem 1.2rem;
+    border-radius: 18px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: 1px solid rgba(139, 69, 19, 0.15);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
+}
+
+.stat-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
+    border-color: rgba(139, 69, 19, 0.2);
 }
 
 .stat-badge i {
@@ -1784,6 +1799,16 @@
         grid-template-columns: 1fr;
     }
     
+    .team-modal .broker-stats-modal {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .team-modal .broker-stats-modal .stat-item {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
     .property-card {
         flex: 0 0 260px;
     }
@@ -1858,14 +1883,15 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10000;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 1rem;
 }
 
@@ -1876,28 +1902,55 @@
 
 .team-modal .modal-content {
     background: white;
-    border-radius: 25px;
-    max-width: 900px;
+    border-radius: 30px;
+    max-width: 1000px;
     width: 100%;
-    max-height: 90vh;
+    max-height: 92vh;
     overflow-y: auto;
-    transform: scale(0.8) translateY(20px);
-    transition: transform 0.3s ease;
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8) translateY(30px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(139, 69, 19, 0.1);
 }
 
 .team-modal.show .modal-content {
     transform: scale(1) translateY(0);
+    animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .team-modal .modal-header {
     background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
     color: white;
-    padding: 2rem;
-    border-radius: 25px 25px 0 0;
+    padding: 2.5rem;
+    border-radius: 30px 30px 0 0;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-modal .modal-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
+    background-size: cover;
+    pointer-events: none;
 }
 
 .team-modal .member-info {
@@ -1907,17 +1960,24 @@
 }
 
 .team-modal .member-image {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid rgba(255, 255, 255, 0.3);
+    border: 4px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.team-modal .member-image:hover {
+    transform: scale(1.05);
 }
 
 .team-modal .member-details h3 {
     margin: 0 0 0.5rem 0;
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 800;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .team-modal .role {
@@ -1930,6 +1990,31 @@
 .team-modal .experience {
     font-size: 0.9rem;
     opacity: 0.8;
+    margin-bottom: 1rem;
+}
+
+.team-modal .broker-stats-modal {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.team-modal .broker-stats-modal .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.team-modal .broker-stats-modal .stat-item i {
+    font-size: 0.9rem;
+    opacity: 0.9;
 }
 
 .team-modal .modal-close {
@@ -2025,12 +2110,29 @@
 }
 
 .team-modal .member-achievements li {
-    background: #f8f6f3;
-    padding: 1rem;
-    border-radius: 12px;
+    background: linear-gradient(135deg, #f8f6f3 0%, #ffffff 100%);
+    padding: 1.2rem;
+    border-radius: 15px;
     border-left: 4px solid #8b4513;
     color: #5d4e37;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
+}
+
+.team-modal .member-achievements li:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.12);
+    border-left-color: #d2691e;
+}
+
+.team-modal .member-achievements li i {
+    color: #8b4513;
+    font-size: 0.9rem;
+    flex-shrink: 0;
 }
 
 .team-modal .contact-cards {
@@ -2078,21 +2180,38 @@
 
 /* Broker Properties Section */
 .broker-properties-section {
-    margin-bottom: 2rem;
-    background: #f8f6f3;
-    border-radius: 20px;
-    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    background: linear-gradient(135deg, #f8f6f3 0%, #ffffff 100%);
+    border-radius: 25px;
+    padding: 2rem;
     border: 1px solid rgba(139, 69, 19, 0.1);
+    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.broker-properties-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(139,69,19,0.02)" points="0,1000 1000,0 1000,1000"/></svg>');
+    background-size: cover;
+    pointer-events: none;
 }
 
 .broker-properties-section h4 {
     color: #3e2723;
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
+    position: relative;
+    z-index: 2;
 }
 
 .broker-properties-section h4::before {
@@ -2137,19 +2256,38 @@
 }
 
 .property-card {
-    flex: 0 0 280px;
+    flex: 0 0 300px;
     background: white;
-    border-radius: 15px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.1);
-    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(139, 69, 19, 0.12);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    border: 1px solid rgba(139, 69, 19, 0.05);
+    border: 1px solid rgba(139, 69, 19, 0.08);
+    position: relative;
+    z-index: 2;
+    animation: propertyCardFadeIn 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.property-card:nth-child(1) { animation-delay: 0.1s; }
+.property-card:nth-child(2) { animation-delay: 0.2s; }
+.property-card:nth-child(3) { animation-delay: 0.3s; }
+.property-card:nth-child(4) { animation-delay: 0.4s; }
+.property-card:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes propertyCardFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .property-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.2);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(139, 69, 19, 0.25);
+    border-color: rgba(139, 69, 19, 0.2);
 }
 
 .property-image {
@@ -2199,6 +2337,14 @@
     font-size: 0.85rem;
     font-weight: 600;
     margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.property-location i {
+    font-size: 0.8rem;
+    opacity: 0.8;
 }
 
 .property-price {
@@ -2206,12 +2352,28 @@
     font-size: 1rem;
     font-weight: 700;
     margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.property-price i {
+    font-size: 0.9rem;
+    opacity: 0.8;
 }
 
 .property-area {
     color: #5d4e37;
     font-size: 0.85rem;
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.property-area i {
+    font-size: 0.8rem;
+    opacity: 0.7;
 }
 
 .properties-scroll-controls {
@@ -2261,28 +2423,67 @@
     background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
     color: white;
     border: none;
-    padding: 0.8rem 2rem;
-    border-radius: 12px;
-    font-weight: 600;
+    padding: 1rem 2.5rem;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
+    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.view-all-properties .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #d2691e 0%, #8b4513 100%);
+    transition: left 0.4s ease;
+    z-index: 1;
+}
+
+.view-all-properties .btn span {
+    position: relative;
+    z-index: 2;
 }
 
 .view-all-properties .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(139, 69, 19, 0.4);
+}
+
+.view-all-properties .btn:hover::before {
+    left: 0;
 }
 
 .no-properties {
     text-align: center;
     color: #8b4513;
-    font-style: italic;
-    padding: 2rem;
-    background: rgba(139, 69, 19, 0.05);
-    border-radius: 15px;
-    border: 1px dashed rgba(139, 69, 19, 0.2);
+    padding: 3rem 2rem;
+    background: rgba(139, 69, 19, 0.03);
+    border-radius: 20px;
+    border: 2px dashed rgba(139, 69, 19, 0.15);
+    position: relative;
+    z-index: 2;
+}
+
+.no-properties h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #8b4513;
+}
+
+.no-properties p {
+    margin: 0;
+    font-size: 0.95rem;
+    opacity: 0.8;
 }
