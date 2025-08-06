@@ -140,203 +140,230 @@
     </section>
 
     <!-- Team Section -->
-    <section class="team-section" id="team">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Нашият екип</span>
-                <h2>Запознайте се с професионалистите</h2>
-                <p>Екип от опитни специалисти, готови да ви помогнат във всеки етап от процеса</p>
+    <!-- Team Section - Updated design with real data -->
+<section class="team-section" id="team">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">Нашият екип</span>
+            <h2>Запознайте се с професионалистите</h2>
+            <p>Всеки един от нашите брокери е с нужното образование, квалификации и практика, за да служи достойно на клиентите ни. Недвижимите имоти са наше призвание и успешното реализиране на всяка сделка е наша мисия.</p>
+        </div>
+
+        <div class="team-container">
+            <div class="team-scroll" id="teamScroll">
+                <!-- Бисер Бонев -->
+                <div class="team-card" data-broker="biser" onclick="showTeamMemberModal('biser')">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Бисер Бонев">
+                        <div class="card-overlay">
+                            <div class="overlay-content">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Виж профил</span>
+                            </div>
+                        </div>
+                        <div class="properties-count">7 имота</div>
+                    </div>
+                    <div class="card-content">
+                        <h4>Бисер Бонев</h4>
+                        <span class="position">Старши брокер</span>
+                        <p>Опитен специалист с богато портфолио от недвижими имоти</p>
+                        <div class="broker-stats">
+                            <div class="stat-badge">
+                                <i class="fas fa-home"></i>
+                                <span>7 имота</span>
+                            </div>
+                        </div>
+                        <div class="quick-actions">
+                            <a href="tel:+359888605571" onclick="event.stopPropagation();">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="mailto:sanderimoti@abv.bg" onclick="event.stopPropagation();">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Диана Узунова -->
+                <div class="team-card" data-broker="diana" onclick="showTeamMemberModal('diana')">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Диана Узунова">
+                        <div class="card-overlay">
+                            <div class="overlay-content">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Виж профил</span>
+                            </div>
+                        </div>
+                        <div class="properties-count">4 имота</div>
+                    </div>
+                    <div class="card-content">
+                        <h4>Диана Узунова</h4>
+                        <span class="position">Брокер</span>
+                        <p>Професионалист в областта на жилищните имоти и консултациите</p>
+                        <div class="broker-stats">
+                            <div class="stat-badge">
+                                <i class="fas fa-home"></i>
+                                <span>4 имота</span>
+                            </div>
+                        </div>
+                        <div class="quick-actions">
+                            <a href="tel:+359883414169" onclick="event.stopPropagation();">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="mailto:sanderimoti@abv.bg" onclick="event.stopPropagation();">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Пламен Петров -->
+                <div class="team-card" data-broker="plamen" onclick="showTeamMemberModal('plamen')">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Пламен Петров">
+                        <div class="card-overlay">
+                            <div class="overlay-content">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Виж профил</span>
+                            </div>
+                        </div>
+                        <div class="properties-count">3 имота</div>
+                    </div>
+                    <div class="card-content">
+                        <h4>Пламен Петров</h4>
+                        <span class="position">Брокер</span>
+                        <p>Специалист по комерсиални и жилищни недвижими имоти</p>
+                        <div class="broker-stats">
+                            <div class="stat-badge">
+                                <i class="fas fa-home"></i>
+                                <span>3 имота</span>
+                            </div>
+                        </div>
+                        <div class="quick-actions">
+                            <a href="tel:+359878430485" onclick="event.stopPropagation();">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="mailto:sanderimoti@abv.bg" onclick="event.stopPropagation();">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Трифон Бончев -->
+                <div class="team-card" data-broker="trifon" onclick="showTeamMemberModal('trifon')">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Трифон Бончев">
+                        <div class="card-overlay">
+                            <div class="overlay-content">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Виж профил</span>
+                            </div>
+                        </div>
+                        <div class="properties-count">2 имота</div>
+                    </div>
+                    <div class="card-content">
+                        <h4>Трифон Бончев</h4>
+                        <span class="position">Брокер</span>
+                        <p>Опитен консултант в сферата на недвижимите имоти</p>
+                        <div class="broker-stats">
+                            <div class="stat-badge">
+                                <i class="fas fa-home"></i>
+                                <span>2 имота</span>
+                            </div>
+                        </div>
+                        <div class="quick-actions">
+                            <a href="tel:0888390674" onclick="event.stopPropagation();">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="mailto:trifon.bonchev@gmail.com" onclick="event.stopPropagation();">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Румяна Александрова -->
+                <div class="team-card" data-broker="rumyana" onclick="showTeamMemberModal('rumyana')">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Румяна Александрова">
+                        <div class="card-overlay">
+                            <div class="overlay-content">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Виж профил</span>
+                            </div>
+                        </div>
+                        <div class="properties-count">1 имот</div>
+                    </div>
+                    <div class="card-content">
+                        <h4>Румяна Александрова</h4>
+                        <span class="position">Брокер</span>
+                        <p>Персонален подход и внимание към детайлите при всяка сделка</p>
+                        <div class="broker-stats">
+                            <div class="stat-badge">
+                                <i class="fas fa-home"></i>
+                                <span>1 имот</span>
+                            </div>
+                        </div>
+                        <div class="quick-actions">
+                            <a href="tel:+359888959939" onclick="event.stopPropagation();">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="mailto:sanderimoti@abv.bg" onclick="event.stopPropagation();">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Александра Иванова -->
+                <div class="team-card" data-broker="aleksandra" onclick="showTeamMemberModal('aleksandra')">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Александра Иванова">
+                        <div class="card-overlay">
+                            <div class="overlay-content">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Виж профил</span>
+                            </div>
+                        </div>
+                        <div class="properties-count">1 имот</div>
+                    </div>
+                    <div class="card-content">
+                        <h4>Александра Иванова</h4>
+                        <span class="position">Брокер</span>
+                        <p>Млад и амбициозен специалист с фокус върху клиентското обслужване</p>
+                        <div class="broker-stats">
+                            <div class="stat-badge">
+                                <i class="fas fa-home"></i>
+                                <span>1 имот</span>
+                            </div>
+                        </div>
+                        <div class="quick-actions">
+                            <a href="tel:+359892014504" onclick="event.stopPropagation();">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="mailto:sanderimoti@abv.bg" onclick="event.stopPropagation();">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="team-container">
-                <div class="team-scroll" id="teamScroll">
-                    <div class="team-card" onclick="showTeamMemberModal('aleksandar')">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Александър Петров">
-                            <div class="card-overlay">
-                                <div class="overlay-content">
-                                    <i class="fas fa-user-circle"></i>
-                                    <span>Виж профил</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h4>Александър Петров</h4>
-                            <span class="position">Управляващ директор</span>
-                            <p>С над 15 години опит в сферата на недвижимите имоти</p>
-                            <div class="quick-actions">
-                                <a href="tel:+359888123456" onclick="event.stopPropagation();">
-                                    <i class="fas fa-phone"></i>
-                                </a>
-                                <a href="mailto:aleksandar@sandercorrect.com" onclick="event.stopPropagation();">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-card" onclick="showTeamMemberModal('maria')">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Мария Стоянова">
-                            <div class="card-overlay">
-                                <div class="overlay-content">
-                                    <i class="fas fa-user-circle"></i>
-                                    <span>Виж профил</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h4>Мария Стоянова</h4>
-                            <span class="position">Старши брокер</span>
-                            <p>Специалист по жилищни имоти в София</p>
-                            <div class="quick-actions">
-                                <a href="tel:+359888123457" onclick="event.stopPropagation();">
-                                    <i class="fas fa-phone"></i>
-                                </a>
-                                <a href="mailto:maria@sandercorrect.com" onclick="event.stopPropagation();">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-card" onclick="showTeamMemberModal('dimitar')">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Димитър Марков">
-                            <div class="card-overlay">
-                                <div class="overlay-content">
-                                    <i class="fas fa-user-circle"></i>
-                                    <span>Виж профил</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h4>Димитър Марков</h4>
-                            <span class="position">Правен консултант</span>
-                            <p>12 години опит в правни услуги</p>
-                            <div class="quick-actions">
-                                <a href="tel:+359888123458" onclick="event.stopPropagation();">
-                                    <i class="fas fa-phone"></i>
-                                </a>
-                                <a href="mailto:dimitar@sandercorrect.com" onclick="event.stopPropagation();">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-card" onclick="showTeamMemberModal('elena')">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Елена Георгиева">
-                            <div class="card-overlay">
-                                <div class="overlay-content">
-                                    <i class="fas fa-user-circle"></i>
-                                    <span>Виж профил</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h4>Елена Георгиева</h4>
-                            <span class="position">Маркетинг мениджър</span>
-                            <p>Дигитален маркетинг и реклама</p>
-                            <div class="quick-actions">
-                                <a href="tel:+359888123459" onclick="event.stopPropagation();">
-                                    <i class="fas fa-phone"></i>
-                                </a>
-                                <a href="mailto:elena@sandercorrect.com" onclick="event.stopPropagation();">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-card" onclick="showTeamMemberModal('ivan')">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Иван Попов">
-                            <div class="card-overlay">
-                                <div class="overlay-content">
-                                    <i class="fas fa-user-circle"></i>
-                                    <span>Виж профил</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h4>Иван Попов</h4>
-                            <span class="position">Финансов консултант</span>
-                            <p>Специалист по ипотечно кредитиране</p>
-                            <div class="quick-actions">
-                                <a href="tel:+359888123460" onclick="event.stopPropagation();">
-                                    <i class="fas fa-phone"></i>
-                                </a>
-                                <a href="mailto:ivan@sandercorrect.com" onclick="event.stopPropagation();">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-card" onclick="showTeamMemberModal('svetlana')">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Светлана Димитрова">
-                            <div class="card-overlay">
-                                <div class="overlay-content">
-                                    <i class="fas fa-user-circle"></i>
-                                    <span>Виж профил</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h4>Светлана Димитрова</h4>
-                            <span class="position">Офис мениджър</span>
-                            <p>Администрация и клиентски услуги</p>
-                            <div class="quick-actions">
-                                <a href="tel:+359888123461" onclick="event.stopPropagation();">
-                                    <i class="fas fa-phone"></i>
-                                </a>
-                                <a href="mailto:svetlana@sandercorrect.com" onclick="event.stopPropagation();">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-card" onclick="showTeamMemberModal('georgi')">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Георги Василев">
-                            <div class="card-overlay">
-                                <div class="overlay-content">
-                                    <i class="fas fa-user-circle"></i>
-                                    <span>Виж профил</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h4>Георги Василев</h4>
-                            <span class="position">Технически експерт</span>
-                            <p>VR технологии и дигитални решения</p>
-                            <div class="quick-actions">
-                                <a href="tel:+359888123462" onclick="event.stopPropagation();">
-                                    <i class="fas fa-phone"></i>
-                                </a>
-                                <a href="mailto:georgi@sandercorrect.com" onclick="event.stopPropagation();">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="scroll-indicators">
-                    <button class="scroll-btn scroll-left" onclick="scrollTeam(-1)">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="scroll-btn scroll-right" onclick="scrollTeam(1)">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
+            <!-- Scroll Indicators -->
+            <div class="scroll-indicators">
+                <button class="scroll-btn left" id="teamLeftBtn" onclick="scrollTeamLeft()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="scroll-btn right" id="teamRightBtn" onclick="scrollTeamRight()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
 
 
 
