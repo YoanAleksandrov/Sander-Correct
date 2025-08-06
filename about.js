@@ -124,9 +124,13 @@ function getBrokerProperties(brokerId) {
 
 // Function to update property counts in the UI
 function updatePropertyCounts() {
+    console.log('Updating property counts...');
+    
     Object.keys(teamMembers).forEach(brokerId => {
         const count = getBrokerPropertiesCount(brokerId);
         const countElements = document.querySelectorAll(`[data-broker="${brokerId}"] .properties-count, [data-broker="${brokerId}"] .stat-badge span`);
+        
+        console.log(`Broker ${brokerId}: ${count} properties, found ${countElements.length} elements`);
         
         countElements.forEach(element => {
             let countText;
@@ -141,6 +145,7 @@ function updatePropertyCounts() {
             }
             
             element.textContent = countText;
+            console.log(`Updated element for ${brokerId}: ${countText}`);
         });
     });
 }
@@ -569,6 +574,26 @@ document.addEventListener('keydown', (e) => {
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     initializeAboutAnimations();
+    
+    // Update property counts for all brokers
+    updatePropertyCounts();
+    
+    // Make function globally available for testing
+window.updatePropertyCounts = updatePropertyCounts;
+
+// Function to show broker statistics (for debugging)
+window.showBrokerStats = function() {
+    console.log('=== BROKER STATISTICS ===');
+    Object.keys(teamMembers).forEach(brokerId => {
+        const count = getBrokerPropertiesCount(brokerId);
+        const properties = getBrokerProperties(brokerId);
+        console.log(`${teamMembers[brokerId].name}: ${count} properties`);
+        if (properties.length > 0) {
+            console.log('Properties:', properties.map(p => p.title));
+        }
+    });
+    console.log('========================');
+};
     
     // Add scroll indicator visibility logic for team section
     const teamContainer = document.getElementById('teamScroll');

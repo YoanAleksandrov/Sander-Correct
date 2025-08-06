@@ -1516,6 +1516,23 @@
     z-index: 3;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
+    animation: countFadeIn 0.6s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.team-card:nth-child(1) .properties-count { animation-delay: 0.1s; }
+.team-card:nth-child(2) .properties-count { animation-delay: 0.2s; }
+.team-card:nth-child(3) .properties-count { animation-delay: 0.3s; }
+.team-card:nth-child(4) .properties-count { animation-delay: 0.4s; }
+.team-card:nth-child(5) .properties-count { animation-delay: 0.5s; }
+.team-card:nth-child(6) .properties-count { animation-delay: 0.6s; }
+
+@keyframes countFadeIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .properties-count:hover {
@@ -1570,6 +1587,23 @@
     border: 1px solid rgba(139, 69, 19, 0.15);
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
+    animation: badgeFadeIn 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.team-card:nth-child(1) .stat-badge { animation-delay: 0.2s; }
+.team-card:nth-child(2) .stat-badge { animation-delay: 0.3s; }
+.team-card:nth-child(3) .stat-badge { animation-delay: 0.4s; }
+.team-card:nth-child(4) .stat-badge { animation-delay: 0.5s; }
+.team-card:nth-child(5) .stat-badge { animation-delay: 0.6s; }
+.team-card:nth-child(6) .stat-badge { animation-delay: 0.7s; }
+
+@keyframes badgeFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .stat-badge:hover {
