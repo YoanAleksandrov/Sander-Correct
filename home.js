@@ -658,7 +658,7 @@ if (property.type === 'land') {
                         <div style="color: #5d4e37; font-size: ${isMobile ? '0.8rem' : '0.85rem'}; text-transform: uppercase; letter-spacing: 0.5px;">Стаи</div>
                     </div>
                     <div style="text-align: center;">
-                        <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.floor.replace(/\D/g, '') || '2'}</div>
+                        <div style="color: #8b4513; font-size: ${isMobile ? '1.4rem' : '1.6rem'}; font-weight: 800; margin-bottom: 0.3rem;">${property.floor || 'Етаж 2'}</div>
                         <div style="color: #5d4e37; font-size: ${isMobile ? '0.8rem' : '0.85rem'}; text-transform: uppercase; letter-spacing: 0.5px;">Етаж</div>
                     </div>
                     <div style="text-align: center;">
