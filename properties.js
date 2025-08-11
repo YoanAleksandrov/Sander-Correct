@@ -840,14 +840,8 @@ function scheduleViewing(propertyTitle) {
 function getBadgeClass(badge) {
     if (!badge) return '';
     
-    const lowerBadge = badge.toLowerCase();
-    if (lowerBadge.includes('ново') || lowerBadge.includes('new')) return 'new';
-    if (lowerBadge.includes('спешно') || lowerBadge.includes('urgent')) return 'urgent';
-    if (lowerBadge.includes('продаден') || lowerBadge.includes('sold')) return 'sold';
-    if (lowerBadge.includes('наем') || lowerBadge.includes('rent')) return 'rent';
-    if (lowerBadge.includes('препоръчан') || lowerBadge.includes('featured')) return 'featured';
-    
-    return '';
+    // All badges now use the same styling
+    return 'unified';
 }
 
 // ENHANCED PROPERTY MODAL - EXACT SAME AS INDEX PAGE

@@ -750,29 +750,9 @@ html {
     transform: scale(1.2);
 }
 
-/* Enhanced Property Badge Variations */
-.property-badge.new {
-    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-    color: white;
-}
-
-.property-badge.urgent {
-    background: linear-gradient(135deg, #f44336 0%, #e53935 100%);
-    color: white;
-}
-
-.property-badge.sold {
-    background: linear-gradient(135deg, #9E9E9E 0%, #757575 100%);
-    color: white;
-}
-
-.property-badge.rent {
-    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
-    color: white;
-}
-
-.property-badge.featured {
-    background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+/* Unified Property Badge Styling */
+.property-badge.unified {
+    background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
     color: white;
 }
 
