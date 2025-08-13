@@ -1057,16 +1057,22 @@ body {
         max-width: 100%;
     }
     
-    /* Mobile: When there are few properties, center them */
+    /* Mobile: When there are few properties, show them vertically */
     .properties-grid:has(.property-card:only-child) {
         max-width: 100%;
         margin-left: 0;
         margin-right: 0;
+        grid-template-columns: 1fr;
     }
     
     .properties-grid:has(.property-card:only-child) .property-card {
         max-width: 100%;
         margin: 0 1rem;
+    }
+    
+    .properties-grid:has(.property-card:nth-child(2):last-child) {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
     .properties-grid:has(.property-card:nth-child(2):last-child) .property-card,
@@ -1080,6 +1086,7 @@ body {
         max-width: 100%;
         margin-left: 0;
         margin-right: 0;
+        grid-template-columns: 1fr;
     }
     
     .properties-grid.single-property .property-card,
@@ -1087,6 +1094,11 @@ body {
     .properties-grid.three-properties .property-card {
         max-width: 100%;
         margin: 0 1rem;
+    }
+    
+    .properties-grid.two-properties {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .property-details {
@@ -1130,6 +1142,19 @@ body {
     .properties-grid.two-properties .property-card,
     .properties-grid.three-properties .property-card {
         margin: 0 0.5rem;
+    }
+    
+    /* Ultra mobile: Force single column for few properties */
+    .properties-grid:has(.property-card:only-child),
+    .properties-grid:has(.property-card:nth-child(2):last-child) {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .properties-grid.few-properties,
+    .properties-grid.two-properties {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
 }
 
