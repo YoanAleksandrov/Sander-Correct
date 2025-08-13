@@ -352,30 +352,31 @@ body {
 }
 
 /* Alternative approach using CSS classes for better browser support */
-.properties-grid.few-properties {
+/* These styles only apply when showing filtered properties (not all properties) */
+.properties-grid.few-properties:not(.show-all-properties) {
     justify-content: start;
     max-width: 100%;
     margin-left: 0;
     margin-right: 0;
 }
 
-.properties-grid.single-property {
+.properties-grid.single-property:not(.show-all-properties) {
     max-width: 100%;
 }
 
-.properties-grid.single-property .property-card {
+.properties-grid.single-property:not(.show-all-properties) .property-card {
     max-width: 500px;
     width: 100%;
 }
 
-.properties-grid.two-properties .property-card,
-.properties-grid.three-properties .property-card {
+.properties-grid.two-properties:not(.show-all-properties) .property-card,
+.properties-grid.three-properties:not(.show-all-properties) .property-card {
     max-width: 450px;
     width: 100%;
 }
 
 /* Ensure consistent spacing for 2 properties using CSS classes */
-.properties-grid.two-properties {
+.properties-grid.two-properties:not(.show-all-properties) {
     grid-template-columns: repeat(2, 450px);
     gap: 2.5rem;
 }
@@ -1082,21 +1083,21 @@ body {
     }
     
     /* Mobile: CSS classes approach */
-    .properties-grid.few-properties {
+    .properties-grid.few-properties:not(.show-all-properties) {
         max-width: 100%;
         margin-left: 0;
         margin-right: 0;
         grid-template-columns: 1fr;
     }
     
-    .properties-grid.single-property .property-card,
-    .properties-grid.two-properties .property-card,
-    .properties-grid.three-properties .property-card {
+    .properties-grid.single-property:not(.show-all-properties) .property-card,
+    .properties-grid.two-properties:not(.show-all-properties) .property-card,
+    .properties-grid.three-properties:not(.show-all-properties) .property-card {
         max-width: 100%;
         margin: 0 1rem;
     }
     
-    .properties-grid.two-properties {
+    .properties-grid.two-properties:not(.show-all-properties) {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
@@ -1138,9 +1139,9 @@ body {
     }
     
     /* Ultra mobile: CSS classes approach */
-    .properties-grid.single-property .property-card,
-    .properties-grid.two-properties .property-card,
-    .properties-grid.three-properties .property-card {
+    .properties-grid.single-property:not(.show-all-properties) .property-card,
+    .properties-grid.two-properties:not(.show-all-properties) .property-card,
+    .properties-grid.three-properties:not(.show-all-properties) .property-card {
         margin: 0 0.5rem;
     }
     
@@ -1151,8 +1152,8 @@ body {
         gap: 1rem;
     }
     
-    .properties-grid.few-properties,
-    .properties-grid.two-properties {
+    .properties-grid.few-properties:not(.show-all-properties),
+    .properties-grid.two-properties:not(.show-all-properties) {
         grid-template-columns: 1fr;
         gap: 1rem;
     }

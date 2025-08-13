@@ -1463,15 +1463,23 @@ function applyFewPropertiesStyling(propertyCount) {
     const grid = document.getElementById('propertiesGrid');
     
     // Remove any existing special styling classes
-    grid.classList.remove('few-properties', 'single-property', 'two-properties', 'three-properties');
+    grid.classList.remove('few-properties', 'single-property', 'two-properties', 'three-properties', 'show-all-properties');
     
-    if (propertyCount === 1) {
-        grid.classList.add('few-properties', 'single-property');
-    } else if (propertyCount === 2) {
-        grid.classList.add('few-properties', 'two-properties');
-    } else if (propertyCount === 3) {
-        grid.classList.add('few-properties', 'three-properties');
+    // Only apply special styling when there are 3 or fewer properties on the current page
+    // AND when we're not showing all properties (currentFilter === 'all' means showing all types)
+    if (propertyCount <= 3 && currentFilter !== 'all') {
+        if (propertyCount === 1) {
+            grid.classList.add('few-properties', 'single-property');
+        } else if (propertyCount === 2) {
+            grid.classList.add('few-properties', 'two-properties');
+        } else if (propertyCount === 3) {
+            grid.classList.add('few-properties', 'three-properties');
+        }
+    } else if (currentFilter === 'all') {
+        // When showing all properties, add a class to prevent special styling
+        grid.classList.add('show-all-properties');
     }
+    // When currentFilter === 'all', no special styling is applied, so properties show in normal grid
 }
 
 // Apply quick search suggestion
