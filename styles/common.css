@@ -314,6 +314,70 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 2.5rem;
     margin-bottom: 3rem;
+    max-width: 100%;
+}
+
+/* When there are few properties, start from left and limit width */
+.properties-grid:has(.property-card:only-child) {
+    justify-content: start;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.properties-grid:has(.property-card:only-child) .property-card {
+    max-width: 500px;
+    width: 100%;
+}
+
+/* When there are 2-3 properties, start from left and limit their maximum width */
+.properties-grid:has(.property-card:nth-child(2):last-child),
+.properties-grid:has(.property-card:nth-child(3):last-child) {
+    justify-content: start;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.properties-grid:has(.property-card:nth-child(2):last-child) .property-card,
+.properties-grid:has(.property-card:nth-child(3):last-child) .property-card {
+    max-width: 450px;
+    width: 100%;
+}
+
+/* Ensure consistent spacing between cards regardless of count */
+.properties-grid:has(.property-card:nth-child(2):last-child) {
+    grid-template-columns: repeat(2, 450px);
+    gap: 2.5rem;
+}
+
+/* Alternative approach using CSS classes for better browser support */
+.properties-grid.few-properties {
+    justify-content: start;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.properties-grid.single-property {
+    max-width: 100%;
+}
+
+.properties-grid.single-property .property-card {
+    max-width: 500px;
+    width: 100%;
+}
+
+.properties-grid.two-properties .property-card,
+.properties-grid.three-properties .property-card {
+    max-width: 450px;
+    width: 100%;
+}
+
+/* Ensure consistent spacing for 2 properties using CSS classes */
+.properties-grid.two-properties {
+    grid-template-columns: repeat(2, 450px);
+    gap: 2.5rem;
 }
 
 .property-card {
@@ -990,6 +1054,39 @@ body {
 
     .properties-grid {
         grid-template-columns: 1fr;
+        max-width: 100%;
+    }
+    
+    /* Mobile: When there are few properties, center them */
+    .properties-grid:has(.property-card:only-child) {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .properties-grid:has(.property-card:only-child) .property-card {
+        max-width: 100%;
+        margin: 0 1rem;
+    }
+    
+    .properties-grid:has(.property-card:nth-child(2):last-child) .property-card,
+    .properties-grid:has(.property-card:nth-child(3):last-child) .property-card {
+        max-width: 100%;
+        margin: 0 1rem;
+    }
+    
+    /* Mobile: CSS classes approach */
+    .properties-grid.few-properties {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .properties-grid.single-property .property-card,
+    .properties-grid.two-properties .property-card,
+    .properties-grid.three-properties .property-card {
+        max-width: 100%;
+        margin: 0 1rem;
     }
 
     .property-details {
@@ -1015,6 +1112,23 @@ body {
     }
 
     .property-card {
+        margin: 0 0.5rem;
+    }
+    
+    /* Ultra mobile: Ensure proper spacing for few properties */
+    .properties-grid:has(.property-card:only-child) .property-card {
+        margin: 0 0.5rem;
+    }
+    
+    .properties-grid:has(.property-card:nth-child(2):last-child) .property-card,
+    .properties-grid:has(.property-card:nth-child(3):last-child) .property-card {
+        margin: 0 0.5rem;
+    }
+    
+    /* Ultra mobile: CSS classes approach */
+    .properties-grid.single-property .property-card,
+    .properties-grid.two-properties .property-card,
+    .properties-grid.three-properties .property-card {
         margin: 0 0.5rem;
     }
 }

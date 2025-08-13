@@ -312,23 +312,24 @@
 .filter-tabs {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.5rem;
     margin-bottom: 3rem;
     flex-wrap: wrap;
 }
 
 .filter-btn {
-    padding: 0.8rem 1.5rem;
+    padding: 0.6rem 1.2rem;
     border: 2px solid #8b4513;
     background: transparent;
     color: #8b4513;
-    border-radius: 25px;
+    border-radius: 20px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+    font-size: 0.75rem;
+    white-space: nowrap;
 }
 
 .filter-btn.active, .filter-btn:hover {
@@ -817,13 +818,7 @@
 
 @media (max-width: 768px) {
     .filter-tabs {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .filter-btn {
-        width: 200px;
-        text-align: center;
+        display: none;
     }
     
     .properties-controls {
@@ -854,6 +849,19 @@
     
     .advanced-filters {
         padding: 1.5rem;
+        margin: 0 -1rem;
+        border-radius: 0;
+    }
+    
+    .advanced-search-toggle {
+        margin-bottom: 1rem;
+    }
+    
+    .toggle-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 1.2rem 2rem;
+        font-size: 1.1rem;
     }
 
     /* Mobile Image Carousel Enhancements */
@@ -961,6 +969,37 @@
     .property-price-per-sqm {
         font-size: 0.75rem;
         padding: 0.2rem 0.5rem;
+    }
+    
+    .advanced-filters {
+        padding: 1rem;
+        margin: 0 -0.5rem;
+    }
+    
+    .advanced-search-form .filters-row {
+        gap: 1rem;
+    }
+    
+    .filter-group label {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .filter-group select,
+    .filter-group input {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .filter-actions {
+        gap: 1rem;
+    }
+    
+    .filter-btn-primary,
+    .filter-btn-secondary {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
     }
 
     /* Ultra mobile parking adjustments */

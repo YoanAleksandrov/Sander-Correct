@@ -72,38 +72,59 @@
             </div>
             <form class="search-form fade-in" action="properties.html" method="GET">
                 <div class="form-group">
-                    <label for="quick-type">Тип имот</label>
+                    <label for="quick-type">Вид на имота</label>
                     <select id="quick-type" name="type">
-                        <option value="">Всички типове</option>
-                        <option value="apartment">Апартамент</option>
+                        <option value="">Всички видове</option>
+                        <option value="1-room">1-стаен</option>
+                        <option value="2-room">2-стаен</option>
+                        <option value="3-room">3-стаен</option>
+                        <option value="4-room">4-стаен</option>
+                        <option value="multi-room">Многостаен</option>
+                        <option value="maisonette">Мезонет</option>
+                        <option value="studio">Ателие/Таван</option>
+                        <option value="office">Офис</option>
+                        <option value="shop">Магазин</option>
+                        <option value="restaurant">Заведение</option>
+                        <option value="warehouse">Склад</option>
+                        <option value="hotel">Хотел</option>
+                        <option value="industrial">Пром. помещение</option>
+                        <option value="house-floor">Етаж от къща</option>
                         <option value="house">Къща</option>
                         <option value="villa">Вила</option>
                         <option value="land">Парцел</option>
-                        <option value="commercial">Офис</option>
-                        <option value="commercial">Търговски</option>
-                        <option value="Ново строителство">Ново строителство</option>
+                        <option value="garage">Гараж/Паркомясто</option>
+                        <option value="agricultural">Земеделска земя</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="quick-transaction">Сделка</label>
                     <select id="quick-transaction" name="transaction">
-                        <option value="">Продажба и наем</option>
-                        <option value="sale">Продажба</option>
-                        <option value="rent">Под наем</option>
-                        <option value="short-rent">Краткосрочен наем</option>
+                        <option value="">Всички сделки</option>
+                        <option value="sale">Продава</option>
+                        <option value="rent">Дава под наем</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="quick-location">Локация</label>
                     <select id="quick-location" name="location">
-                        <option value="">Всички райони</option>
-                        <option value="София">София - Център</option>
-                        <option value="София">София - Витоша</option>
-                        <option value="София">София - Лозенец</option>
-                        <option value="София">София - Бояна</option>
-                        <option value="Пловдив">Пловдив</option>
-                        <option value="Варна">Варна</option>
-                        <option value="Бургас">Бургас</option>
+                        <option value="">Всички локации</option>
+                        <option value="София, Център">София - Център</option>
+                        <option value="София, Витоша">София - Витоша</option>
+                        <option value="София, Лозенец">София - Лозенец</option>
+                        <option value="София, Бояна">София - Бояна</option>
+                        <option value="София, Симеоново">София - Симеоново</option>
+                        <option value="София, Студентски град">София - Студентски град</option>
+                        <option value="София, Красно село">София - Красно село</option>
+                        <option value="София, Борово">София - Борово</option>
+                        <option value="София, Младост 1">София - Младост 1</option>
+                        <option value="София, Горна баня">София - Горна баня</option>
+                        <option value="София, Банишора">София - Банишора</option>
+                        <option value="Костинброд">Костинброд</option>
+                        <option value="Перник">Перник</option>
+                        <option value="Ботевград">Ботевград</option>
+                        <option value="Панчарево">Панчарево</option>
+                        <option value="Долни Богров">Долни Богров</option>
+                        <option value="Железница">Железница</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -115,16 +136,6 @@
                         <option value="400000">200,000 - 400,000 €</option>
                         <option value="700000">400,000 - 700,000 €</option>
                         <option value="999999999">Над 700,000 €</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="quick-rooms">Стаи</label>
-                    <select id="quick-rooms" name="rooms">
-                        <option value="">Без значение</option>
-                        <option value="1">1 стая</option>
-                        <option value="2">2 стаи</option>
-                        <option value="3">3 стаи</option>
-                        <option value="4">4+ стаи</option>
                     </select>
                 </div>
                 <button type="submit" class="search-button">

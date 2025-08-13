@@ -18,6 +18,19 @@ function isMobileDevice() {
            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
+// Auto-show advanced search on mobile devices
+function autoShowAdvancedSearchOnMobile() {
+    if (isMobileDevice()) {
+        const filters = document.getElementById('advancedFilters');
+        const btn = document.getElementById('searchToggleBtn');
+        if (filters && !filters.classList.contains('show')) {
+            filters.classList.add('show');
+            btn.classList.add('active');
+            btn.innerHTML = '<i class="fas fa-times"></i> Скрий търсачката';
+        }
+    }
+}
+
 // Toggle advanced search
 function toggleAdvancedSearch() {
     const filters = document.getElementById('advancedFilters');
@@ -99,7 +112,6 @@ function clearFilters() {
     document.getElementById('adv-location').value = '';
     document.getElementById('adv-price-min').value = '';
     document.getElementById('adv-price-max').value = '';
-    document.getElementById('adv-rooms').value = '';
     document.getElementById('adv-area-min').value = '';
     document.getElementById('adv-area-max').value = '';
     document.getElementById('quick-newbuild') && (document.getElementById('quick-newbuild').checked = false);
@@ -162,17 +174,39 @@ function showSearchSummary() {
         const appliedFilters = [];
         if (searchCriteria.type) {
             const typeMap = {
-                'apartment': 'Апартаменти',
-                'house': 'Къщи',
-                'land': 'Парцели',
-                'commercial': 'Търговски обекти',
+                '1-room': '1-стаен апартамент',
+                '2-room': '2-стаен апартамент',
+                '3-room': '3-стаен апартамент',
+                '4-room': '4-стаен апартамент',
+                'multi-room': 'Многостаен апартамент',
+                'mezzanine': 'Мезонет',
+                'studio': 'Ателие/Таван',
+                'office': 'Офис',
+                'shop': 'Магазин',
+                'restaurant': 'Заведение',
+                'warehouse': 'Склад',
+                'hotel': 'Хотел',
+                'industrial': 'Пром. помещение',
+                'house-floor': 'Етаж от къща',
+                'house': 'Къща',
+                'villa': 'Вила',
+                'land': 'Парцел',
+                'garage': 'Гараж/Паркомясто',
+                'agricultural': 'Земеделска земя',
                 'Ново строителство': 'Ново строителство'
             };
             appliedFilters.push(typeMap[searchCriteria.type] || searchCriteria.type);
         }
+        if (searchCriteria.transaction) {
+            const transactionMap = {
+                'sale': 'Продава',
+                'rent': 'Дава под наем'
+            };
+            appliedFilters.push(transactionMap[searchCriteria.transaction] || searchCriteria.transaction);
+        }
         if (searchCriteria.location) appliedFilters.push(`в ${searchCriteria.location}`);
         if (searchCriteria.priceMax) appliedFilters.push(`до ${parseInt(searchCriteria.priceMax).toLocaleString()}€`);
-        if (searchCriteria.rooms) appliedFilters.push(`${searchCriteria.rooms} стаи`);
+
         
         const summaryHTML = `
             <div class="search-summary" style="background: linear-gradient(135deg, #f8f6f3 0%, #ffffff 100%); padding: 2rem; border-radius: 20px; margin-bottom: 2rem; border: 1px solid rgba(139, 69, 19, 0.1);">
@@ -230,7 +264,7 @@ function handleAdvancedSearch(event) {
         location: formData.get('location') || '',
         priceMin: formData.get('priceMin') || '',
         priceMax: formData.get('priceMax') || '',
-        rooms: formData.get('rooms') || '',
+
         areaMin: formData.get('areaMin') || '',
         areaMax: formData.get('areaMax') || '',
         newBuild: formData.get('newBuild') === '1'
@@ -259,6 +293,11 @@ function handleAdvancedSearch(event) {
         button.disabled = false;
         
         applyFilters();
+        
+        // Ensure results count is updated
+        setTimeout(() => {
+            updateResultsCount();
+        }, 100);
         
         // Collapse search if results found
         if (filteredProperties.length > 0) {
@@ -297,6 +336,11 @@ function applyFilters() {
             }
         }
         
+        // Apply transaction filter
+        if (searchCriteria.transaction && searchCriteria.transaction !== '') {
+            results = results.filter(property => property.transaction === searchCriteria.transaction);
+        }
+        
         // Apply other advanced search criteria
         if (searchCriteria.location && searchCriteria.location !== '') {
             results = results.filter(property => 
@@ -313,13 +357,7 @@ function applyFilters() {
             });
         }
         
-        if (searchCriteria.rooms && searchCriteria.rooms !== '') {
-            results = results.filter(property => {
-                const rooms = parseInt(property.rooms.replace(/[^0-9]/g, '')) || 0;
-                const targetRooms = parseInt(searchCriteria.rooms);
-                return targetRooms === 4 ? rooms >= 4 : rooms === targetRooms;
-            });
-        }
+
         
         if (searchCriteria.areaMin || searchCriteria.areaMax) {
             results = results.filter(property => {
@@ -424,12 +462,7 @@ function loadFromURLParameters() {
         hasParams = true;
     }
     
-    if (urlParams.has('rooms')) {
-        const rooms = urlParams.get('rooms');
-        document.getElementById('adv-rooms').value = rooms;
-        searchCriteria.rooms = rooms;
-        hasParams = true;
-    }
+
     
     if (urlParams.has('areaMin')) {
         const areaMin = urlParams.get('areaMin');
@@ -520,6 +553,9 @@ function displayResults() {
     // Display properties using enhanced property cards
     grid.innerHTML = pageProperties.map(property => createEnhancedPropertyCard(property)).join('');
     
+    // Apply special styling for few properties
+    applyFewPropertiesStyling(pageProperties.length);
+    
     // Reinitialize animations
     setTimeout(() => {
         initializeAnimations();
@@ -576,6 +612,7 @@ function changePage(direction) {
     if (newPage >= 1 && newPage <= totalPages) {
         currentPage = newPage;
         displayResults();
+        updateResultsCount();
         updatePagination();
         
         // Scroll to top of properties
@@ -610,7 +647,7 @@ function updateURL() {
     if (searchCriteria.location) params.set('location', searchCriteria.location);
     if (searchCriteria.priceMin) params.set('priceMin', searchCriteria.priceMin);
     if (searchCriteria.priceMax) params.set('priceMax', searchCriteria.priceMax);
-    if (searchCriteria.rooms) params.set('rooms', searchCriteria.rooms);
+    
     if (searchCriteria.areaMin) params.set('areaMin', searchCriteria.areaMin);
     if (searchCriteria.areaMax) params.set('areaMax', searchCriteria.areaMax);
     if (searchCriteria.newBuild) params.set('newBuild', searchCriteria.newBuild ? '1' : '0');
@@ -1335,8 +1372,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Apply filters with the URL parameters
         applyFilters();
         
-        // Show search summary after filters are applied
+        // Ensure results count is updated
         setTimeout(() => {
+            updateResultsCount();
             showSearchSummary();
         }, 800);
         
@@ -1344,13 +1382,26 @@ document.addEventListener('DOMContentLoaded', () => {
         // Load all properties initially if no URL parameters
         isFromIndexPage = false;
         applyFilters();
+        
+        // Ensure results count is updated
+        setTimeout(() => {
+            updateResultsCount();
+        }, 100);
     }
+    
+    // Auto-show advanced search on mobile devices
+    autoShowAdvancedSearchOnMobile();
     
     // Initialize view toggle
     const grid = document.getElementById('propertiesGrid');
     if (currentView === 'list') {
         grid.classList.add('list-view');
     }
+});
+
+// Handle window resize for mobile responsiveness
+window.addEventListener('resize', () => {
+    autoShowAdvancedSearchOnMobile();
 });
 
 // Add keyboard shortcuts for power users
@@ -1396,13 +1447,31 @@ document.addEventListener('keydown', (e) => {
 // Quick search suggestions based on popular searches
 function getSearchSuggestions() {
     return [
-        { text: 'Апартаменти в София', filter: { type: 'apartment', location: 'София' } },
+        { text: '1-стайни апартаменти', filter: { type: '1-room' } },
+        { text: '2-стайни апартаменти', filter: { type: '2-room' } },
+        { text: '3-стайни апартаменти', filter: { type: '3-room' } },
         { text: 'Къщи до 500,000€', filter: { type: 'house', priceMax: '500000' } },
         { text: 'Парцели за строителство', filter: { type: 'land' } },
-        { text: 'Тристайни апартаменти', filter: { type: 'apartment', rooms: '3' } },
-        { text: 'Имоти в Лозенец', filter: { location: 'Лозенец' } },
-        { text: 'Търговски обекти', filter: { type: 'commercial' } }
+        { text: 'Имоти в София', filter: { location: 'София' } },
+        { text: 'Офиси', filter: { type: 'office' } },
+        { text: 'Магазини', filter: { type: 'shop' } }
     ];
+}
+
+// Apply special styling when there are few properties
+function applyFewPropertiesStyling(propertyCount) {
+    const grid = document.getElementById('propertiesGrid');
+    
+    // Remove any existing special styling classes
+    grid.classList.remove('few-properties', 'single-property', 'two-properties', 'three-properties');
+    
+    if (propertyCount === 1) {
+        grid.classList.add('few-properties', 'single-property');
+    } else if (propertyCount === 2) {
+        grid.classList.add('few-properties', 'two-properties');
+    } else if (propertyCount === 3) {
+        grid.classList.add('few-properties', 'three-properties');
+    }
 }
 
 // Apply quick search suggestion
@@ -1423,12 +1492,15 @@ function applyQuickSearch(suggestion) {
     if (suggestion.filter.priceMax) {
         document.getElementById('adv-price-max').value = suggestion.filter.priceMax;
     }
-    if (suggestion.filter.rooms) {
-        document.getElementById('adv-rooms').value = suggestion.filter.rooms;
-    }
+
     
     // Apply filters
     applyFilters();
+    
+    // Ensure results count is updated
+    setTimeout(() => {
+        updateResultsCount();
+    }, 100);
     
     showNotification(`Прилагане на филтър: ${suggestion.text}`, 'info');
 }
