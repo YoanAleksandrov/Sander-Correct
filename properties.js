@@ -273,8 +273,26 @@ function handleAdvancedSearch(event) {
         newBuild: formData.get('newBuild') === '1'
     };
     
-    // If advanced search has a type, reset the filter tabs to "all"
+    // If advanced search has a type, update the filter tabs to match
     if (searchCriteria.type && searchCriteria.type !== '') {
+        // Update currentFilter to match the selected type
+        currentFilter = searchCriteria.type;
+        
+        // Update the filter tabs to show the active filter
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Find and activate the matching tab
+        const targetTab = document.querySelector(`.filter-btn[onclick="filterProperties('${searchCriteria.type}')"]`);
+        if (targetTab) {
+            targetTab.classList.add('active');
+        } else {
+            // If no matching tab found, activate "all" tab
+            document.querySelector('.filter-btn[onclick="filterProperties(\'all\')"]').classList.add('active');
+        }
+    } else {
+        // If no type selected, reset to "all"
         currentFilter = 'all';
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.classList.remove('active');
@@ -323,8 +341,7 @@ function applyFilters() {
         // Check if we have a type from advanced search
         if (searchCriteria.type && searchCriteria.type !== '') {
             activeTypeFilter = searchCriteria.type;
-            // Update the filter tab to match
-            updateFilterTab(searchCriteria.type);
+            // The filter tab is already updated in handleAdvancedSearch
         } else if (currentFilter !== 'all') {
             // Use the filter tab if no advanced search type is set
             activeTypeFilter = currentFilter;
@@ -337,8 +354,8 @@ function applyFilters() {
         }
         
         // Also check if searchCriteria.type is empty string (which means "show all types")
-        if (searchCriteria.type === '') {
-            currentFilter = 'all';
+        // But only if no filter tab is active
+        if (searchCriteria.type === '' && currentFilter === 'all') {
             activeTypeFilter = null;
         }
         
