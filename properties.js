@@ -172,7 +172,7 @@ function showSearchSummary() {
     
     if (container && advancedSection) {
         const appliedFilters = [];
-        if (searchCriteria.type) {
+        if (searchCriteria.type && searchCriteria.type !== '') {
             const typeMap = {
                 '1-room': '1-стаен апартамент',
                 '2-room': '2-стаен апартамент',
@@ -196,6 +196,9 @@ function showSearchSummary() {
                 'Ново строителство': 'Ново строителство'
             };
             appliedFilters.push(typeMap[searchCriteria.type] || searchCriteria.type);
+        } else {
+            // When "Всички видове" is selected, show it in the summary
+            appliedFilters.push('Всички видове имоти');
         }
         if (searchCriteria.transaction) {
             const transactionMap = {
@@ -271,7 +274,7 @@ function handleAdvancedSearch(event) {
     };
     
     // If advanced search has a type, reset the filter tabs to "all"
-    if (searchCriteria.type) {
+    if (searchCriteria.type && searchCriteria.type !== '') {
         currentFilter = 'all';
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.classList.remove('active');
@@ -325,6 +328,12 @@ function applyFilters() {
         } else if (currentFilter !== 'all') {
             // Use the filter tab if no advanced search type is set
             activeTypeFilter = currentFilter;
+        }
+        
+        // If no type filter is set (either from advanced search or tabs), show all types
+        if (!activeTypeFilter) {
+            // This means we're showing all property types
+            currentFilter = 'all';
         }
         
         // Apply type filter (either from advanced search or tabs)
@@ -398,7 +407,10 @@ function applyFilters() {
             const filterApplied = activeTypeFilter !== null;
             
             if (searchApplied || filterApplied) {
-                showNotification(`Намерени са ${results.length} имота, отговарящи на критериите`, 'success');
+                showNotification(`Намерени са ${results.length} имоти, отговарящи на критериите`, 'success');
+            } else if (currentFilter === 'all' && results.length > 0) {
+                // Show notification when showing all property types
+                showNotification(`Показани са всички ${results.length} имоти`, 'info');
             }
         }
     }, 500);
@@ -432,6 +444,10 @@ function loadFromURLParameters() {
         document.getElementById('adv-type').value = type;
         searchCriteria.type = type;
         hasParams = true;
+    } else {
+        // If no type parameter, set to empty string to show all types
+        searchCriteria.type = '';
+        document.getElementById('adv-type').value = '';
     }
     
     if (urlParams.has('transaction')) {
@@ -642,7 +658,7 @@ function showLoading(show) {
 function updateURL() {
     const params = new URLSearchParams();
     
-    if (searchCriteria.type) params.set('type', searchCriteria.type);
+    if (searchCriteria.type && searchCriteria.type !== '') params.set('type', searchCriteria.type);
     if (searchCriteria.transaction) params.set('transaction', searchCriteria.transaction);
     if (searchCriteria.location) params.set('location', searchCriteria.location);
     if (searchCriteria.priceMin) params.set('priceMin', searchCriteria.priceMin);
