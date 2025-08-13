@@ -336,6 +336,12 @@ function applyFilters() {
             currentFilter = 'all';
         }
         
+        // Also check if searchCriteria.type is empty string (which means "show all types")
+        if (searchCriteria.type === '') {
+            currentFilter = 'all';
+            activeTypeFilter = null;
+        }
+        
         // Apply type filter (either from advanced search or tabs)
         if (activeTypeFilter) {
             if (activeTypeFilter === 'Ново строителство') {

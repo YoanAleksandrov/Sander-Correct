@@ -1083,24 +1083,25 @@ body {
     }
     
     /* Mobile: CSS classes approach */
-    .properties-grid.few-properties:not(.show-all-properties) {
-        max-width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-        grid-template-columns: 1fr;
-    }
-    
-    .properties-grid.single-property:not(.show-all-properties) .property-card,
-    .properties-grid.two-properties:not(.show-all-properties) .property-card,
-    .properties-grid.three-properties:not(.show-all-properties) .property-card {
-        max-width: 100%;
-        margin: 0 1rem;
-    }
-    
-    .properties-grid.two-properties:not(.show-all-properties) {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
+/* On mobile, always show properties in single column regardless of count */
+.properties-grid.few-properties:not(.show-all-properties) {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    grid-template-columns: 1fr;
+}
+
+.properties-grid.single-property:not(.show-all-properties) .property-card,
+.properties-grid.two-properties:not(.show-all-properties) .property-card,
+.properties-grid.three-properties:not(.show-all-properties) .property-card {
+    max-width: 100%;
+    margin: 0 1rem;
+}
+
+.properties-grid.two-properties:not(.show-all-properties) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
 
     .property-details {
         grid-template-columns: 1fr;
