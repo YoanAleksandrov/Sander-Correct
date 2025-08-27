@@ -1,8 +1,41 @@
 // properties-data.js - Пълни данни за всички имоти
-// Автоматично генериран от админ панела на 27.08.2025 г., 20:15:16 ч.
-// Общо имоти: 6
+// Автоматично генериран от админ панела на 27.08.2025 г., 20:43:50 ч.
+// Общо имоти: 7
 
 const properties = [
+    {
+        "id": 15,
+        "type": "studio",
+        "transaction": "sale",
+        "title": "ewqeqwe",
+        "price": "42343",
+        "location": "dsfdsfs",
+        "area": "423",
+        "rooms": "342",
+        "bathrooms": "42",
+        "floor": "324",
+        "description": "423",
+        "badge": "НОВ",
+        "featured": 1,
+        "images": [
+            "./images/properties/property-1756316630367-973538728.png",
+            "./images/properties/property-1756316630382-347336941.png"
+        ],
+        "coordinates": [
+            42.6977,
+            23.3219
+        ],
+        "year": "43242",
+        "heating": "Етажно парно",
+        "parking": "Паркомясто",
+        "exposure": "Изток",
+        "condition": "Много добро",
+        "furniture": "Частично обзаведен",
+        "elevator": "Да",
+        "balcony": "Балкон",
+        "price_per_sqm": "43243",
+        "assigned_broker": "Николай Иванов"
+    },
     {
         "id": 14,
         "type": "house",
@@ -201,6 +234,21 @@ const properties = [
 
 // For backward compatibility, also create mapProperties from the same data
 const mapProperties = [
+    {
+        "id": 15,
+        "type": "studio",
+        "transaction": "sale",
+        "title": "ewqeqwe",
+        "price": "42343",
+        "location": "dsfdsfs",
+        "area": "423",
+        "rooms": "342",
+        "coordinates": [
+            42.6977,
+            23.3219
+        ],
+        "description": "423"
+    },
     {
         "id": 14,
         "type": "house",
