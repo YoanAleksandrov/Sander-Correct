@@ -1,8 +1,41 @@
 // properties-data.js - Пълни данни за всички имоти
-// Автоматично генериран от админ панела на 24.08.2025 г., 21:11:33 ч.
-// Общо имоти: 5
+// Автоматично генериран от админ панела на 27.08.2025 г., 20:15:16 ч.
+// Общо имоти: 6
 
 const properties = [
+    {
+        "id": 14,
+        "type": "house",
+        "transaction": "rent",
+        "title": "dsds",
+        "price": "3424",
+        "location": "dasda",
+        "area": "34",
+        "rooms": "4324",
+        "bathrooms": "4234",
+        "floor": "4234",
+        "description": "432432423",
+        "badge": "НОВ",
+        "featured": 1,
+        "images": [
+            "./images/properties/property-1756314916022-279178464.png",
+            "./images/properties/property-1756314916042-887150839.png"
+        ],
+        "coordinates": [
+            42.6977,
+            23.3219
+        ],
+        "year": "432423",
+        "heating": "Етажно парно",
+        "parking": "Подземен гараж",
+        "exposure": "Изток",
+        "condition": "За ремонт",
+        "furniture": "Необзаведен",
+        "elevator": "Няма",
+        "balcony": "Тераса",
+        "price_per_sqm": "43424",
+        "assigned_broker": "Мария Петрова"
+    },
     {
         "id": 13,
         "type": "house",
@@ -168,6 +201,21 @@ const properties = [
 
 // For backward compatibility, also create mapProperties from the same data
 const mapProperties = [
+    {
+        "id": 14,
+        "type": "house",
+        "transaction": "rent",
+        "title": "dsds",
+        "price": "3424",
+        "location": "dasda",
+        "area": "34",
+        "rooms": "4324",
+        "coordinates": [
+            42.6977,
+            23.3219
+        ],
+        "description": "432432423"
+    },
     {
         "id": 13,
         "type": "house",
