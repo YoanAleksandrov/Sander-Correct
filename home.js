@@ -15,11 +15,13 @@ function loadFeaturedProperties() {
     if (!grid) return;
     
     const featuredProperties = properties.filter(property => property.featured);
+// Ако няма препоръчани имоти, вземаме първите 8
+const displayProperties = featuredProperties.length > 0 ? featuredProperties : properties.slice(0, 8);
     
     // Split properties into two rows
-    const midPoint = Math.ceil(featuredProperties.length / 2);
-    const row1Properties = featuredProperties.slice(0, midPoint);
-    const row2Properties = featuredProperties.slice(midPoint);
+   const midPoint = Math.ceil(displayProperties.length / 2);
+const row1Properties = displayProperties.slice(0, midPoint);
+const row2Properties = displayProperties.slice(midPoint);
     
     // Create two separate rows with independent navigation
     const rowsHTML = `

@@ -347,7 +347,6 @@ body {
 
 /* Ensure consistent spacing between cards regardless of count */
 .properties-grid:has(.property-card:nth-child(2):last-child) {
-    grid-template-columns: repeat(2, 450px);
     gap: 2.5rem;
 }
 

@@ -208,9 +208,10 @@ html {
 }
 
 .properties-container {
-    max-width: 2500px;
+    max-width: none !important;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 5rem;
+    padding: 0 1.5rem;
 }
 
 /* Two Separate Property Rows with Enhanced Scrolling */
@@ -2507,5 +2508,63 @@ html {
     .rating-stars-interactive i {
         font-size: 24px;
         gap: 6px;
+    }
+}
+
+/* Адаптивен padding според размера на екрана */
+@media (min-width: 768px) {
+    .properties-container {
+        padding: 0 2rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .properties-container {
+        padding: 0 3rem;
+    }
+}
+
+@media (min-width: 1600px) {
+    .properties-container {
+        padding: 0 4rem;
+    }
+}
+
+@media (min-width: 2000px) {
+    .properties-container {
+        padding: 0 6rem;
+    }
+}
+
+/* Осигуряваме пълна широчина за row-овете */
+.property-row {
+    width: 100%;
+    max-width: none;
+}
+
+.properties-row-container {
+    width: 100%;
+    max-width: none;
+}
+
+/* Увеличаваме размера на property cards за по-големи екрани */
+@media (min-width: 1200px) {
+    .properties-row-container .property-card {
+        min-width: 420px !important;
+        max-width: 460px !important;
+    }
+}
+
+@media (min-width: 1600px) {
+    .properties-row-container .property-card {
+        min-width: 460px !important;
+        max-width: 500px !important;
+    }
+}
+
+@media (min-width: 1920px) {
+    .properties-row-container .property-card {
+        min-width: 500px !important;
+        max-width: 540px !important;
     }
 }
